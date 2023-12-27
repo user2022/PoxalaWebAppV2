@@ -7,10 +7,13 @@ import { X } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { getFactionAmountFromDeck } from '@/lib/getFactionAmountFromDeck'
 import FactionAmount from '@/components/deck/FactionAmount.vue'
+import { useRuneStore } from '@/stores/rune'
 
 const deckStore = useDeckStore()
 const { deckHolder } = storeToRefs(deckStore)
 const { resetDeck, removeFromDeck } = deckStore
+
+const { setRune } = useRuneStore()
 
 const poxApi = import.meta.env.VITE_POXAPI
 
@@ -44,7 +47,8 @@ const facAmount = computed(() => {
               <img
                 :alt="`rune-${rune.id}-${index}`"
                 :src="`${poxApi}/images/runes/med/${rune.hash}.jpg`"
-                class="zoom-rune"
+                class="zoom-rune cursor-pointer"
+                @click="setRune(rune)"
               />
             </template>
           </div>

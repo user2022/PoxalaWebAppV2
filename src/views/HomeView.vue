@@ -2,20 +2,16 @@
 import PageLayout from '@/components/layout/PageLayout.vue'
 import type { Runes } from '@/types/Runes'
 import RuneList from '@/components/runes/RuneList.vue'
-import useSWRV from 'swrv'
 import RuneDisplay from '@/components/runes/RuneDisplay.vue'
 import DeckHolder from '@/components/deck/DeckHolder.vue'
 import RuneFilter from '@/components/runes/RuneFilter.vue'
 import DisplayRuneFilters from '@/components/runes/DisplayRuneFilters.vue'
 import type { Ability } from '@/types/Ability'
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { runePageFilters } from '@/lib/util/runePageFilters'
-
-interface RunesResponse {
-  success: boolean
-  data: Runes
-}
+import { useRunes } from '@/hooks/useRunes'
+import { useAbilities } from '@/hooks/useAbilities'
 
 interface AbilityResponse {
   success: boolean
@@ -25,32 +21,16 @@ interface AbilityResponse {
 const poxalaApi = import.meta.env.VITE_POXALA_API
 
 // const abilitiesResponse = await axios.get('https://us-central1-poxala-fa4ce.cloudfunctions.net/getChampionAbilities')
-const { data: abilities, error: abilitiesError } = useSWRV<AbilityResponse, Error>(
-  'abilities',
-  () => {
-    return fetch(`${poxalaApi}/getChampionAbilities`)
-      .then((res) => res.json())
-      .then((res) => {
-        return res
-      })
-  }
-)
+const { data: abilities, error: abilitiesError } = useAbilities()
+const { data: res, error } = useRunes()
 
-const runes = ref<Runes>()
-
-const { data: res, error } = useSWRV<RunesResponse, Error>('runes', () => {
-  return fetch(`${poxalaApi}/getRunes`)
-    .then((res) => res.json())
-    .then((res) => {
-      runes.value = res.data
-      console.log(res.data)
-      return res
-    })
-})
-
-console.log(res.value)
+const runes = ref<Runes | undefined>(res.value?.data)
 
 const route = useRoute()
+
+watch(res, () => {
+  if (res.value?.data) runes.value = res.value?.data
+})
 
 watchEffect(() => {
   if (!runes.value || !res.value?.data) return
@@ -75,7 +55,12 @@ console.log(res)
       <DisplayRuneFilters />
       <div class="flex flex-row gap-4">
         <RuneDisplay />
-        <RuneList key="Champs" :runes="runes[runeType]" header="Champions" type="champ" />
+        <RuneList
+          key="Champs"
+          :runes="runes[runeType as keyof Runes]"
+          header="Champions"
+          type="champ"
+        />
       </div>
       <DeckHolder />
     </template>

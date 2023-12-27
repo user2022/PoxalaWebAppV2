@@ -54,6 +54,12 @@ export const getColoursForFilter = (name: string): FilterColours => {
         bgCol: 'bg-fuchsia-700/50',
         textCol: 'text-fuchsia-100'
       }
+    case 'name':
+      return {
+        borderCol: 'border-rose-500',
+        bgCol: 'bg-rose-700/50',
+        textCol: 'text-rose-100'
+      }
     default:
       return {
         borderCol: 'border-indigo-500',
