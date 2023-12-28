@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Navigation } from '@/types/Navigation'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { Paintbrush } from 'lucide-vue-next'
 
 const nav: Navigation[] = [
@@ -20,6 +20,8 @@ const nav: Navigation[] = [
 
 // TODO : Change select box to just an icon into dropdown
 
+const router = useRouter()
+
 const pathName = useRoute().path
 </script>
 
@@ -32,6 +34,7 @@ const pathName = useRoute().path
       <div
         :class="{ 'bg-alpha-700/50 border-alpha-400': pathName == item.url }"
         class="cursor-pointer rounded-lg text-white font-semibold px-4 py-1.5 border border-transparent hover:bg-alpha-700/50 hover:border-alpha-400 transition-all"
+        @click="router.push(item.url)"
       >
         {{ item.name }}
       </div>

@@ -85,7 +85,7 @@ const speed = [
         label="Faction"
         query-name="faction"
       />
-      <ComboBoxField :options="rarities" allow-multiple-query label="Rarity" query-name="rarity" />
+      <ComboBoxField :options="rarities" label="Rarity" query-name="rarity" />
       <ComboBoxField
         :options="abilityOptions"
         allow-multiple-query

@@ -1,20 +1,23 @@
 <script lang="ts" setup>
 import type { Options } from '@/types/Options'
+import InputLabel from '@/components/form/InputLabel.vue'
 
 interface Props {
   options: Options[]
+  label?: string
 }
 
 const { options } = defineProps<Props>()
 </script>
 
 <template>
-  <div
-    class="rounded-md flex flex-row items-center bg-neutral-700 border border-neutral-900 px-2 h-9"
-  >
-    <select class="bg-neutral-700 text-sm text-neutral-200 px-1.5 py-1.5">
+  <div class="flex flex-col gap-1.5">
+    <template v-if="label">
+      <InputLabel :label="label" />
+    </template>
+    <select class="bg-neutral-700 text-sm text-neutral-200 px-2 py-1.5 rounded-md">
       <template v-for="opt in options" :key="opt.value">
-        <option :value="opt.value">{{ opt.name }}</option>
+        <option :disabled="opt.disabled ?? false" :value="opt.value">{{ opt.name }}</option>
       </template>
     </select>
   </div>
