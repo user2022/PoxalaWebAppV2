@@ -12,7 +12,10 @@ const { title, error, isLoading } = defineProps<Props>()
   <div class="mx-20 my-8 flex flex-col gap-4">
     <h1 class="text-6xl font-bold text-alpha-500 tracking-wide mb-6">{{ title }}</h1>
     <template v-if="error">
-      <p>Error: {{ error.message }}</p>
+      <p class="text-white">Error: {{ error.message }}</p>
+    </template>
+    <template v-else-if="isLoading">
+      <p class="text-white">Loading...</p>
     </template>
     <template v-else>
       <slot />

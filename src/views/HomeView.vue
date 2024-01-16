@@ -7,11 +7,13 @@ import DeckHolder from '@/components/deck/DeckHolder.vue'
 import RuneFilter from '@/components/runes/RuneFilter.vue'
 import DisplayRuneFilters from '@/components/runes/DisplayRuneFilters.vue'
 import type { Ability } from '@/types/Ability'
-import { computed, ref, watch, watchEffect } from 'vue'
+import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { runePageFilters } from '@/lib/util/runePageFilters'
 import { useRunes } from '@/hooks/useRunes'
 import { useAbilities } from '@/hooks/useAbilities'
+import PageSectionLayout from '@/components/layout/PageSectionLayout.vue'
+import { useRouteStore } from '@/stores/storeRoute'
 
 interface AbilityResponse {
   success: boolean
@@ -22,11 +24,18 @@ const poxalaApi = import.meta.env.VITE_POXALA_API
 
 // const abilitiesResponse = await axios.get('https://us-central1-poxala-fa4ce.cloudfunctions.net/getChampionAbilities')
 const { data: abilities, error: abilitiesError } = useAbilities()
+console.log(abilities.value, abilitiesError)
 const { data: res, error } = useRunes()
 
 const runes = ref<Runes | undefined>(res.value?.data)
 
 const route = useRoute()
+
+const routeStore = useRouteStore()
+
+onMounted(() => {
+  routeStore.initialiseQueries()
+})
 
 watch(res, () => {
   if (res.value?.data) runes.value = res.value?.data
@@ -50,17 +59,16 @@ console.log(res)
 
 <template>
   <PageLayout :error="error" title="Deck Builder">
-    <template v-if="runes && abilities?.data">
-      <RuneFilter :abilities="abilities.data" />
+    <template v-if="runes && abilities?.abilities">
+      <RuneFilter :abilities="abilities?.abilities" />
       <DisplayRuneFilters />
       <div class="flex flex-row gap-4">
-        <RuneDisplay />
-        <RuneList
-          key="Champs"
-          :runes="runes[runeType as keyof Runes]"
-          header="Champions"
-          type="champ"
-        />
+        <PageSectionLayout header="Rune Detail">
+          <RuneDisplay />
+        </PageSectionLayout>
+        <PageSectionLayout header="Champions">
+          <RuneList key="Champs" :per-page="70" :runes="runes[runeType as keyof Runes]" />
+        </PageSectionLayout>
       </div>
       <DeckHolder />
     </template>

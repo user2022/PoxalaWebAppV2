@@ -16,7 +16,9 @@ const poxApi = import.meta.env.VITE_POXAPI
   <div :class="isOptionAbility ? 'gap-2' : ''" class="flex flex-row items-center w-auto">
     <img :src="`${poxApi}/images/ability_icons/small/icon_${ability.iconName}.gif`" alt="" />
     <template v-if="!isOptionAbility">
-      <p class="ability-text text-white ml-0.5 whitespace-nowrap">{{ ability.name }}</p>
+      <p class="ability-text text-white ml-0.5 whitespace-nowrap">
+        {{ ability.name }} {{ ability.level ? `(${ability.level})` : '' }}
+      </p>
     </template>
     <template v-else>
       <div class="flex flex-col">
@@ -24,7 +26,7 @@ const poxApi = import.meta.env.VITE_POXAPI
           {{ ability.name }} {{ ability.level ? `(${ability.level})` : '' }}
         </p>
         <p class="text-white text-xs whitespace-nowrap">
-          Adds {{ (defaultOption?.noraCost ?? 0) - ability.noraCost }} nora
+          Adds {{ ability.noraCost - (defaultOption?.noraCost ?? 0) }} nora
         </p>
       </div>
     </template>

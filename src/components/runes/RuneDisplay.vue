@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import { getFactionNum } from '@/lib/getFactionNum'
 import CardFront from '@/components/runes/rune-display/CardFront.vue'
 import CardBack from '@/components/runes/rune-display/CardBack.vue'
-import PageSectionLayout from '@/components/layout/PageSectionLayout.vue'
 import Button from '@/components/shared/Button.vue'
 import { useRuneStore } from '@/stores/rune'
 import { useRoute } from 'vue-router'
@@ -11,7 +9,7 @@ import { storeToRefs } from 'pinia'
 import { useDeckStore } from '@/stores/deck'
 
 const runeStore = useRuneStore()
-const { rune, getRuneFactionOne, getRuneFactionTwo } = storeToRefs(runeStore)
+const { rune } = storeToRefs(runeStore)
 
 const route = useRoute()
 
@@ -23,40 +21,32 @@ watch(rune, (newVal) => {
   }
 })
 
+// const factionOne = useRuneFactionOne(rune.value)
+
 const flipped = ref<boolean>(false)
 </script>
 
 <template>
-  <PageSectionLayout header="Rune Details">
-    <div
-      class="p-6 border rounded-lg w-96 dark:bg-zinc-700 bg-neutral-700 border-neutral-900 flex flex-col gap-2 justify-center"
-      style="min-height: 562px"
-    >
-      <template v-if="rune">
-        <Button c-class="self-center" label="Flip Card" @click="flipped = !flipped" />
-        <div :class="{ 'rune-flipped': flipped }" class="rune-preview">
-          <div class="rune-front">
-            <CardFront
-              :faction-one="getFactionNum(getRuneFactionOne)"
-              :faction-two="getFactionNum(getRuneFactionTwo)"
-              :rune="rune"
-            />
-          </div>
-          <div class="rune-back">
-            <CardBack
-              :faction-one="getFactionNum(getRuneFactionOne)"
-              :faction-two="getFactionNum(getRuneFactionTwo)"
-              :rune="rune"
-            />
-          </div>
+  <div
+    class="p-6 border rounded-lg w-96 dark:bg-zinc-700 bg-neutral-700 border-neutral-900 flex flex-col gap-2 justify-center"
+    style="min-height: 562px"
+  >
+    <template v-if="rune">
+      <Button c-class="self-center" label="Flip Card" @click="flipped = !flipped" />
+      <div :class="{ 'rune-flipped': flipped }" class="rune-preview">
+        <div class="rune-front">
+          <CardFront :rune="rune" />
         </div>
-        <Button c-class="self-center" label="Add Card" type="secondary" @click="addToDeck(rune)" />
-      </template>
-      <template v-else>
-        <h2 class="text-neutral-500 font-bold text-6xl text-center m-auto">Select a Rune</h2>
-      </template>
-    </div>
-  </PageSectionLayout>
+        <div class="rune-back">
+          <CardBack :rune="rune" />
+        </div>
+      </div>
+      <Button c-class="self-center" label="Add Card" type="secondary" @click="addToDeck(rune)" />
+    </template>
+    <template v-else>
+      <h2 class="text-neutral-500 font-bold text-6xl text-center m-auto">Select a Rune</h2>
+    </template>
+  </div>
 </template>
 
 <style scoped>

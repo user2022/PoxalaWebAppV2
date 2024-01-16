@@ -7,10 +7,10 @@ import CardFactionIcon from '@/components/runes/rune-display/CardFactionIcon.vue
 import AbilityList from '@/components/runes/rune-display/AbilityList.vue'
 import type { Champion } from '@/types/Champion'
 import InfoText from '@/components/runes/rune-display/InfoText.vue'
-import { type Spell } from '../../../types/Spell'
+import { type Spell } from '@/types/Spell'
 import { getRuneType } from '@/lib/getRuneType'
 
-const { rune, factionOne, factionTwo } = defineProps<CardProps>()
+const { rune } = defineProps<CardProps>()
 
 const poxApi = import.meta.env.VITE_POXAPI
 </script>
@@ -26,8 +26,8 @@ const poxApi = import.meta.env.VITE_POXAPI
     <CardName :name="getRuneTitle(getRuneType(rune))" />
     <!-- Fac Icon -->
     <CardFactionIcon
-      :faction-one="factionOne"
-      :faction-two="factionTwo"
+      :faction-one="rune.factionOneNum ?? ''"
+      :faction-two="rune.factionTwoNum ?? ''"
       custom-class="absolute top-9 left-10 z-30"
     />
     <!-- Rune Description -->
@@ -39,7 +39,7 @@ const poxApi = import.meta.env.VITE_POXAPI
 
     <!-- Rune Abilities (Starter) -->
     <template v-if="getRuneType(rune) === 'champ'">
-      <AbilityList />
+      <AbilityList :rune="rune as Champion" />
     </template>
 
     <!-- Info -->
@@ -63,7 +63,7 @@ const poxApi = import.meta.env.VITE_POXAPI
     <!-- Rune Idol -->
     <template v-if="getRuneType(rune) === 'champ'">
       <div class="rune-idol">
-        <div style="position: absolute; bottom: 0px; width: 100%">
+        <div style="position: absolute; bottom: 0; width: 100%">
           <img
             :src="`${poxApi}/images/runes/idols/${rune.hash}.gif`"
             alt="rune-idol"

@@ -10,10 +10,9 @@ import { useRuneStore } from '@/stores/rune'
 
 interface Props {
   rune: Champion | Spell | Equip | Relic
-  type: string
 }
 
-const { rune, type } = defineProps<Props>()
+const { rune } = defineProps<Props>()
 
 const poxApi = import.meta.env.VITE_POXAPI
 

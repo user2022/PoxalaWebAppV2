@@ -2,6 +2,7 @@
 import type { Navigation } from '@/types/Navigation'
 import { useRoute, useRouter } from 'vue-router'
 import { Paintbrush } from 'lucide-vue-next'
+import { computed } from 'vue'
 
 const nav: Navigation[] = [
   {
@@ -13,6 +14,10 @@ const nav: Navigation[] = [
     name: 'Abilities'
   },
   {
+    url: '/rune-creator',
+    name: 'Rune Creator'
+  },
+  {
     url: '/discord',
     name: 'Discord xD'
   }
@@ -22,7 +27,13 @@ const nav: Navigation[] = [
 
 const router = useRouter()
 
-const pathName = useRoute().path
+const pathName = computed(() => {
+  return useRoute().path
+})
+
+console.log(useRoute().name)
+
+console.log(pathName.value)
 </script>
 
 <template>
@@ -32,8 +43,12 @@ const pathName = useRoute().path
     <h1 class="text-3xl font-bold text-alpha-500">Poxala</h1>
     <template v-for="item in nav" :key="item.name">
       <div
-        :class="{ 'bg-alpha-700/50 border-alpha-400': pathName == item.url }"
-        class="cursor-pointer rounded-lg text-white font-semibold px-4 py-1.5 border border-transparent hover:bg-alpha-700/50 hover:border-alpha-400 transition-all"
+        :class="[
+          'cursor-pointer rounded-lg text-white font-semibold px-4 py-1.5 transition-all',
+          pathName == item.url
+            ? 'bg-alpha-700/50 border-alpha-400 border'
+            : 'hover:bg-alpha-700/50 hover:border-alpha-400 border border-transparent'
+        ]"
         @click="router.push(item.url)"
       >
         {{ item.name }}

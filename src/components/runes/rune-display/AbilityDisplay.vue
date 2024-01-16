@@ -35,7 +35,7 @@ const selectedAbility = ability?.options?.find((optAbility) => optAbility.defaul
     <div ref="target" class="hidden"></div>
     <div class="group relative cursor-pointer">
       <div @click="setOpen(true)">
-        <AbilityLabel :ability="ability" />
+        <AbilityLabel v-if="ability.name !== 'None'" :ability="ability" />
       </div>
 
       <AbilityInfo :ability="ability" />
@@ -52,7 +52,7 @@ const selectedAbility = ability?.options?.find((optAbility) => optAbility.defaul
             v-for="(optAbility, index) in ability.options"
             :key="`${index}-${optAbility.id}`"
           >
-            <div class="group relative">
+            <div v-if="optAbility.name !== 'None'" class="group relative">
               <AbilityLabel
                 :ability="optAbility"
                 :default-option="selectedAbility"

@@ -1,5 +1,9 @@
+import type { TransformAbility } from '@/lib/util/transformAbilities'
+
 export interface RuneType {
   type?: string
+  factionOneNum?: string
+  factionTwoNum?: string
 }
 
 export interface Champion extends RuneType {
@@ -17,6 +21,10 @@ export interface Champion extends RuneType {
   classes: string[]
   races: string[]
   noraCost: number
+  noraMod?: number
+  customNoraMod?: number
+  baseNoraCost?: number
+  abilityNoraCost?: number
   hash: string
   artist: string
   factions: string[]
@@ -25,6 +33,7 @@ export interface Champion extends RuneType {
   tradeable: boolean
   allowRanked: boolean
   deckLimit: number
+  transformedAbilities?: TransformAbility[]
   startingAbilities?: StartingAbilitiesEntity[] | null
   abilitySets?: AbilitySetsEntity[] | null
 }

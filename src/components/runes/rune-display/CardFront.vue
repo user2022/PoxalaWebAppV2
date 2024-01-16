@@ -12,11 +12,9 @@ import { getRuneType } from '@/lib/getRuneType'
 
 export interface CardProps {
   rune: Champion | Spell | Equip | Relic
-  factionOne: string
-  factionTwo: string
 }
 
-const { rune, factionTwo, factionOne } = defineProps<CardProps>()
+const { rune } = defineProps<CardProps>()
 
 const poxApi = import.meta.env.VITE_POXAPI
 </script>
@@ -45,8 +43,8 @@ const poxApi = import.meta.env.VITE_POXAPI
     />
     <!-- Faction Icon -->
     <CardFactionIcon
-      :faction-one="factionOne"
-      :faction-two="factionTwo"
+      :faction-one="rune.factionOneNum ?? ''"
+      :faction-two="rune.factionTwoNum ?? ''"
       custom-class="absolute top-9 left-10 z-30"
     />
     <!-- Rune Name -->

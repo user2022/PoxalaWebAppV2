@@ -6,6 +6,10 @@
     text-shadow: 0 0 2px #000000;
 }
 
+hr {
+    border-color: #404040;
+}
+
 #app {
     --color-100: 224 242 254;
     --color-200: 186 230 253;

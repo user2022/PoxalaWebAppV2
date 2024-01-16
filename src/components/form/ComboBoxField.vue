@@ -7,23 +7,25 @@ import {
   ComboboxOptions,
   TransitionRoot
 } from '@headlessui/vue'
-import { computed, ref, watch, watchEffect } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { ChevronDown } from 'lucide-vue-next'
 import type { Options } from '@/types/Options'
-import { useRoute, useRouter } from 'vue-router'
 import InputLabel from '@/components/form/InputLabel.vue'
 import ComboListItem from '@/components/form/ComboListItem.vue'
-import { appendRouteQuery } from '@/lib/helpers/appendRouteQuery'
+import { useRouteStore } from '@/stores/storeRoute'
+import { storeToRefs } from 'pinia'
 
 interface Props {
   options: Options[]
-  label: string
+  label?: string
   queryName: string
   allowMultipleQuery?: boolean
   disableInput?: boolean
+  defaultValue?: string | number
 }
 
-const { options, disableInput, queryName, label, allowMultipleQuery } = defineProps<Props>()
+const { options, disableInput, queryName, label, allowMultipleQuery, defaultValue } =
+  defineProps<Props>()
 
 let selected = ref<Options>(options[0])
 let query = ref<string>('')
@@ -54,34 +56,59 @@ const filteredOptions = computed(() => {
   return filteredOps
 })
 
-const router = useRouter()
-const route = useRoute()
+// onMounted(() => {
+//   const findQuery = queries.value?.find((query) => query.name === queryName)
+//   if (findQuery) {
+//     const selectedOption = options.find((option) => {
+//       if (option.value === findQuery.value.toString()) {
+//         return option.value
+//       }
+//     })
+//     if (selectedOption) {
+//       selected.value = selectedOption
+//     }
+//   }
+// })
 
-watch(selected, (newVal) => {
-  appendRouteQuery({ route, router, queryName, allowMultipleQuery, newValue: newVal.value })
-})
-
-const currentQuery = computed(() => {
-  return route.query[queryName]
-})
-
-// Update input field value to match filters being deleted
-watchEffect(() => {
-  const val = currentQuery.value
-  if (val) {
+onMounted(() => {
+  if (defaultValue) {
     const selectedOption = options.find((option) => {
-      const checkSplit = val.toString().split(',')
-      if (option.value === checkSplit[checkSplit?.length - 1]) {
+      if (option.value === defaultValue.toString()) {
         return option.value
       }
     })
     if (selectedOption) {
       selected.value = selectedOption
     }
-  } else {
-    selected.value = options[0]
   }
 })
+
+const routeStore = useRouteStore()
+const { queries } = storeToRefs(routeStore)
+
+watch(selected, (newVal) => {
+  routeStore.addToQuery({ name: queryName, value: newVal.value }, allowMultipleQuery)
+})
+
+// Update input field value to match filters being deleted
+watch(
+  () => queries.value?.find((query) => query.name === queryName)?.value,
+  (newVal) => {
+    if (newVal) {
+      const selectedOption = options.find((option) => {
+        const checkSplit = newVal.toString().split(',')
+        if (option.value === checkSplit[checkSplit?.length - 1]) {
+          return option.value
+        }
+      })
+      if (selectedOption) {
+        selected.value = selectedOption
+      }
+    } else {
+      selected.value = options[0]
+    }
+  }
+)
 </script>
 
 <template>
