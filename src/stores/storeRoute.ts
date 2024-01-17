@@ -19,9 +19,16 @@ export const useRouteStore = defineStore('storeRoute', () => {
     defaultQueries.value = q
   }
 
+  const resetBothDefaultQueries = () => {
+    defaultQueries.value = []
+    defaultQueriesUsed.value = []
+  }
+
   const getDefaultQuery = (queryName: string, value: number) => {
     const findQuery = defaultQueries.value.find((query) => query.name === queryName)
     const findInUsed = defaultQueriesUsed.value.find((query) => query.name === queryName)
+
+    console.log('Getting default query...', findQuery, findInUsed)
 
     if (findQuery && !findInUsed) {
       defaultQueriesUsed.value.push(findQuery)
@@ -92,6 +99,7 @@ export const useRouteStore = defineStore('storeRoute', () => {
     // Default Queries
     defaultQueries,
     setDefaultQueries,
-    getDefaultQuery
+    getDefaultQuery,
+    resetBothDefaultQueries
   }
 })

@@ -21,6 +21,8 @@ import { EmptyNormalAbility } from '@/lib/data/EmptyAbility'
 const { data: res, error } = useRunes()
 const { data: abilitiesRes, error: abilitiesError } = useAbilities()
 
+const poxApi = import.meta.env.VITE_POXAPI
+
 const options = ref<Options[]>([
   {
     name: 'None',
@@ -67,7 +69,9 @@ watch(
       const runes = res.value.data.champs
       const runeFind = runes.find((rune) => rune.id === parseInt(newVal.value.toString()))
       if (runeFind) {
+        // routeStore.resetBothDefaultQueries()
         setRune(runeFind)
+        console.log(runeFind)
       }
     } else return
   }
@@ -78,7 +82,7 @@ watch(queries, (newVal, oldVal) => {
   const checkNew = newVal?.find((query) => query.name === 'rune')
   if (checkOld?.value !== checkNew?.value) {
     // If the rune has changed, return nothing
-    routeStore.removeAllQueries(['change', 'rune'])
+    // routeStore.removeAllQueries(['change', 'rune'])
     return
   }
   if (newVal && newVal.length > 0) {
@@ -124,6 +128,13 @@ watch(queries, (newVal, oldVal) => {
       <hr />
 
       <PageSectionLayout :header="rune.name">
+        <div class="w-20 h-20">
+          <img
+            :src="`${poxApi}/images/runes/idols/${rune.hash}.gif`"
+            alt="rune-idol"
+            class="idol"
+          />
+        </div>
         <div class="flex flex-col gap-8">
           <NoraCostSection :rune="rune as Champion" />
           <BaseStatsSection :rune="rune as Champion" />

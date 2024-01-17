@@ -56,20 +56,6 @@ const filteredOptions = computed(() => {
   return filteredOps
 })
 
-// onMounted(() => {
-//   const findQuery = queries.value?.find((query) => query.name === queryName)
-//   if (findQuery) {
-//     const selectedOption = options.find((option) => {
-//       if (option.value === findQuery.value.toString()) {
-//         return option.value
-//       }
-//     })
-//     if (selectedOption) {
-//       selected.value = selectedOption
-//     }
-//   }
-// })
-
 onMounted(() => {
   if (defaultValue) {
     const selectedOption = options.find((option) => {
@@ -79,6 +65,18 @@ onMounted(() => {
     })
     if (selectedOption) {
       selected.value = selectedOption
+    }
+  } else {
+    const findQuery = queries.value?.find((query) => query.name === queryName)
+    if (findQuery) {
+      const selectedOption = options.find((option) => {
+        if (option.value === findQuery.value.toString()) {
+          return option.value
+        }
+      })
+      if (selectedOption) {
+        selected.value = selectedOption
+      }
     }
   }
 })

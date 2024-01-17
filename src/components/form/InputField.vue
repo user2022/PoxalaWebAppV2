@@ -17,25 +17,11 @@ const { label, type, min, max, queryName, defaultValue } = defineProps<Props>()
 
 const input = ref<number | string>('')
 
-console.log(defaultValue, 'defaultValue2')
-// TODO - default value not updating when change rune
-
 onMounted(() => {
   if (defaultValue || defaultValue === 0) {
     input.value = defaultValue
   }
 })
-
-// onMounted(() => {
-//   const findQuery = queries.value?.find((query) => query.name === queryName)
-//   if (findQuery) {
-//     if (type === 'number') {
-//       input.value = parseInt(findQuery.value.toString())
-//     } else {
-//       input.value = findQuery.value.toString()
-//     }
-//   }
-// })
 
 const storeRoute = useRouteStore()
 const { queries } = storeToRefs(storeRoute)
