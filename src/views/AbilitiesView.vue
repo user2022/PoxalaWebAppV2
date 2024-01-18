@@ -8,7 +8,7 @@ import AbilityCard from '@/components/abilities/AbilityCard.vue'
 
 const { data: res, error } = useAbilities()
 
-console.log(res.value?.data)
+console.log(res.value?.abilities)
 
 const options: Options[] = [
   {
@@ -38,7 +38,7 @@ const options: Options[] = [
       <SelectorField :options="options" label="Sort by (asc)" />
       <!--      <ToggleButton label="Show unused abilities" />-->
     </div>
-    <template v-for="ability in res?.data" :key="ability.id">
+    <template v-for="ability in res?.abilities" :key="ability.id">
       <AbilityCard :ability="ability" />
     </template>
   </PageLayout>

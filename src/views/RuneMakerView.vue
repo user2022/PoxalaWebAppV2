@@ -13,8 +13,7 @@ import BaseStatsSection from '@/components/creator/BaseStatsSection.vue'
 import type { Champion } from '../types/Champion'
 import AbilitiesSection from '@/components/creator/AbilitiesSection.vue'
 import { useRouteStore } from '@/stores/storeRoute'
-import { AbilityQueryCodes } from '@/lib/data/AbilityQueryCodes'
-import { BaseStatQueryCodes } from '@/lib/data/BaseStatQueryCodes'
+import { type AbilityQueryCode } from '@/lib/data/AbilityQueryCodes'
 import NoraCostSection from '@/components/creator/NoraCostSection.vue'
 import { EmptyNormalAbility } from '@/lib/data/EmptyAbility'
 
@@ -30,8 +29,6 @@ const options = ref<Options[]>([
   }
 ])
 
-const defaultVals = ref<Options[]>()
-
 onMounted(() => {
   routeStore.initialiseQueries()
 
@@ -42,8 +39,7 @@ onMounted(() => {
 
 watch(res, () => {
   if (!res.value?.data?.champs) return
-  const runes = res.value.data.champs
-  const runeOpts: Options[] = runes.map((rune) => {
+  const runeOpts: Options[] = res.value.data.champs.map((rune) => {
     return {
       name: rune.name,
       value: rune.id
@@ -60,59 +56,103 @@ const runeStore = useRuneStore()
 const { setRune } = runeStore
 const { rune } = storeToRefs(runeStore)
 
-// TODO - Can't update abilities that already have a value :sad:
-
 watch(
   () => queries.value?.find((query) => query.name === 'rune'),
   (newVal) => {
-    if (res.value?.data?.champs && newVal?.value) {
+    if (res.value?.data.champs && newVal?.value) {
       const runes = res.value.data.champs
       const runeFind = runes.find((rune) => rune.id === parseInt(newVal.value.toString()))
       if (runeFind) {
         // routeStore.resetBothDefaultQueries()
         setRune(runeFind)
-        console.log(runeFind)
       }
     } else return
   }
 )
 
-watch(queries, (newVal, oldVal) => {
-  const checkOld = oldVal?.find((query) => query.name === 'rune')
-  const checkNew = newVal?.find((query) => query.name === 'rune')
-  if (checkOld?.value !== checkNew?.value) {
-    // If the rune has changed, return nothing
-    // routeStore.removeAllQueries(['change', 'rune'])
-    return
-  }
-  if (newVal && newVal.length > 0) {
-    newVal.forEach((query) => {
-      const findAbilityQuery = AbilityQueryCodes.find((code) => code === query.name)
-      if (findAbilityQuery) {
+const baseStatWatcher = (key: keyof Champion) => {
+  watch(
+    () => queries.value?.find((query) => query.name === key),
+    (newVal, oldVal) => {
+      if (newVal === oldVal) return
+      if (newVal) {
+        runeStore.updateUnit(key, newVal.value)
+      }
+    },
+    { deep: true }
+  )
+}
+
+const abilityWatcher = (key: AbilityQueryCode) => {
+  watch(
+    () => queries.value?.find((query) => query.name === key),
+    (newVal, oldVal) => {
+      if (newVal === oldVal) return
+      if (newVal) {
         const ability = abilitiesRes.value?.abilities?.find(
-          (ability) => ability.ability_id === parseInt(query.value.toString())
+          (ability) => ability.ability_id === parseInt(newVal.value.toString())
         )
 
         if (ability) {
-          runeStore.setAbility(ability, findAbilityQuery)
-        } else if (!ability && query.value === '999999') {
-          runeStore.setAbility(EmptyNormalAbility, findAbilityQuery)
+          runeStore.setAbility(ability, key)
+        } else if (!ability && newVal.value === '999999') {
+          runeStore.setAbility(EmptyNormalAbility, key)
         }
       }
+    },
+    { deep: true }
+  )
+}
 
-      const findBaseStat = BaseStatQueryCodes.find((code) => code === query.name)
-      if (findBaseStat) {
-        runeStore.updateUnit(query.name as keyof Champion, query.value)
-      }
+// Abilities
+abilityWatcher('b1')
+abilityWatcher('b2')
+abilityWatcher('b3')
+abilityWatcher('b4')
+abilityWatcher('b5')
+abilityWatcher('b6')
+abilityWatcher('s1u1')
+abilityWatcher('s1u2')
+abilityWatcher('s1u3')
+abilityWatcher('s2u1')
+abilityWatcher('s2u2')
+abilityWatcher('s2u3')
+// Base Stats
+baseStatWatcher('hitPoints')
+baseStatWatcher('speed')
+baseStatWatcher('damage')
+baseStatWatcher('minRng')
+baseStatWatcher('maxRng')
+baseStatWatcher('defense')
+// Nora mod
+baseStatWatcher('noraMod')
 
-      if (query.name === 'noraMod') {
-        runeStore.updateUnit(query.name as keyof Champion, query.value)
-      }
-    })
-  } else {
-    setRune(null)
-  }
-})
+// TODO bug with abom, when changing to it it resets all combo boxes. Possibly unrelated to watcher code
+
+// TODO this needs redoing...
+// watch(queries, (newVal, oldVal) => {
+//   const checkOld = oldVal?.find((query) => query.name === 'rune')
+//   const checkNew = newVal?.find((query) => query.name === 'rune')
+//   // if (checkOld?.value !== checkNew?.value) {
+//   //   // If the rune has changed, return nothing
+//   //   // routeStore.removeAllQueries(['change', 'rune'])
+//   //
+//   //   // champions.value = res.value?.data?.champs ?? []
+//   //
+//   //   // TODO : Reset runes upon changing rune
+//   //   // TODO : Find why its applying the ability to new champ
+//   //   return
+//   // }
+//
+//   if (newVal && newVal.length > 0) {
+//     newVal.forEach((query) => {
+//       // const findOld = oldVal?.find((oldQuery) => oldQuery.name === query.name)
+//       // if (findOld) return
+//     })
+//   } else {
+//     setRune(null)
+//   }
+// })
 </script>
 
 <template>

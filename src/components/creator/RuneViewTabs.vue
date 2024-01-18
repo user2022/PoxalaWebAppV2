@@ -36,7 +36,7 @@ const selectedTab = ref(headers[0])
       <NormalViewTab :rune="rune as Champion" />
     </template>
     <template v-else-if="selectedTab === 'Detailed View'">
-      <DetailedViewTab />
+      <DetailedViewTab :rune="rune as Champion" />
     </template>
   </div>
 </template>

@@ -52,9 +52,9 @@ export const useRuneStore = defineStore('rune', () => {
 
       // Create transformed Abilities Array on unit object
       newRune.transformedAbilities = transformAbilities({
-        abilityPath1: (r as Champion).abilitySets?.[0].abilities ?? [],
-        abilityPath2: (r as Champion).abilitySets?.[1].abilities ?? [],
-        startingAbilities: (r as Champion).startingAbilities ?? []
+        abilityPath1: newRune.abilitySets?.[0].abilities ?? [],
+        abilityPath2: newRune.abilitySets?.[1].abilities ?? [],
+        startingAbilities: newRune.startingAbilities ?? []
       })
 
       // Nora Cost Calculation
