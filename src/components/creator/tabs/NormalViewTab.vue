@@ -8,8 +8,6 @@ interface Props {
 }
 
 const { rune } = defineProps<Props>()
-
-console.log(rune)
 </script>
 
 <template>

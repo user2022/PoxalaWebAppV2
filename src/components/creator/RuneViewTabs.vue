@@ -5,11 +5,12 @@ import NormalViewTab from '@/components/creator/tabs/NormalViewTab.vue'
 import DetailedViewTab from '@/components/creator/tabs/DetailedViewTab.vue'
 import { storeToRefs } from 'pinia'
 import { useRuneStore } from '@/stores/rune'
+import CodeViewTab from '@/components/creator/tabs/CodeViewTab.vue'
 
 const runeStore = useRuneStore()
 const { rune } = storeToRefs(runeStore)
 
-const headers = ['Card View', 'Detailed View']
+const headers = ['Card View', 'Detailed View', 'JSON View']
 
 const selectedTab = ref(headers[0])
 </script>
@@ -37,6 +38,9 @@ const selectedTab = ref(headers[0])
     </template>
     <template v-else-if="selectedTab === 'Detailed View'">
       <DetailedViewTab :rune="rune as Champion" />
+    </template>
+    <template v-else-if="selectedTab === 'JSON View'">
+      <CodeViewTab :rune="rune as Champion" />
     </template>
   </div>
 </template>

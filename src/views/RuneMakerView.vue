@@ -126,33 +126,6 @@ baseStatWatcher('maxRng')
 baseStatWatcher('defense')
 // Nora mod
 baseStatWatcher('noraMod')
-
-// TODO bug with abom, when changing to it it resets all combo boxes. Possibly unrelated to watcher code
-
-// TODO this needs redoing...
-// watch(queries, (newVal, oldVal) => {
-//   const checkOld = oldVal?.find((query) => query.name === 'rune')
-//   const checkNew = newVal?.find((query) => query.name === 'rune')
-//   // if (checkOld?.value !== checkNew?.value) {
-//   //   // If the rune has changed, return nothing
-//   //   // routeStore.removeAllQueries(['change', 'rune'])
-//   //
-//   //   // champions.value = res.value?.data?.champs ?? []
-//   //
-//   //   // TODO : Reset runes upon changing rune
-//   //   // TODO : Find why its applying the ability to new champ
-//   //   return
-//   // }
-//
-//   if (newVal && newVal.length > 0) {
-//     newVal.forEach((query) => {
-//       // const findOld = oldVal?.find((oldQuery) => oldQuery.name === query.name)
-//       // if (findOld) return
-//     })
-//   } else {
-//     setRune(null)
-//   }
-// })
 </script>
 
 <template>
@@ -185,7 +158,6 @@ baseStatWatcher('noraMod')
       <hr />
 
       <PageSectionLayout header="Rune Preview">
-        <span class="text-white">{{ JSON.stringify(queries) }}</span>
         <RuneViewTabs />
       </PageSectionLayout>
     </template>

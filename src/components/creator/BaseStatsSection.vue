@@ -12,8 +12,6 @@ interface Props {
 const { rune } = defineProps<Props>()
 
 const { getDefaultQuery } = useRouteStore()
-
-console.log(rune, 'rune')
 </script>
 
 <template>
