@@ -56,43 +56,6 @@ const { setRune } = useRuneStore()
   width: 40px;
 }
 
-.my-tooltip-cont {
-  position: relative;
-}
-
-.my-tooltip-cont:hover .my-tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-.my-tooltip {
-  position: absolute;
-  padding: 6px 10px;
-  background-color: rgba(24, 24, 24, 0.88);
-  visibility: hidden;
-  width: auto;
-  min-width: 150px;
-  max-width: 210px;
-  border-radius: 6px;
-  z-index: 10;
-  bottom: 105%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.my-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
-}
-
 .plus-btn {
   display: none;
 }

@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from './router'
 import { VueFire } from 'vuefire'
 import { firebaseApp } from '@/firebase'
+import ToastPlugin from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-bootstrap.css'
 
 const app = createApp(App)
 
@@ -13,6 +15,7 @@ app.use(router)
 app.use(VueFire, {
   firebaseApp
 })
+app.use(ToastPlugin)
 
 app.config.globalProperties.poxApi = import.meta.env.VITE_POXAPI
 

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { Search } from 'lucide-vue-next'
-import { computed, ref, watch, watchEffect } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { appendRouteQuery } from '@/lib/helpers/appendRouteQuery'
+import { ref, watch } from 'vue'
+import { useRouteStore } from '@/stores/storeRoute'
+import { storeToRefs } from 'pinia'
 
 interface Props {
   queryName: string
@@ -12,29 +12,28 @@ const { queryName } = defineProps<Props>()
 
 const input = ref<string>('')
 
-const router = useRouter()
-const route = useRoute()
+const storeRoute = useRouteStore()
+const { queries } = storeToRefs(storeRoute)
 
 watch(input, (newVal) => {
-  appendRouteQuery({ route, router, queryName, allowMultipleQuery: false, newValue: newVal })
+  const queryToFind = queries.value?.find((query) => query.name === queryName)
+
+  if (!input.value && queryToFind) storeRoute.removeFromQuery(queryToFind)
+  else storeRoute.addToQuery({ name: queryName, value: newVal })
 })
 
 const clickIcon = () => {
-  appendRouteQuery({ route, router, queryName, allowMultipleQuery: false, newValue: input.value })
+  storeRoute.addToQuery({ name: queryName, value: input.value })
 }
 
-const currentQuery = computed(() => {
-  return route.query[queryName]
-})
-
-watchEffect(() => {
-  const val = currentQuery.value
-  if (val) {
-    input.value = val.toString()
-  } else {
-    input.value = ''
+watch(
+  () => queries.value?.find((query) => query.name === queryName)?.value,
+  (newVal) => {
+    if (newVal) {
+      input.value = newVal.toString()
+    }
   }
-})
+)
 </script>
 
 <template>

@@ -29,7 +29,7 @@ const { queries } = storeToRefs(storeRoute)
 watch(input, (newVal) => {
   const valToUse = newVal || newVal === 0 ? `${newVal}` : ''
 
-  if (valToUse) {
+  if (valToUse || valToUse === '') {
     storeRoute.addToQuery({ name: queryName, value: valToUse })
   }
 })

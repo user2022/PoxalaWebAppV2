@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import AbilityIcon from '@/components/abilities/AbilityIcon.vue'
 import RuneDetailAbilityBadge from '@/components/abilities/RuneDetailAbilityBadge.vue'
-import type { ChampionAbility } from '@/types/Ability'
+import type { AbilitiesEntity } from '@/types/Champion'
 
 interface Props {
-  ability: ChampionAbility
-  defaultOption?: ChampionAbility
+  ability: AbilitiesEntity
+  defaultOption?: AbilitiesEntity | null
 }
 
 const { ability } = defineProps<Props>()

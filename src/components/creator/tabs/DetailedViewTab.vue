@@ -14,7 +14,8 @@ const { rune } = defineProps<Props>()
   <div class="flex flex-row gap-12">
     <div class="flex flex-col gap-4 items-center">
       <CardFront :rune="rune" />
-      <div class="flex flex-col gap-2 text-neutral-200 text-sm text-center">
+      <div class="flex flex-col gap-2 text-neutral-200 text-sm text-center -mt-4">
+        <p class="text-xs text-gray-950 font-semibold">Champion ID: {{ rune.id }}</p>
         <p>
           Base Nora Cost: <span class="font-semibold">{{ rune.baseNoraCost }}</span>
         </p>

@@ -21,8 +21,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
-      beforeEnter: (to, from, next) => resetRuneOnNav(next)
+      component: HomeView
+      // beforeEnter: (to, from, next) => resetRuneOnNav(next)
     },
     {
       path: '/abilities',
@@ -32,8 +32,8 @@ const router = createRouter({
     {
       path: '/rune-creator',
       name: 'rune-creator',
-      component: RuneMakerView,
-      beforeEnter: (to, from, next) => resetRuneOnNav(next)
+      component: RuneMakerView
+      // beforeEnter: (to, from, next) => resetRuneOnNav(next)
     }
   ]
 })

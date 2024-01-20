@@ -75,7 +75,6 @@ const abilityOptions = [
             <div class="flex flex-row gap-2 group items-start">
               <ComboBoxField
                 :default-value="getDefaultQuery(`b${index - 2 + 1}`, ability.id)"
-                :fire-changes="fireChanges"
                 :label="`Base Ability ${index - 2 + 1}`"
                 :options="abilityOptions"
                 :query-name="`b${index - 2 + 1}`"

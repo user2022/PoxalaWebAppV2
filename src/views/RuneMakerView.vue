@@ -16,6 +16,7 @@ import { useRouteStore } from '@/stores/storeRoute'
 import { type AbilityQueryCode } from '@/lib/data/AbilityQueryCodes'
 import NoraCostSection from '@/components/creator/NoraCostSection.vue'
 import { EmptyNormalAbility } from '@/lib/data/EmptyAbility'
+import { Sparkles } from 'lucide-vue-next'
 
 const { data: res, error } = useRunes()
 const { data: abilitiesRes, error: abilitiesError } = useAbilities()
@@ -130,6 +131,16 @@ baseStatWatcher('noraMod')
 
 <template>
   <PageLayout :error="error" :is-loading="!res?.data.champs" title="Rune Creator">
+    <!-- Saved Runes -->
+    <div class="right-0 top-40 fixed">
+      <div
+        class="cursor-pointer px-6 py-4 bg-alpha-700/50 rounded-l-full text-neutral-100 flex flex-row items-center gap-3"
+      >
+        <Sparkles :size="22" :stroke-width="1.5" />
+        <span>Favorites</span>
+      </div>
+    </div>
+
     <PageSectionLayout header="Select a Champion">
       <div class="w-1/6">
         <ComboBoxField :options="options" query-name="rune" />
@@ -157,7 +168,11 @@ baseStatWatcher('noraMod')
 
       <hr />
 
-      <PageSectionLayout header="Rune Preview">
+      <PageSectionLayout
+        :on-save="() => console.log('bo')"
+        :on-share="() => console.log('sh')"
+        header="Rune Preview"
+      >
         <RuneViewTabs />
       </PageSectionLayout>
     </template>

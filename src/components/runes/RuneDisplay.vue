@@ -28,7 +28,7 @@ const flipped = ref<boolean>(false)
 
 <template>
   <div
-    class="p-6 border rounded-lg w-96 dark:bg-zinc-700 bg-neutral-700 border-neutral-900 flex flex-col gap-2 justify-center"
+    class="p-6 border rounded-lg w-96 bg-neutral-700 border-neutral-900 flex flex-col gap-2 justify-center"
     style="min-height: 562px"
   >
     <template v-if="rune">

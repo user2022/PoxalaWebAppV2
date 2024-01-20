@@ -24,7 +24,6 @@ const poxalaApi = import.meta.env.VITE_POXALA_API
 
 // const abilitiesResponse = await axios.get('https://us-central1-poxala-fa4ce.cloudfunctions.net/getChampionAbilities')
 const { data: abilities, error: abilitiesError } = useAbilities()
-console.log(abilities.value, abilitiesError)
 const { data: res, error } = useRunes()
 
 const runes = ref<Runes | undefined>(res.value?.data)
@@ -53,8 +52,6 @@ watchEffect(() => {
 const runeType = computed(() => {
   return route.query.type || 'champs'
 })
-
-console.log(res)
 </script>
 
 <template>

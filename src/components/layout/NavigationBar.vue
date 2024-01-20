@@ -2,7 +2,9 @@
 import type { Navigation } from '@/types/Navigation'
 import { useRoute, useRouter } from 'vue-router'
 import { Paintbrush } from 'lucide-vue-next'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
+import { useRuneStore } from '@/stores/rune'
+import { useRouteStore } from '@/stores/storeRoute'
 
 const nav: Navigation[] = [
   {
@@ -26,14 +28,23 @@ const nav: Navigation[] = [
 // TODO : Change select box to just an icon into dropdown
 
 const router = useRouter()
+const route = useRoute()
 
 const pathName = computed(() => {
   return useRoute().path
 })
 
-console.log(useRoute().name)
+watch(
+  () => route.path,
+  () => {
+    // Reset store states
+    const { setRune } = useRuneStore()
+    const { removeAllQueries } = useRouteStore()
 
-console.log(pathName.value)
+    setRune(null)
+    removeAllQueries()
+  }
+)
 </script>
 
 <template>
@@ -49,7 +60,11 @@ console.log(pathName.value)
             ? 'bg-alpha-700/50 border-alpha-400 border'
             : 'hover:bg-alpha-700/50 hover:border-alpha-400 border border-transparent'
         ]"
-        @click="router.push(item.url)"
+        @click="
+          () => {
+            router.push(item.url)
+          }
+        "
       >
         {{ item.name }}
       </div>

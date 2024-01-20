@@ -46,8 +46,8 @@ export const useRouteStore = defineStore('storeRoute', () => {
   }
 
   const addToQuery = (opt: Options, allowMultipleQuery?: boolean) => {
-    if (!opt.value) return
     if (opt.value === '') removeFromQuery(opt)
+    if (!opt.value) return
     if (allowMultipleQuery) {
       queries.value = [...(queries.value ?? []), opt]
     } else {
