@@ -17,6 +17,9 @@ dependencies:
   axios:
     specifier: ^1.6.2
     version: 1.6.2
+  date-fns:
+    specifier: ^3.3.0
+    version: 3.3.0
   firebase:
     specifier: ^10.7.1
     version: 10.7.1
@@ -38,9 +41,6 @@ dependencies:
   vue-router:
     specifier: ^4.2.5
     version: 4.2.5(vue@3.3.4)
-  vue-toast-notification:
-    specifier: ^3
-    version: 3.1.2(vue@3.3.4)
   vuefire:
     specifier: ^3.1.19
     version: 3.1.19(firebase@10.7.1)(vue@3.3.4)
@@ -2201,6 +2201,10 @@ packages:
       eventemitter2: 5.0.1
       lodash: 4.17.5
     dev: true
+
+  /date-fns@3.3.0:
+    resolution: {integrity: sha512-xuouT0GuI2W8yXhCMn/AXbSl1Av3wu2hJXxMnnILTY3bYY0UgNK0qOwVXqdFBrobW5qbX1TuOTgMw7c2H2OuhA==}
+    dev: false
 
   /de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
@@ -4958,15 +4962,6 @@ packages:
       de-indent: 1.0.2
       he: 1.2.0
     dev: true
-
-  /vue-toast-notification@3.1.2(vue@3.3.4):
-    resolution: {integrity: sha512-oNRL/W9aaHoeScp+iTIW7k09vM16/+8aptp2maa+7qTB43JuxmAgKdXKFYtf+uvSNOYYq2BIWgLCeJ61pwom/A==}
-    engines: {node: '>=12.15.0'}
-    peerDependencies:
-      vue: ^3.0
-    dependencies:
-      vue: 3.3.4
-    dev: false
 
   /vue-tsc@1.8.19(typescript@5.2.2):
     resolution: {integrity: sha512-tacMQLQ0CXAfbhRycCL5sWIy1qujXaIEtP1hIQpzHWOUuICbtTj9gJyFf91PvzG5KCNIkA5Eg7k2Fmgt28l5DQ==}

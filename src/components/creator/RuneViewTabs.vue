@@ -24,8 +24,8 @@ const selectedTab = ref(headers[0])
             'w-40 rounded-lg py-2.5 text-sm font-medium leading-5 border',
             'ring-white/60 focus:outline-none focus:ring-0',
             selectedTab === header
-              ? 'bg-alpha-700/50 border-alpha-400 text-neutral-50 shadow text-white'
-              : 'text-blue-100 bg-alpha-700/20 border-transparent hover:bg-alpha-700/50 text-alpha-200'
+              ? 'bg-alpha-700/50 border-alpha-400 text-neutral-50 shadow'
+              : 'bg-alpha-700/20 border-transparent hover:bg-alpha-700/50 text-alpha-200'
           ]"
           @click="selectedTab = header"
         >

@@ -16,8 +16,6 @@ export const appendRouteQuery = ({
   allowMultipleQuery,
   newValue
 }: Props) => {
-  // console.log(route.query, 'route.query from appendRoute')
-
   if (newValue === '') {
     const queries = getRouteQueriesForFilter(route.query)
     const newQueries = queries.filter((query) => query.name !== queryName)
@@ -37,11 +35,5 @@ export const appendRouteQuery = ({
   const vals: string[] =
     curVal && allowMultipleQuery ? [...(curVal as string).split(','), valToString] : [valToString]
 
-  // console.log(curVal, valToString, vals, 'vals from appendRoute')
-  // console.log({ ...route.query, [queryName]: vals.join(',') }, 'new query')
-
   router.push({ query: { ...route.query, [queryName]: vals.join(',') } })
-  //
-  // if (curVal?.includes(valToString)) return
-  // else router.push({ query: { ...route.query, [queryName]: vals.join(',') } })
 }

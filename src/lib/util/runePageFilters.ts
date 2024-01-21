@@ -40,18 +40,21 @@ export const runePageFilters = (route: RouteLocationNormalizedLoaded, data: Rune
   }
 
   if (name) {
+    // @ts-ignore
     data[type as keyof Runes] = data[type as keyof Runes].filter((rune) => {
       return rune.name.toLowerCase().includes(name.toLowerCase())
     })
   }
 
   if (factions) {
+    // @ts-ignore
     data[type as keyof Runes] = data[type].filter((rune) => {
       return factions.every((faction) => rune.factions.includes(faction))
     })
   }
 
   if (rarities) {
+    // @ts-ignore
     data[type as keyof Runes] = data[type].filter((rune) => {
       return rarities.every((rarity) => rune.rarity === rarity)
     })
@@ -79,6 +82,7 @@ export const runePageFilters = (route: RouteLocationNormalizedLoaded, data: Rune
     const noraCostSplit = noraCost.split(' ')
     const noraCostSymbol = noraCostSplit[0]
     const noraCostVal = noraCostSplit[1]
+    // @ts-ignore
     data[type as keyof Runes] = data[type].filter((rune) => {
       if (noraCostSymbol === 'gt') {
         return rune.noraCost > Number(noraCostVal)

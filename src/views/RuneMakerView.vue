@@ -16,7 +16,13 @@ import { useRouteStore } from '@/stores/storeRoute'
 import { type AbilityQueryCode } from '@/lib/data/AbilityQueryCodes'
 import NoraCostSection from '@/components/creator/NoraCostSection.vue'
 import { EmptyNormalAbility } from '@/lib/data/EmptyAbility'
-import { Sparkles } from 'lucide-vue-next'
+import { onShare } from '@/lib/util/copyURLtoClipboard'
+import Modal from '@/components/shared/Modal.vue'
+import InputNormal from '@/components/form/normal/InputNormal.vue'
+import { format } from 'date-fns'
+import { useRoute } from 'vue-router'
+import RuneFavorites from '@/components/creator/RuneFavorites.vue'
+import type { FavoriteRune } from '@/types/FavoriteRune'
 
 const { data: res, error } = useRunes()
 const { data: abilitiesRes, error: abilitiesError } = useAbilities()
@@ -39,8 +45,8 @@ onMounted(() => {
 })
 
 watch(res, () => {
-  if (!res.value?.data?.champs) return
-  const runeOpts: Options[] = res.value.data.champs.map((rune) => {
+  if (!res.value?.champs) return
+  const runeOpts: Options[] = res.value.champs.map((rune) => {
     return {
       name: rune.name,
       value: rune.id
@@ -60,8 +66,8 @@ const { rune } = storeToRefs(runeStore)
 watch(
   () => queries.value?.find((query) => query.name === 'rune'),
   (newVal) => {
-    if (res.value?.data.champs && newVal?.value) {
-      const runes = res.value.data.champs
+    if (res.value?.champs && newVal?.value) {
+      const runes = res.value.champs
       const runeFind = runes.find((rune) => rune.id === parseInt(newVal.value.toString()))
       if (runeFind) {
         // routeStore.resetBothDefaultQueries()
@@ -127,19 +133,55 @@ baseStatWatcher('maxRng')
 baseStatWatcher('defense')
 // Nora mod
 baseStatWatcher('noraMod')
+
+const input = ref<string>('')
+const setInput = (val: string) => {
+  input.value = val
+}
+
+const showModal = ref<boolean>(false)
+const setModal = (val: boolean) => {
+  showModal.value = val
+}
+
+const route = useRoute()
+
+const onSave = () => {
+  if (!rune.value) return
+  const date = new Date()
+
+  const objToSave: FavoriteRune = {
+    name: input.value,
+    date: format(date, 'dd/MM/yyyy'),
+    path: route.fullPath,
+    sprite: rune.value.hash,
+    champName: rune.value.name
+  }
+
+  const currentData = localStorage.getItem('savedRunes')
+  if (currentData) {
+    const parsed = JSON.parse(currentData)
+    parsed.push(objToSave)
+    localStorage.setItem('savedRunes', JSON.stringify(parsed))
+  } else {
+    localStorage.setItem('savedRunes', JSON.stringify([objToSave]))
+  }
+  setModal(false)
+  input.value = ''
+}
 </script>
 
 <template>
-  <PageLayout :error="error" :is-loading="!res?.data.champs" title="Rune Creator">
+  <PageLayout :error="error" :is-loading="!res?.champs" title="Rune Creator">
+    <Modal v-if="showModal" :close-modal="setModal" :on-save="onSave" header="Save to Favorites">
+      <InputNormal :input="input" :set-input="setInput" label="Name" name="name" />
+      <p class="text-neutral-300 text-xs">
+        * This will save the rune data into your browsers local storage, which means this data will
+        be permanently removed in the event you clear your browsers cache.
+      </p>
+    </Modal>
     <!-- Saved Runes -->
-    <div class="right-0 top-40 fixed">
-      <div
-        class="cursor-pointer px-6 py-4 bg-alpha-700/50 rounded-l-full text-neutral-100 flex flex-row items-center gap-3"
-      >
-        <Sparkles :size="22" :stroke-width="1.5" />
-        <span>Favorites</span>
-      </div>
-    </div>
+    <RuneFavorites />
 
     <PageSectionLayout header="Select a Champion">
       <div class="w-1/6">
@@ -168,11 +210,7 @@ baseStatWatcher('noraMod')
 
       <hr />
 
-      <PageSectionLayout
-        :on-save="() => console.log('bo')"
-        :on-share="() => console.log('sh')"
-        header="Rune Preview"
-      >
+      <PageSectionLayout :on-save="() => setModal(true)" :on-share="onShare" header="Rune Preview">
         <RuneViewTabs />
       </PageSectionLayout>
     </template>

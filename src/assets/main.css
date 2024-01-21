@@ -3,37 +3,36 @@
 @tailwind utilities;
 
 .text-outline {
-    text-shadow: 0 0 2px #000000;
+  text-shadow: 0 0 2px #000000;
 }
 
 hr {
-    border-color: #404040;
+  border-color: #404040;
 }
 
 #app {
-    --color-100: 224 242 254;
-    --color-200: 186 230 253;
-    --color-300: 125 211 252;
-    --color-400: 56 189 248;
-    --color-500: 14 165 233;
-    --color-600: 2 132 199;
-    --color-700: 3 105 161;
-    --color-800: 7 89 133;
-    --color-900: 12 75 161;
+  --color-100: 224 242 254;
+  --color-200: 186 230 253;
+  --color-300: 125 211 252;
+  --color-400: 56 189 248;
+  --color-500: 14 165 233;
+  --color-600: 2 132 199;
+  --color-700: 3 105 161;
+  --color-800: 7 89 133;
+  --color-900: 12 75 161;
 }
 
 #app[data-theme='tyrion'] {
-    --color-100: 244 144 172;
-    --color-200: 236 98 137;
-    --color-300: 248 79 129;
-    --color-400: 213 59 102;
-    --color-500: 174 36 73;
-    --color-600: 140 28 63;
-    --color-700: 106 20 52;
-    --color-800: 72 12 42;
-    --color-900: 38 4 32;
+  --color-100: 244 144 172;
+  --color-200: 236 98 137;
+  --color-300: 248 79 129;
+  --color-400: 213 59 102;
+  --color-500: 174 36 73;
+  --color-600: 140 28 63;
+  --color-700: 106 20 52;
+  --color-800: 72 12 42;
+  --color-900: 38 4 32;
 }
-
 
 /*
 // Skyblue
@@ -60,71 +59,75 @@ hr {
  */
 
 .my-tooltip-cont {
-    position: relative;
+  position: relative;
 }
 
 .my-tooltip-cont:hover .my-tooltip {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .my-tooltip-cont:hover .my-tooltip-small {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .my-tooltip {
-    position: absolute;
-    padding: 6px 10px;
-    background-color: rgba(24, 24, 24, 0.88);
-    visibility: hidden;
-    width: auto;
-    min-width: 150px;
-    max-width: 210px;
-    border-radius: 6px;
-    z-index: 10;
-    bottom: 105%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s;
+  position: absolute;
+  padding: 6px 10px;
+  background-color: rgba(24, 24, 24, 0.88);
+  visibility: hidden;
+  width: auto;
+  min-width: 150px;
+  max-width: 210px;
+  border-radius: 6px;
+  z-index: 10;
+  bottom: 105%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .my-tooltip-small {
-    position: absolute;
-    padding: 3px 5px;
-    background-color: rgba(24, 24, 24, 0.88);
-    visibility: hidden;
-    width: auto;
-    min-width: 75px;
-    max-width: 210px;
-    border-radius: 6px;
-    z-index: 10;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s;
+  position: absolute;
+  padding: 3px 5px;
+  background-color: rgba(24, 24, 24, 0.88);
+  visibility: hidden;
+  width: auto;
+  min-width: 75px;
+  max-width: 210px;
+  border-radius: 6px;
+  z-index: 10;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .my-tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
 }
 
 .my-tooltip-small::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
+}
+
+v-toast__item--info {
+  background-color: #ae20ce;
 }

@@ -12,7 +12,6 @@ interface Stats {
   minRng: number
   maxRng: number
   defense: number
-  noraModifier: number
 }
 
 interface outputRune {
@@ -23,6 +22,7 @@ interface outputRune {
   upgradePath2Abilities: number[]
   upgradePath1DefaultAbility: number
   upgradePath2DefaultAbility: number
+  noraCost: number
 }
 
 const { rune } = defineProps<Props>()
@@ -48,14 +48,14 @@ const transformRuneToOutput = (): outputRune => {
       hitPoints: rune.hitPoints,
       minRng: rune.minRng,
       maxRng: rune.maxRng,
-      defense: rune.defense,
-      noraModifier: rune.noraMod ?? 0
+      defense: rune.defense
     },
     baseAbilities: baseAbilityIds as number[],
     upgradePath1Abilities: u1AbilityIds as number[],
     upgradePath2Abilities: u2AbilityIds as number[],
     upgradePath1DefaultAbility: u1DefaultId as number,
-    upgradePath2DefaultAbility: u2DefaultId as number
+    upgradePath2DefaultAbility: u2DefaultId as number,
+    noraCost: rune.noraCost
   }
 }
 </script>

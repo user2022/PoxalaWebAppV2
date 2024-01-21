@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router'
 import NavigationBar from './components/layout/NavigationBar.vue'
 import './assets/main.css'
 import Footer from '@/components/layout/Footer.vue'
+import ToastDisplay from '@/components/shared/ToastDisplay.vue'
 
 // https://medium.com/@sididev3/6-simple-tricks-90-of-people-who-use-tailwind-css-dont-know-26c6a1318476
 </script>
@@ -17,6 +18,7 @@ import Footer from '@/components/layout/Footer.vue'
       <RouterView />
     </div>
     <Footer />
+    <ToastDisplay />
   </main>
 </template>
 

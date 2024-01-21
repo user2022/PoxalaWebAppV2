@@ -6,7 +6,6 @@ import { getColoursForFilter } from '@/lib/getColoursForFilter'
 import { getGreaterLessSymbol } from '../../lib/getGreaterLessSymbol'
 import { useRouteStore } from '@/stores/storeRoute'
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
 
 const routeStore = useRouteStore()
 const { queries } = storeToRefs(routeStore)
@@ -14,10 +13,6 @@ const { queries } = storeToRefs(routeStore)
 const removeSelectedQuery = (query: Options) => {
   routeStore.removeFromQuery(query)
 }
-
-onMounted(() => {
-  console.log(queries.value, 'queries')
-})
 
 const clearAllFilters = () => {
   routeStore.removeAllQueries()

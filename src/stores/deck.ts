@@ -43,8 +43,6 @@ export const useDeckStore = defineStore('deck', () => {
           return order[a.type as keyof DeckOrder] - order[b.type as keyof DeckOrder]
         else return 0
       })
-
-    console.log(deckHolder.value)
   }
 
   const resetDeck = () => {
@@ -52,7 +50,6 @@ export const useDeckStore = defineStore('deck', () => {
   }
 
   const removeFromDeck = (index: number) => {
-    console.log(index)
     deckHolder.value.splice(index, 1)
     deckHolder.value.push(null)
   }

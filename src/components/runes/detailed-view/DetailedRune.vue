@@ -19,7 +19,7 @@ const { rune } = defineProps<Props>()
       >
         <DetailedAbilityCard
           :ability="ability"
-          :default-option="rune.abilitySets[0].abilities.find((abil) => abil.default)"
+          :default-option="rune.abilitySets?.[0].abilities?.find((abil) => abil.default)"
         />
       </template>
       <p class="text-neutral-200 uppercase tracking-wide">Ability Set 2</p>
@@ -29,7 +29,7 @@ const { rune } = defineProps<Props>()
       >
         <DetailedAbilityCard
           :ability="ability"
-          :default-option="rune.abilitySets[1]?.abilities.find((abil) => abil.default)"
+          :default-option="rune.abilitySets?.[1].abilities?.find((abil) => abil.default)"
         />
       </template>
     </div>

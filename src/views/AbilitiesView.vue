@@ -92,7 +92,6 @@ watchEffect(() => {
   }
 
   if (search) {
-    console.log('Hello ?')
     switch (searchBy) {
       case 'name':
         data = data.filter((ability) =>
@@ -120,7 +119,6 @@ watchEffect(() => {
 
         break
       default:
-        console.log('BOO')
         data = data.filter((ability) =>
           ability.name.toLowerCase().includes(search.toString().toLowerCase())
         )

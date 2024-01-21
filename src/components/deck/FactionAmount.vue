@@ -7,7 +7,10 @@ const { factionNumber, amount } = defineProps<FactionAmt>()
 
 <template>
   <div class="flex flex-col items-center">
-    <CardFactionIcon :faction-one="factionNumber" :faction-two="factionNumber" />
+    <CardFactionIcon
+      :faction-one="factionNumber.toString()"
+      :faction-two="factionNumber.toString()"
+    />
     <span class="font-semibold text-sm">{{ amount }}</span>
   </div>
 </template>

@@ -1,4 +1,4 @@
-import type {Champion} from "@/types/Champion";
+import type { Champion } from '@/types/Champion'
 
 export type BaseStatQueryCode =
   | 'hitPoints'
