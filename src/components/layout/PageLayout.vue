@@ -3,14 +3,20 @@ interface Props {
   title: string
   error?: Error
   isLoading?: boolean
+  textCentered?: boolean
 }
 
-const { title, error, isLoading } = defineProps<Props>()
+const { title, error, isLoading, textCentered } = defineProps<Props>()
 </script>
 
 <template>
-  <div class="mx-20 my-8 flex flex-col gap-4">
-    <h1 class="text-6xl font-bold text-alpha-500 tracking-wide mb-6">{{ title }}</h1>
+  <div class="md:mx-20 sm:mx-10 mx-2 my-8 flex flex-col gap-4">
+    <h1
+      :class="textCentered ? 'text-center' : ''"
+      class="text-6xl font-bold text-alpha-500 tracking-wide mb-6 md:text-left text-center"
+    >
+      {{ title }}
+    </h1>
     <template v-if="error">
       <p class="text-white">Error: {{ error.message }}</p>
     </template>

@@ -14,6 +14,7 @@ import { useAbilities } from '@/hooks/useAbilities'
 import PageSectionLayout from '@/components/layout/PageSectionLayout.vue'
 import { useRouteStore } from '@/stores/storeRoute'
 import { onShare } from '@/lib/util/copyURLtoClipboard'
+import { useScreenSize } from '@/lib/util/useScreenSize'
 
 const poxalaApi = import.meta.env.VITE_POXALA_API
 
@@ -55,14 +56,16 @@ const getTypeHeader = computed(() => {
   else if (route.query.type === 'relics') return 'Relics'
   else return 'Champions'
 })
+
+const { isMobile } = useScreenSize()
 </script>
 
 <template>
-  <PageLayout :error="error" title="Deck Builder">
+  <PageLayout :error="error" :is-loading="!res" title="Deck Builder">
     <template v-if="runes && abilitiesRes?.abilities">
       <RuneFilter :abilities="abilitiesRes.abilities" />
       <DisplayRuneFilters />
-      <div class="flex flex-row gap-4">
+      <div class="flex md:flex-row flex-col gap-4 justify-center sm:justify-start">
         <PageSectionLayout header="Rune Detail">
           <RuneDisplay />
         </PageSectionLayout>
@@ -70,7 +73,7 @@ const getTypeHeader = computed(() => {
           <RuneList key="Champs" :per-page="70" :runes="runes[runeType as keyof Runes]" />
         </PageSectionLayout>
       </div>
-      <DeckHolder />
+      <DeckHolder v-if="!isMobile" />
     </template>
   </PageLayout>
 </template>

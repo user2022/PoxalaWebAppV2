@@ -11,6 +11,8 @@ export type AbilityQueryCode =
   | 'b4'
   | 'b5'
   | 'b6'
+  | 'd1'
+  | 'd2'
 
 export const AbilityQueryCodes: AbilityQueryCode[] = [
   's1u1',

@@ -14,6 +14,7 @@ export const runePageFilters = (route: RouteLocationNormalizedLoaded, data: Rune
   const type: string = route.query.type?.toString() ?? 'champs'
   const speed = route.query.speed?.toString()
   const noraCost = route.query.noraCost?.toString()
+  const condition = route.query.condition?.toString().toLowerCase()
 
   if (abilities) {
     data.champs = data.champs.filter((rune) => {
@@ -36,6 +37,33 @@ export const runePageFilters = (route: RouteLocationNormalizedLoaded, data: Rune
       return abilities.every((abilityName) =>
         runeAbilities.some((ability) => ability?.name === abilityName)
       )
+    })
+  }
+
+  if (condition) {
+    data.champs = data.champs.filter((rune) => {
+      const abilSets =
+        rune.abilitySets
+          ?.map((abilitySet) => {
+            return abilitySet?.abilities?.filter((ability) => {
+              return (
+                ability.shortDescription &&
+                ability.shortDescription.toLowerCase().includes(condition)
+              )
+            })
+          })
+          .flat() || []
+
+      const startingAbils =
+        rune.startingAbilities?.filter((ability) => {
+          return (
+            ability.shortDescription && ability.shortDescription.toLowerCase().includes(condition)
+          )
+        }) || []
+
+      const runeAbilities = [...abilSets, ...startingAbils]
+
+      return runeAbilities.length > 0
     })
   }
 

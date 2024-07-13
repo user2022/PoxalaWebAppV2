@@ -22,9 +22,12 @@ const clearAllFilters = () => {
 <template>
   <div
     v-if="queries && queries.filter((query) => query.name !== 'page').length > 0"
-    class="flex flex-row gap-4 items-center flex-wrap"
+    class="flex flex-row gap-4 items-center flex-wrap sm:justify-start justify-center"
   >
-    <span class="text-neutral-400 uppercase tracking-wide cursor-default">Applied Filters: </span>
+    <span
+      class="w-full sm:w-auto text-center sm:text-left text-neutral-400 uppercase tracking-wide cursor-default"
+      >Applied Filters:
+    </span>
     <template v-for="(query, index) in queries" :key="query.value + index">
       <div
         v-if="query.name !== 'page'"

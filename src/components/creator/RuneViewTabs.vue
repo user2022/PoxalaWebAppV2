@@ -17,11 +17,11 @@ const selectedTab = ref(headers[0])
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="flex flex-row items-center gap-4">
+    <div class="flex flex-row items-center gap-4 justify-center sm:justify-start">
       <template v-for="header in headers" :key="header">
         <button
           :class="[
-            'w-40 rounded-lg py-2.5 text-sm font-medium leading-5 border',
+            'sm:w-40 w-32 rounded-lg py-2.5 text-sm font-medium leading-5 border',
             'ring-white/60 focus:outline-none focus:ring-0',
             selectedTab === header
               ? 'bg-alpha-700/50 border-alpha-400 text-neutral-50 shadow'
@@ -37,7 +37,10 @@ const selectedTab = ref(headers[0])
       <NormalViewTab :rune="rune as Champion" />
     </template>
     <template v-else-if="selectedTab === 'Detailed View'">
-      <DetailedViewTab :rune="rune as Champion" />
+      <DetailedViewTab
+        :highest-lowest-cost="runeStore.getHighestOrLowestPossibleCost"
+        :rune="rune as Champion"
+      />
     </template>
     <template v-else-if="selectedTab === 'JSON View'">
       <CodeViewTab :rune="rune as Champion" />

@@ -2,13 +2,28 @@
 import AbilityIcon from '@/components/abilities/AbilityIcon.vue'
 import RuneDetailAbilityBadge from '@/components/abilities/RuneDetailAbilityBadge.vue'
 import type { AbilitiesEntity } from '@/types/Champion'
+import { useRuneStore } from '@/stores/rune'
+import { useRouteStore } from '@/stores/storeRoute'
 
 interface Props {
   ability: AbilitiesEntity
   defaultOption?: AbilitiesEntity | null
+  set?: '1' | '2'
 }
 
-const { ability } = defineProps<Props>()
+const { ability, defaultOption, set } = defineProps<Props>()
+
+const runeStore = useRuneStore()
+const { setAbilityToDefault } = runeStore
+
+const routeStore = useRouteStore()
+const { addToQuery } = routeStore
+
+const onClick = () => {
+  if (defaultOption && set) {
+    setAbilityToDefault(ability)
+  }
+}
 </script>
 
 <template>
@@ -16,7 +31,8 @@ const { ability } = defineProps<Props>()
     <div
       :class="`bg-neutral-700/50 rounded-md p-2 shadow-md max-w-xl shadow-inner border border-3 ${
         ability.default ? 'border-yellow-500/70' : 'border-neutral-900/70'
-      }`"
+      } ${defaultOption ? 'cursor-pointer' : ''}`"
+      @click="onClick"
     >
       <div class="flex flex-row items-center gap-2 w-full">
         <AbilityIcon :icon-name="ability.iconName" />

@@ -60,6 +60,12 @@ export const getColoursForFilter = (name: string): FilterColours => {
         bgCol: 'bg-rose-700/50',
         textCol: 'text-rose-100'
       }
+    case 'condition':
+      return {
+        borderCol: 'border-orange-500',
+        bgCol: 'bg-orange-700/50',
+        textCol: 'text-orange-100'
+      }
     default:
       return {
         borderCol: 'border-indigo-500',

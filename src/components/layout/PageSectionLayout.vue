@@ -13,7 +13,7 @@ const { header, onSave } = defineProps<Props>()
 
 <template>
   <div class="flex flex-col gap-2 mt-2">
-    <div class="flex flex-row items-center gap-4">
+    <div class="flex flex-row items-center justify-center sm:justify-start gap-4 text-center">
       <h1 class="text-3xl font-semibold mb-2 text-neutral-100">
         {{ header }}
       </h1>

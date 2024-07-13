@@ -19,7 +19,10 @@ const curPage = computed(() => {
 </script>
 
 <template>
-  <div v-if="runes.length > 0" class="flex flex-row justify-start flex-wrap gap-2.5">
+  <div
+    v-if="runes.length > 0"
+    class="flex flex-row justify-center sm:justify-start flex-wrap gap-2.5"
+  >
     <template
       v-for="(rune, index) in runes.slice(curPage * perPage, (curPage + 1) * perPage)"
       :key="index"

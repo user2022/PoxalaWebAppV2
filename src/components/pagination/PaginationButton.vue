@@ -24,7 +24,7 @@ const changePage = (num: number) => {
 
 <template>
   <a
-    class="cursor-pointer relative inline-flex items-center px-3 py-2 border border-neutral-900 text-sm font-medium bg-neutral-700 text-neutral-300"
+    class="cursor-pointer relative inline-flex items-center px-4 py-2 border border-neutral-900 text-sm font-medium bg-neutral-700 text-neutral-300"
     @click="changePage(num)"
   >
     <slot />

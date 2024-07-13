@@ -10,7 +10,7 @@ const { rune } = defineProps<Props>()
 </script>
 
 <template>
-  <div class="flex flex-row gap-4">
+  <div class="flex sm:flex-row flex-col gap-4">
     <div class="flex flex-col gap-2">
       <p class="text-neutral-200 uppercase tracking-wide">Ability Set 1</p>
       <template
@@ -20,6 +20,7 @@ const { rune } = defineProps<Props>()
         <DetailedAbilityCard
           :ability="ability"
           :default-option="rune.abilitySets?.[0].abilities?.find((abil) => abil.default)"
+          set="1"
         />
       </template>
       <p class="text-neutral-200 uppercase tracking-wide">Ability Set 2</p>
@@ -30,6 +31,7 @@ const { rune } = defineProps<Props>()
         <DetailedAbilityCard
           :ability="ability"
           :default-option="rune.abilitySets?.[1].abilities?.find((abil) => abil.default)"
+          set="2"
         />
       </template>
     </div>

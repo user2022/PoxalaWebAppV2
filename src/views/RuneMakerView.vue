@@ -23,6 +23,7 @@ import { format } from 'date-fns'
 import { useRoute } from 'vue-router'
 import RuneFavorites from '@/components/creator/RuneFavorites.vue'
 import type { FavoriteRune } from '@/types/FavoriteRune'
+import { useScreenSize } from '@/lib/util/useScreenSize'
 
 const { data: res, error } = useRunes()
 const { data: abilitiesRes, error: abilitiesError } = useAbilities()
@@ -68,9 +69,8 @@ watch(
   (newVal) => {
     if (res.value?.champs && newVal?.value) {
       const runes = res.value.champs
-      const runeFind = runes.find((rune) => rune.id === parseInt(newVal.value.toString()))
+      const runeFind = runes.find((rune: Champion) => rune.id === parseInt(newVal.value.toString()))
       if (runeFind) {
-        // routeStore.resetBothDefaultQueries()
         setRune(runeFind)
       }
     } else return
@@ -100,6 +100,13 @@ const abilityWatcher = (key: AbilityQueryCode) => {
           (ability) => ability.ability_id === parseInt(newVal.value.toString())
         )
 
+        const d1 = queries.value?.find((query) => query.name === 'd1')
+        const d2 = queries.value?.find((query) => query.name === 'd2')
+
+        if (ability && (d1?.value === ability?.ability_id || d2?.value === ability?.ability_id)) {
+          ability.default = true
+        }
+
         if (ability) {
           runeStore.setAbility(ability, key)
         } else if (!ability && newVal.value === '999999') {
@@ -110,6 +117,25 @@ const abilityWatcher = (key: AbilityQueryCode) => {
     { deep: true }
   )
 }
+
+// const defaultAbilityWatcher = (key: AbilityQueryCode) => {
+//   watch(
+//     () => queries.value?.find((query) => query.name === key),
+//     (newVal, oldVal) => {
+//       if (newVal === oldVal) return
+//       if (newVal) {
+//         const ability = abilitiesRes.value?.abilities?.find(
+//           (ability) => ability.ability_id === parseInt(newVal.value.toString())
+//         )
+//
+//         if (ability) {
+//           runeStore.setAbilityToDefault(transformAbilityToEntityAbility(ability))
+//         }
+//       }
+//     },
+//     { deep: true }
+//   )
+// }
 
 // Abilities
 abilityWatcher('b1')
@@ -124,6 +150,9 @@ abilityWatcher('s1u3')
 abilityWatcher('s2u1')
 abilityWatcher('s2u2')
 abilityWatcher('s2u3')
+
+// defaultAbilityWatcher('d1')
+// defaultAbilityWatcher('d2')
 // Base Stats
 baseStatWatcher('hitPoints')
 baseStatWatcher('speed')
@@ -169,6 +198,8 @@ const onSave = () => {
   setModal(false)
   input.value = ''
 }
+
+const { isMobile } = useScreenSize()
 </script>
 
 <template>
@@ -181,10 +212,10 @@ const onSave = () => {
       </p>
     </Modal>
     <!-- Saved Runes -->
-    <RuneFavorites />
+    <RuneFavorites v-if="!isMobile" />
 
     <PageSectionLayout header="Select a Champion">
-      <div class="w-1/6">
+      <div class="sm:w-1/6 w-32 mx-auto sm:mx-0">
         <ComboBoxField :options="options" query-name="rune" />
       </div>
     </PageSectionLayout>

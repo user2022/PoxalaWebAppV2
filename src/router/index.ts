@@ -4,7 +4,7 @@ import AbilitiesView from '@/views/AbilitiesView.vue'
 import RuneMakerView from '@/views/RuneMakerView.vue'
 import { useRuneStore } from '@/stores/rune'
 import { useRouteStore } from '@/stores/storeRoute'
-import RelocationView from '@/views/RelocationView.vue'
+import UsefulInformation from '@/views/UsefulInformation.vue'
 import DiscordView from '@/views/DiscordView.vue'
 
 const resetRuneOnNav = (next: NavigationGuardNext) => {
@@ -41,10 +41,10 @@ const router = createRouter({
       // beforeEnter: (to, from, next) => resetRuneOnNav(next)
     },
     {
-      path: '/relocation',
-      name: 'relocation',
-      component: RelocationView,
-      meta: { title: 'Poxala - Relocation' }
+      path: '/useful-info',
+      name: 'useful-info',
+      component: UsefulInformation,
+      meta: { title: 'Poxala - Useful Info' }
     },
     {
       path: '/discord',

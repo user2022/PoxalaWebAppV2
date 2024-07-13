@@ -8,6 +8,7 @@ import { RuneClasses } from '@/lib/data/RuneClasses'
 import type { Ability } from '@/types/Ability'
 import SelectWithInput from '@/components/form/SelectWithInput.vue'
 import LargeSearchBox from '@/components/form/LargeSearchBox.vue'
+import { Conditions } from '@/lib/data/Conditions'
 
 interface Props {
   abilities: Ability[]
@@ -63,6 +64,13 @@ const abilityOptions = [
   })
 ]
 
+const condOptions = [
+  defaultObj,
+  ...Conditions.map((con) => {
+    return { name: con.name, value: con.value }
+  })
+]
+
 const speed = [
   defaultObj,
   { name: '8', value: 8 },
@@ -77,25 +85,18 @@ const speed = [
 <template>
   <div class="flex flex-col gap-2 w-full">
     <LargeSearchBox query-name="name" />
-    <div class="flex flex-row gap-2 py-4 items-start">
+    <div
+      class="flex flex-row gap-4 sm:gap-2 py-4 items-start flex-wrap justify-center sm:justify-start"
+    >
       <ComboBoxField :options="runeTypes" disable-input label="Card Type" query-name="type" />
-      <ComboBoxField
-        :options="factions"
-        allow-multiple-query
-        label="Faction"
-        query-name="faction"
-      />
+      <ComboBoxField :options="factions" label="Faction" query-name="faction" />
       <ComboBoxField :options="rarities" label="Rarity" query-name="rarity" />
-      <ComboBoxField
-        :options="abilityOptions"
-        allow-multiple-query
-        label="Abilities"
-        query-name="ability"
-      />
-      <ComboBoxField :options="races" allow-multiple-query label="Races" query-name="race" />
-      <ComboBoxField :options="classes" allow-multiple-query label="Classes" query-name="class" />
+      <ComboBoxField :options="abilityOptions" label="Abilities" query-name="ability" />
+      <ComboBoxField :options="races" label="Races" query-name="race" />
+      <ComboBoxField :options="classes" label="Classes" query-name="class" />
       <SelectWithInput label="Nora Cost" query-name="noraCost" type="number" />
       <ComboBoxField :options="speed" label="Speed" query-name="speed" />
+      <ComboBoxField :options="condOptions" label="Condition" query-name="condition" />
     </div>
   </div>
 </template>

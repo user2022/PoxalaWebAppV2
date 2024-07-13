@@ -1,34 +1,11 @@
 <script lang="ts" setup>
-import type { Navigation } from '@/types/Navigation'
 import { useRoute, useRouter } from 'vue-router'
 import { computed, watch } from 'vue'
 import { useRuneStore } from '@/stores/rune'
 import { useRouteStore } from '@/stores/storeRoute'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Paintbrush } from 'lucide-vue-next'
-
-const nav: Navigation[] = [
-  {
-    url: '/',
-    name: 'Runes'
-  },
-  {
-    url: '/abilities',
-    name: 'Abilities'
-  },
-  {
-    url: '/rune-creator',
-    name: 'Rune Creator'
-  },
-  {
-    url: '/relocation',
-    name: 'Relocation'
-  },
-  {
-    url: '/discord',
-    name: 'Discord xD'
-  }
-]
+import { nav } from '@/lib/data/NavData'
 
 // TODO : Change select box to just an icon into dropdown
 

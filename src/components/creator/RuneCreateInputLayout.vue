@@ -14,7 +14,7 @@ const { header } = defineProps<Props>()
       <InfoHeader :label="header" />
     </template>
 
-    <div class="flex flex-row gap-4">
+    <div class="flex flex-row gap-4 flex-wrap">
       <slot />
     </div>
   </div>

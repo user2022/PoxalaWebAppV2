@@ -18,7 +18,7 @@ const { getDefaultQuery } = useRouteStore()
 
 <template>
   <PageInnerSectionLayout header="Nora Cost">
-    <div class="flex flex-row items-center gap-4">
+    <div class="flex flex-row items-center gap-0 sm:gap-4">
       <NoraCostDisplay :value="rune.baseNoraCost" header="Base Nora Cost" />
       <Plus class="text-neutral-50 mt-8" />
       <NoraCostDisplay :value="rune.abilityNoraCost" header="Abilities Nora Cost" />

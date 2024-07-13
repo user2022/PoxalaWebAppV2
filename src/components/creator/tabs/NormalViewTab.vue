@@ -11,7 +11,7 @@ const { rune } = defineProps<Props>()
 </script>
 
 <template>
-  <div class="flex flex-row gap-12">
+  <div class="flex md:flex-row flex-col gap-12 mx-auto md:mx-0">
     <template v-if="rune">
       <CardFront :rune="rune" />
       <CardBack :rune="rune" />

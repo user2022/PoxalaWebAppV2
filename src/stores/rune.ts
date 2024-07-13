@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import type { Rune } from '@/types/Runes'
 import { getRuneType } from '@/lib/getRuneType'
 import { transformAbilities } from '@/lib/util/transformAbilities'
-import type { Champion } from '@/types/Champion'
+import type { AbilitiesEntity, Champion } from '@/types/Champion'
 import { getFactionNum } from '@/lib/getFactionNum'
 import { getFactionOne, getFactionTwo } from '@/lib/util/getRuneFactions'
 import { getChampionNoraMod } from '@/lib/util/getChampionNoraMod'
@@ -103,8 +103,10 @@ export const useRuneStore = defineStore('rune', () => {
   const setAbility = (ability: Ability, abilityQueryCode: AbilityQueryCode) => {
     const numbers = abilityQueryCode.match(/\d+/g)
     const champAbility = transformAbilityToChampAbility(ability)
+
     if (rune.value && numbers) {
       const champ = rune.value as Champion
+
       if (abilityQueryCode.includes('s')) {
         const abilitySetIndex = Number(numbers[0]) - 1
         const abilityIndex = Number(numbers[1]) - 1
@@ -150,10 +152,66 @@ export const useRuneStore = defineStore('rune', () => {
     }
   }
 
+  const getHighestOrLowestPossibleCost = (highest?: boolean): undefined | number => {
+    if (!rune.value) return
+    const champ = rune.value as Champion
+
+    const set1NoraCosts = champ.abilitySets?.[0].abilities
+      ?.map((abil) => {
+        if (abil.id !== 999999) return abil.noraCost
+      })
+      .filter((abil) => abil !== undefined)
+    const set2NoraCosts = champ.abilitySets?.[1].abilities
+      ?.map((abil) => {
+        if (abil.id !== 999999) return abil.noraCost
+      })
+      .filter((abil) => abil !== undefined)
+
+    let abil1Cost = 0
+    let abil2Cost = 0
+
+    if (highest) {
+      abil1Cost = Math.max(...(set1NoraCosts as number[]))
+      abil2Cost = Math.max(...(set2NoraCosts as number[]))
+    } else {
+      abil1Cost = Math.min(...(set1NoraCosts as number[]))
+      abil2Cost = Math.min(...(set2NoraCosts as number[]))
+    }
+
+    const baseAbilityCost =
+      champ.startingAbilities?.reduce((prev, curr) => {
+        return prev + curr.noraCost
+      }, 0) ?? 0
+
+    const abilsCost = baseAbilityCost + abil1Cost + abil2Cost
+    return (champ.noraMod ?? 0) + (champ.baseNoraCost ?? 0) + abilsCost
+  }
+
+  const setAbilityToDefault = (abil: AbilitiesEntity) => {
+    if (rune.value) {
+      const champ = rune.value as Champion
+
+      champ.abilitySets?.forEach((set) => {
+        // Loop through the abilities in the set, find the existing default and set it to false then set the new ability default to true
+
+        if (set.abilities?.find((a) => a.id === abil.id)) {
+          set.abilities?.forEach((a) => {
+            if (a.default && a.id !== abil.id) a.default = false
+            if (a.id === abil.id) a.default = true
+          })
+        }
+      })
+
+      setRune(champ)
+    }
+  }
+
   return {
     rune,
     setRune,
     setAbility,
-    updateUnit
+    updateUnit,
+    getHighestOrLowestPossibleCost,
+    setAbilityToDefault
   }
 })

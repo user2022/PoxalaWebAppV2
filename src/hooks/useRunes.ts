@@ -4,11 +4,33 @@ import useSWRV from 'swrv'
 const poxalaApi = import.meta.env.VITE_POXALA_API
 
 export const useRunes = () => {
-  return useSWRV<Runes, Error>('runes', () => {
-    return fetch(`${poxalaApi}/getPoxRunes`)
-      .then((res) => res.json())
-      .then((res) => {
-        return res
-      })
-  })
+  return useSWRV<Runes, Error>(
+    'runes',
+    () => {
+      return fetch(`${poxalaApi}/getPoxRunes`)
+        .then((res) => res.json())
+        .then((res) => {
+          return res
+        })
+    },
+    {
+      revalidateOnFocus: false
+    }
+  )
+}
+
+export const useBaseRunes = () => {
+  return useSWRV<Runes, Error>(
+    'base-runes',
+    () => {
+      return fetch(`${poxalaApi}/getPoxRunes`)
+        .then((res) => res.json())
+        .then((res) => {
+          return res
+        })
+    },
+    {
+      revalidateOnFocus: false
+    }
+  )
 }

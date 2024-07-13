@@ -28,7 +28,7 @@ const flipped = ref<boolean>(false)
 
 <template>
   <div
-    class="p-6 border rounded-lg w-96 bg-neutral-700 border-neutral-900 flex flex-col gap-2 justify-center"
+    class="p-0 sm:p-6 border rounded-lg w-[320] sm:w-96 bg-neutral-700 border-neutral-900 flex flex-col mx-auto sm:mx-0 gap-2 justify-center relative"
     style="min-height: 562px"
   >
     <template v-if="rune">
@@ -42,6 +42,9 @@ const flipped = ref<boolean>(false)
         </div>
       </div>
       <Button c-class="self-center" label="Add Card" type="secondary" @click="addToDeck(rune)" />
+      <div class="bottom-1.5 right-2 absolute">
+        <p class="text-xs font-semibold text-neutral-900">ID {{ rune.id }}</p>
+      </div>
     </template>
     <template v-else>
       <h2 class="text-neutral-500 font-bold text-6xl text-center m-auto">Select a Rune</h2>
@@ -60,7 +63,13 @@ const flipped = ref<boolean>(false)
 }
 
 .rune-back {
+  position: absolute;
+  height: 418px;
+  width: 332px;
+  top: 0;
+  left: 0;
   transform: rotateY(180deg);
+  z-index: 9;
 }
 
 .rune-front,

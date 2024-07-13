@@ -8,21 +8,17 @@ interface AbilityResponse {
 }
 
 export const useAbilities = () => {
-  return useSWRV<AbilityResponse, Error>('abilities', () => {
-    return fetch(`${poxalaApi}/getPoxAbilities`)
-      .then((res) => res.json())
-      .then((res) => {
-        return res
-      })
-  })
+  return useSWRV<AbilityResponse, Error>(
+    'abilities',
+    () => {
+      return fetch(`${poxalaApi}/getPoxAbilities`)
+        .then((res) => res.json())
+        .then((res) => {
+          return res
+        })
+    },
+    {
+      revalidateOnFocus: false
+    }
+  )
 }
-
-// export const useAbilities = () => {
-//   return useSWRV<AbilityResponse, Error>('abilities', () => {
-//     return fetch(`${poxalaApi}/getAbilities`)
-//       .then((res) => res.json())
-//       .then((res) => {
-//         return res
-//       })
-//   })
-// }

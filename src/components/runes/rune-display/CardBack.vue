@@ -77,7 +77,7 @@ const poxApi = import.meta.env.VITE_POXAPI
     <template v-if="getRuneType(rune) !== 'champ'">
       <div class="spell-info-container">
         <div class="spell-info">
-          <span>{{ (rune as Spell).description }}</span>
+          <span v-html="(rune as Spell).description" />
         </div>
       </div>
     </template>

@@ -66,7 +66,7 @@ const curPage = computed(() => {
       </PaginationButton>
 
       <PaginationButton :num="Math.floor(count / perPage)">
-        <ChevronsRight :size="18" />
+        <ChevronsRight :size="16" />
       </PaginationButton>
     </nav>
   </div>

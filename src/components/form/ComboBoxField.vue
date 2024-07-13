@@ -108,7 +108,7 @@ watch(
             :displayValue="
               (option) => ((option as Options).name === 'None' ? '' : (option as Options).name)
             "
-            class="w-full py-2 pl-3 pr-10 text-sm leading-5 text-neutral-100 rounded-lg border-neutral-950 border bg-neutral-700 border-neutral-950 focus:outline-0 focus:ring-0"
+            class="md:w-full sm:w-40 w-32 py-2 pl-3 pr-10 text-sm leading-5 text-neutral-100 rounded-lg border-neutral-950 border bg-neutral-700 border-neutral-950 focus:outline-0 focus:ring-0"
             placeholder="None"
             @change="query = $event.target.value"
           />
