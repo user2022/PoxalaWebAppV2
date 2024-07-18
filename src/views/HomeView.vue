@@ -15,6 +15,7 @@ import PageSectionLayout from '@/components/layout/PageSectionLayout.vue'
 import { useRouteStore } from '@/stores/storeRoute'
 import { onShare } from '@/lib/util/copyURLtoClipboard'
 import { useScreenSize } from '@/lib/util/useScreenSize'
+import DeckSaveModal from '@/components/deck/DeckSaveModal.vue'
 
 const poxalaApi = import.meta.env.VITE_POXALA_API
 
@@ -58,22 +59,33 @@ const getTypeHeader = computed(() => {
 })
 
 const { isMobile } = useScreenSize()
+
+const saveDeckModal = ref<boolean>(false)
+
+const closeSaveModal = () => {
+  saveDeckModal.value = false
+}
+
+const openSaveModal = () => {
+  saveDeckModal.value = true
+}
 </script>
 
 <template>
   <PageLayout :error="error" :is-loading="!res" title="Deck Builder">
+    <DeckSaveModal :close-modal="closeSaveModal" :show-modal="saveDeckModal" />
     <template v-if="runes && abilitiesRes?.abilities">
       <RuneFilter :abilities="abilitiesRes.abilities" />
       <DisplayRuneFilters />
       <div class="flex md:flex-row flex-col gap-4 justify-center sm:justify-start">
         <PageSectionLayout header="Rune Detail">
-          <RuneDisplay />
+          <RuneDisplay show-add />
         </PageSectionLayout>
         <PageSectionLayout :header="getTypeHeader" :on-share="onShare">
           <RuneList key="Champs" :per-page="70" :runes="runes[runeType as keyof Runes]" />
         </PageSectionLayout>
       </div>
-      <DeckHolder v-if="!isMobile" />
+      <DeckHolder v-if="!isMobile" :open-save-modal="openSaveModal" />
     </template>
   </PageLayout>
 </template>

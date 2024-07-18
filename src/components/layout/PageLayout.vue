@@ -12,8 +12,8 @@ const { title, error, isLoading, textCentered } = defineProps<Props>()
 <template>
   <div class="md:mx-20 sm:mx-10 mx-2 my-8 flex flex-col gap-4">
     <h1
-      :class="textCentered ? 'text-center' : ''"
-      class="text-6xl font-bold text-alpha-500 tracking-wide mb-6 md:text-left text-center"
+      :class="textCentered ? 'text-center' : 'text center md:text-left m-auto md:m-0'"
+      class="text-6xl font-bold text-alpha-500 tracking-wide mb-6"
     >
       {{ title }}
     </h1>

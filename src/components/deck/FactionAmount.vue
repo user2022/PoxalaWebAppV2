@@ -2,7 +2,11 @@
 import CardFactionIcon from '@/components/runes/rune-display/CardFactionIcon.vue'
 import type { FactionAmt } from '@/types/FactionAmt'
 
-const { factionNumber, amount } = defineProps<FactionAmt>()
+interface Props extends FactionAmt {
+  textCol?: string
+}
+
+const { factionNumber, amount, textCol } = defineProps<Props>()
 </script>
 
 <template>
@@ -11,7 +15,7 @@ const { factionNumber, amount } = defineProps<FactionAmt>()
       :faction-one="factionNumber.toString()"
       :faction-two="factionNumber.toString()"
     />
-    <span class="font-semibold text-sm">{{ amount }}</span>
+    <span :class="textCol ?? ''" class="font-semibold text-sm">{{ amount }}</span>
   </div>
 </template>
 

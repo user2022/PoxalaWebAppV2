@@ -112,9 +112,9 @@ export const runePageFilters = (route: RouteLocationNormalizedLoaded, data: Rune
     const noraCostVal = noraCostSplit[1]
     // @ts-ignore
     data[type as keyof Runes] = data[type].filter((rune) => {
-      if (noraCostSymbol === 'gt') {
+      if (noraCostSymbol === ':gt') {
         return rune.noraCost > Number(noraCostVal)
-      } else if (noraCostSymbol === 'lt') {
+      } else if (noraCostSymbol === ':lt') {
         return rune.noraCost < Number(noraCostVal)
       }
     })

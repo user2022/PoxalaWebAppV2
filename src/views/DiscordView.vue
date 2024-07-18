@@ -23,7 +23,7 @@ const images = [
 </script>
 
 <template>
-  <PageLayout title="Discord xD">
+  <PageLayout text-centered title="Discord xD">
     <div class="flex flex-col items-center justify-center gap-3">
       <template v-for="(image, index) in images" :key="image">
         <img :alt="`${index}+${image}`" :src="image" class="rounded-md max-w-full sm:max-w-2xl" />

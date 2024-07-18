@@ -4,14 +4,17 @@ import CardFront from '@/components/runes/rune-display/CardFront.vue'
 import CardBack from '@/components/runes/rune-display/CardBack.vue'
 import Button from '@/components/shared/Button.vue'
 import { useRuneStore } from '@/stores/rune'
-import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useDeckStore } from '@/stores/deck'
 
+interface Props {
+  showAdd?: boolean
+}
+
+const { showAdd } = defineProps<Props>()
+
 const runeStore = useRuneStore()
 const { rune } = storeToRefs(runeStore)
-
-const route = useRoute()
 
 const { addToDeck } = useDeckStore()
 
@@ -20,8 +23,6 @@ watch(rune, (newVal) => {
     flipped.value = false
   }
 })
-
-// const factionOne = useRuneFactionOne(rune.value)
 
 const flipped = ref<boolean>(false)
 </script>
@@ -41,7 +42,13 @@ const flipped = ref<boolean>(false)
           <CardBack :rune="rune" />
         </div>
       </div>
-      <Button c-class="self-center" label="Add Card" type="secondary" @click="addToDeck(rune)" />
+      <Button
+        v-if="showAdd"
+        c-class="self-center"
+        label="Add Card"
+        type="secondary"
+        @click="addToDeck(rune)"
+      />
       <div class="bottom-1.5 right-2 absolute">
         <p class="text-xs font-semibold text-neutral-900">ID {{ rune.id }}</p>
       </div>

@@ -3,9 +3,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { computed, watch } from 'vue'
 import { useRuneStore } from '@/stores/rune'
 import { useRouteStore } from '@/stores/storeRoute'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Paintbrush } from 'lucide-vue-next'
 import { nav } from '@/lib/data/NavData'
+import ThemeSelector from '@/components/shared/ThemeSelector.vue'
 
 // TODO : Change select box to just an icon into dropdown
 
@@ -28,15 +27,9 @@ watch(
   }
 )
 
-const themeOpts = [
-  {
-    name: 'Sky Blue',
-    value: 'sky-blue'
-  }
-]
-
 const onThemeClick = (val: string) => {
   localStorage.setItem('theme', val)
+  window.location.reload()
 }
 </script>
 
@@ -64,38 +57,7 @@ const onThemeClick = (val: string) => {
     </template>
     <!--    <SelectorField />-->
     <div>
-      <Menu as="div" class="relative inline-block">
-        <MenuButton>
-          <Paintbrush :size="24" :stroke-width="1.25" />
-        </MenuButton>
-        <transition
-          enter-active-class="transition duration-100 ease-out"
-          enter-from-class="transform scale-95 opacity-0"
-          enter-to-class="transform scale-100 opacity-100"
-          leave-active-class="transition duration-75 ease-in"
-          leave-from-class="transform scale-100 opacity-100"
-          leave-to-class="transform scale-95 opacity-0"
-        >
-          <MenuItems
-            class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-neutral-700 shadow-lg ring-1 ring-black/5 focus:outline-none"
-          >
-            <div class="px-1 py-1">
-              <template v-for="item in themeOpts" :key="item.value">
-                <MenuItem v-slot="{ active }" @click="onThemeClick(item.value)">
-                  <button
-                    :class="[
-                      active ? 'bg-alpha-700/40' : 'text-gray-900',
-                      'group flex w-full items-center text-white font-semibold rounded-md px-2 py-2 text-sm'
-                    ]"
-                  >
-                    {{ item.name }}
-                  </button>
-                </MenuItem>
-              </template>
-            </div>
-          </MenuItems>
-        </transition>
-      </Menu>
+      <ThemeSelector />
     </div>
   </div>
 </template>

@@ -28,7 +28,7 @@ const { closeModal, header, onSave } = defineProps<Props>()
 
         <slot />
 
-        <div v-if="onSave">
+        <div v-if="onSave" class="flex justify-end">
           <Button label="Save" @click="onSave" />
         </div>
       </div>

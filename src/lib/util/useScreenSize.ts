@@ -4,7 +4,7 @@ export function useScreenSize() {
   const isMobile = ref(false)
 
   const checkScreenSize = () => {
-    isMobile.value = window.innerWidth <= 768
+    isMobile.value = window.innerWidth <= 950
   }
 
   onMounted(() => {

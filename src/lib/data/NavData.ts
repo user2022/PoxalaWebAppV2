@@ -14,6 +14,10 @@ export const nav: Navigation[] = [
     name: 'Rune Creator'
   },
   {
+    url: '/saved-decks',
+    name: 'Saved Decks'
+  },
+  {
     url: '/useful-info',
     name: 'Useful Info'
   },

@@ -6,6 +6,7 @@ import { nav } from '@/lib/data/NavData'
 import { useRuneStore } from '@/stores/rune'
 import { useRouteStore } from '@/stores/storeRoute'
 import { ChevronLeft } from 'lucide-vue-next'
+import ThemeSelector from '@/components/shared/ThemeSelector.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -28,40 +29,45 @@ watch(
 
 const target = ref(null)
 const open = ref(false)
+const burgerBtn = ref(null)
 
 const toggleMenu = () => {
-  open.value = true
+  open.value = !open.value
 }
 
 const closeMenu = () => {
   open.value = false
 }
 
-onClickOutside(target, closeMenu)
+onClickOutside(target, closeMenu, { ignore: [burgerBtn] })
 </script>
 
 <template>
-  <div class="md:hidden relative">
+  <div class="relative">
     <div class="flex justify-between items-center bg-neutral-900 p-4">
       <div class="flex items-center">
         <h1 class="text-2xl font-bold text-alpha-500 ml-2">Poxala</h1>
       </div>
-      <button class="text-white" @click="toggleMenu">
-        <svg
-          class="h-6 w-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M4 6h16M4 12h16m-7 6h7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-          />
-        </svg>
-      </button>
+      <div class="flex items-center gap-7">
+        <!-- Added container for the new element and the button -->
+        <ThemeSelector />
+        <button ref="burgerBtn" class="text-white" @click="toggleMenu">
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 6h16M4 12h16m-7 6h7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
     <transition name="dropdown">
       <div

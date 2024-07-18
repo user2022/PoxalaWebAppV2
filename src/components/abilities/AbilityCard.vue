@@ -3,6 +3,7 @@ import type { Ability } from '@/types/Ability'
 import AbilityIcon from '@/components/abilities/AbilityIcon.vue'
 import AbilityLevelIcon from '@/components/abilities/AbilityLevelIcon.vue'
 import AbilityInformationBadges from '@/components/abilities/AbilityInformationBadges.vue'
+import CardContainer from '@/components/layout/CardContainer.vue'
 
 interface Props {
   ability: Ability
@@ -12,10 +13,7 @@ const { ability } = defineProps<Props>()
 </script>
 
 <template>
-  <div
-    class="flex flex-row gap-4 bg-neutral-700 rounded-md shadow py-2 px-4 items-center relative"
-    style="min-height: 100px"
-  >
+  <CardContainer>
     <AbilityIcon :key="ability.icon_name" :icon-name="ability.icon_name" />
     <div class="flex flex-col gap-2 flex-grow">
       <div class="flex flex-row justify-between w-full">
@@ -36,7 +34,7 @@ const { ability } = defineProps<Props>()
     <div class="absolute right-4 bottom-2 font-semibold">
       <p class="text-xs text-gray-900">ID {{ ability.ability_id }}</p>
     </div>
-  </div>
+  </CardContainer>
 </template>
 
 <style scoped></style>

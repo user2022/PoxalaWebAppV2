@@ -3,36 +3,85 @@
 @tailwind utilities;
 
 .text-outline {
-  text-shadow: 0 0 2px #000000;
+    text-shadow: 0 0 2px #000000;
 }
 
 hr {
-  border-color: #404040;
+    border-color: #404040;
 }
 
-#app {
-  --color-100: 224 242 254;
-  --color-200: 186 230 253;
-  --color-300: 125 211 252;
-  --color-400: 56 189 248;
-  --color-500: 14 165 233;
-  --color-600: 2 132 199;
-  --color-700: 3 105 161;
-  --color-800: 7 89 133;
-  --color-900: 12 75 161;
+#app[data-theme='skyblue'] {
+    --color-100: 224 242 254;
+    --color-200: 186 230 253;
+    --color-300: 125 211 252;
+    --color-400: 56 189 248;
+    --color-500: 14 165 233;
+    --color-600: 2 132 199;
+    --color-700: 3 105 161;
+    --color-800: 7 89 133;
+    --color-900: 12 75 161;
 }
 
-#app[data-theme='tyrion'] {
-  --color-100: 244 144 172;
-  --color-200: 236 98 137;
-  --color-300: 248 79 129;
-  --color-400: 213 59 102;
-  --color-500: 174 36 73;
-  --color-600: 140 28 63;
-  --color-700: 106 20 52;
-  --color-800: 72 12 42;
-  --color-900: 38 4 32;
+#app[data-theme='emerald'] {
+    --color-100: 236 253 245;
+    --color-200: 209 250 229;
+    --color-300: 167 243 208;
+    --color-400: 110 231 183;
+    --color-500: 52 211 153;
+    --color-600: 16 185 129;
+    --color-700: 5 150 105;
+    --color-800: 4 120 87;
+    --color-900: 6 95 70;
 }
+
+#app[data-theme='royalpurple'] {
+    --color-100: 237 233 254;
+    --color-200: 221 214 254;
+    --color-300: 196 181 253;
+    --color-400: 167 139 250;
+    --color-500: 139 92 246;
+    --color-600: 124 58 237;
+    --color-700: 109 40 217;
+    --color-800: 91 33 182;
+    --color-900: 76 29 149;
+}
+
+#app[data-theme='orange'] {
+    --color-100: 255 247 237;
+    --color-200: 255 230 204;
+    --color-300: 255 193 154;
+    --color-400: 255 146 90;
+    --color-500: 255 105 30;
+    --color-600: 234 88 12;
+    --color-700: 194 65 12;
+    --color-800: 154 52 18;
+    --color-900: 124 45 18;
+}
+
+#app[data-theme='firered'] {
+    --color-100: 255 230 230;
+    --color-200: 255 204 204;
+    --color-300: 255 153 153;
+    --color-400: 255 102 102;
+    --color-500: 255 51 51;
+    --color-600: 230 46 46;
+    --color-700: 204 41 41;
+    --color-800: 179 36 36;
+    --color-900: 153 31 31;
+}
+
+#app[data-theme='leafgreen'] {
+    --color-100: 232 245 233;
+    --color-200: 200 230 201;
+    --color-300: 165 214 167;
+    --color-400: 129 199 132;
+    --color-500: 102 187 106;
+    --color-600: 76 175 80;
+    --color-700: 67 160 71;
+    --color-800: 56 142 60;
+    --color-900: 46 125 50;
+}
+
 
 /*
 // Skyblue
@@ -59,75 +108,75 @@ hr {
  */
 
 .my-tooltip-cont {
-  position: relative;
+    position: relative;
 }
 
 .my-tooltip-cont:hover .my-tooltip {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
 
 .my-tooltip-cont:hover .my-tooltip-small {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
 
 .my-tooltip {
-  position: absolute;
-  padding: 6px 10px;
-  background-color: rgba(24, 24, 24, 0.88);
-  visibility: hidden;
-  width: auto;
-  min-width: 150px;
-  max-width: 210px;
-  border-radius: 6px;
-  z-index: 10;
-  bottom: 105%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
+    position: absolute;
+    padding: 6px 10px;
+    background-color: rgba(24, 24, 24, 0.88);
+    visibility: hidden;
+    width: auto;
+    min-width: 150px;
+    max-width: 210px;
+    border-radius: 6px;
+    z-index: 10;
+    bottom: 105%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .my-tooltip-small {
-  position: absolute;
-  padding: 3px 5px;
-  background-color: rgba(24, 24, 24, 0.88);
-  visibility: hidden;
-  width: auto;
-  min-width: 75px;
-  max-width: 210px;
-  border-radius: 6px;
-  z-index: 10;
-  bottom: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
+    position: absolute;
+    padding: 3px 5px;
+    background-color: rgba(24, 24, 24, 0.88);
+    visibility: hidden;
+    width: auto;
+    min-width: 75px;
+    max-width: 210px;
+    border-radius: 6px;
+    z-index: 10;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .my-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
 }
 
 .my-tooltip-small::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
 }
 
 v-toast__item--info {
-  background-color: #ae20ce;
+    background-color: #ae20ce;
 }

@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import InputLabel from '@/components/form/InputLabel.vue'
 import { ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { appendRouteQuery } from '@/lib/helpers/appendRouteQuery'
+import { useRouteStore } from '@/stores/storeRoute'
 
 interface Props {
   label: string
@@ -12,15 +11,14 @@ interface Props {
 
 const { label, queryName, type } = defineProps<Props>()
 
-const symbol = ref<string>('gt')
+const symbol = ref<string>(':gt')
 const input = ref<number | string>()
 
-const router = useRouter()
-const route = useRoute()
+const routeStore = useRouteStore()
 
 watch(input, (newVal) => {
   const valToUse = newVal ? `${symbol.value} ${newVal}` : ''
-  appendRouteQuery({ route, router, queryName, allowMultipleQuery: false, newValue: valToUse })
+  routeStore.addToQuery({ name: queryName, value: valToUse })
 })
 </script>
 
@@ -35,8 +33,8 @@ watch(input, (newVal) => {
         name="greaterOrLess"
         @change="symbol = ($event.target as HTMLSelectElement).value"
       >
-        <option value="gt">Greater Than</option>
-        <option value="lt">Less Than</option>
+        <option value=":gt">Greater Than</option>
+        <option value=":lt">Less Than</option>
       </select>
       <input
         id="noraCost"

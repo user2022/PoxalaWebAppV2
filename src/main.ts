@@ -1,10 +1,10 @@
-import {createApp} from 'vue'
-import {createPinia} from 'pinia'
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import {VueFire} from 'vuefire'
-import {firebaseApp} from '@/firebase'
+import { VueFire } from 'vuefire'
+import { firebaseApp } from '@/firebase'
 // TODO firebase deploy --only hosting FOR DEPLOY
 
 const app = createApp(App)
@@ -19,6 +19,8 @@ app.config.globalProperties.poxApi = import.meta.env.VITE_POXAPI
 
 app.mount('#app')
 
+const theme = localStorage.getItem('theme')
+
 // Manage Theme
 const appDiv = document.getElementById('app')
-appDiv?.setAttribute('data-theme', '')
+appDiv?.setAttribute('data-theme', theme ?? 'skyblue')

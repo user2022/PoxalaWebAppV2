@@ -17,9 +17,6 @@ const { isMobile } = useScreenSize()
     <NavigationBar v-if="!isMobile" />
     <MobileNav v-else />
     <div class="flex-grow bg-neutral-800">
-      <!--      <div-->
-      <!--        class="absolute inset-x-0 m-auto h-5/6 max-w-lg bg-gradient-to-tr from-indigo-400 via-teal-900 to-[#C084FC] blur-[118px]"-->
-      <!--      ></div>-->
       <RouterView />
     </div>
     <Footer />
