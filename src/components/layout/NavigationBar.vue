@@ -39,21 +39,22 @@ const onThemeClick = (val: string) => {
   >
     <h1 class="text-3xl font-bold text-alpha-500">Poxala</h1>
     <template v-for="item in nav" :key="item.name">
-      <div
+      <a
         :class="[
           'cursor-pointer rounded-lg text-white font-semibold px-4 py-1.5 transition-all',
           pathName == item.url
             ? 'bg-alpha-700/50 border-alpha-400 border'
             : 'hover:bg-alpha-700/50 hover:border-alpha-400 border border-transparent'
         ]"
-        @click="
+        :href="item.url"
+        @click.prevent="
           () => {
             router.push(item.url)
           }
         "
       >
         {{ item.name }}
-      </div>
+      </a>
     </template>
     <!--    <SelectorField />-->
     <div>

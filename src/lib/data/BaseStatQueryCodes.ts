@@ -18,3 +18,5 @@ export const BaseStatQueryCodes: Partial<keyof Champion>[] = [
   'maxRng',
   'noraCost'
 ]
+
+export const OtherQueryCodes: Partial<keyof Champion>[] = ['size']

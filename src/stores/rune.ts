@@ -9,7 +9,7 @@ import { getFactionOne, getFactionTwo } from '@/lib/util/getRuneFactions'
 import { getChampionNoraMod } from '@/lib/util/getChampionNoraMod'
 import type { Ability } from '@/types/Ability'
 import type { AbilityQueryCode } from '@/lib/data/AbilityQueryCodes'
-import { BaseStatQueryCodes } from '@/lib/data/BaseStatQueryCodes'
+import { BaseStatQueryCodes, OtherQueryCodes } from '@/lib/data/BaseStatQueryCodes'
 import { calculateChampionAbilityCosts } from '@/lib/util/calculateChampionAbilityCosts'
 import { transformAbilityToChampAbility } from '@/lib/util/transformAbilityToChampAbility'
 import { EmptyAbility } from '@/lib/data/EmptyAbility'
@@ -84,9 +84,12 @@ export const useRuneStore = defineStore('rune', () => {
         setRune(champ)
       }
 
-      if (BaseStatQueryCodes.includes(statQueryCode)) {
+      const isBaseStat = BaseStatQueryCodes.includes(statQueryCode)
+      const isOtherStat = OtherQueryCodes.includes(statQueryCode)
+
+      if (isBaseStat || isOtherStat) {
         // @ts-ignore
-        champ[statQueryCode] = Number(value)
+        champ[statQueryCode] = isBaseStat ? Number(value) : value
 
         // Updating nora cost to match new value
         const oldNoraBaseCost = champ.baseNoraCost

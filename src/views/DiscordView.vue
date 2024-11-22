@@ -18,7 +18,8 @@ const images = [
   'https://i.imgur.com/IepJVHg.png',
   'https://i.imgur.com/SaVwZMO.png',
   'https://i.imgur.com/zCW2Cyw.png',
-  'https://i.imgur.com/iVjXVCy.png'
+  'https://i.imgur.com/iVjXVCy.png',
+  'https://i.imgur.com/KNStTS0.png'
 ]
 </script>
 

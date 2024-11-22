@@ -24,6 +24,7 @@ import { useRoute } from 'vue-router'
 import RuneFavorites from '@/components/creator/RuneFavorites.vue'
 import type { FavoriteRune } from '@/types/FavoriteRune'
 import { useScreenSize } from '@/lib/util/useScreenSize'
+import OtherSection from '@/components/creator/OtherSection.vue'
 
 const { data: res, error } = useRunes()
 const { data: abilitiesRes, error: abilitiesError } = useAbilities()
@@ -118,25 +119,6 @@ const abilityWatcher = (key: AbilityQueryCode) => {
   )
 }
 
-// const defaultAbilityWatcher = (key: AbilityQueryCode) => {
-//   watch(
-//     () => queries.value?.find((query) => query.name === key),
-//     (newVal, oldVal) => {
-//       if (newVal === oldVal) return
-//       if (newVal) {
-//         const ability = abilitiesRes.value?.abilities?.find(
-//           (ability) => ability.ability_id === parseInt(newVal.value.toString())
-//         )
-//
-//         if (ability) {
-//           runeStore.setAbilityToDefault(transformAbilityToEntityAbility(ability))
-//         }
-//       }
-//     },
-//     { deep: true }
-//   )
-// }
-
 // Abilities
 abilityWatcher('b1')
 abilityWatcher('b2')
@@ -162,6 +144,8 @@ baseStatWatcher('maxRng')
 baseStatWatcher('defense')
 // Nora mod
 baseStatWatcher('noraMod')
+// Other
+baseStatWatcher('size')
 
 const input = ref<string>('')
 const setInput = (val: string) => {
@@ -236,6 +220,7 @@ const { isMobile } = useScreenSize()
           <NoraCostSection :rune="rune as Champion" />
           <BaseStatsSection :rune="rune as Champion" />
           <AbilitiesSection :abilities="abilitiesRes.abilities" :rune="rune as Champion" />
+          <OtherSection :rune="rune as Champion" />
         </div>
       </PageSectionLayout>
 

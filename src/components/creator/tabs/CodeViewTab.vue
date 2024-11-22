@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import type { Champion } from '@/types/Champion'
+import ShareBtn from '@/components/shared/icon-btns/ShareBtn.vue'
+import { useToastStore } from '@/stores/toast'
 
 interface Props {
   rune: Champion
@@ -23,6 +25,7 @@ interface outputRune {
   upgradePath1DefaultAbility: number
   upgradePath2DefaultAbility: number
   noraCost: number
+  size: string
 }
 
 const { rune } = defineProps<Props>()
@@ -55,13 +58,31 @@ const transformRuneToOutput = (): outputRune => {
     upgradePath2Abilities: u2AbilityIds as number[],
     upgradePath1DefaultAbility: u1DefaultId as number,
     upgradePath2DefaultAbility: u2DefaultId as number,
-    noraCost: rune.noraCost
+    noraCost: rune.noraCost,
+    size: rune.size
+  }
+}
+
+const onClickShare = async () => {
+  const toast = useToastStore()
+  try {
+    if (!navigator.clipboard) {
+      toast.setToast('Clipboard API not available')
+      return
+    }
+    await navigator.clipboard.writeText(JSON.stringify(transformRuneToOutput(), null, 2))
+    toast.setToast('Copied JSON to Clipboard')
+  } catch (err) {
+    toast.setToast('Error copying JSON to clipboard')
   }
 }
 </script>
 
 <template>
-  <div class="bg-neutral-900/70 rounded-md px-4 py-2">
+  <div class="bg-neutral-900/70 rounded-md px-4 py-2 relative">
+    <div class="absolute top-2 right-2">
+      <ShareBtn :on-click="onClickShare" class="absolute top-3 right-3" />
+    </div>
     <pre><code class="text-sm text-neutral-200">{{ JSON.stringify(transformRuneToOutput(), null, 2) }}</code></pre>
   </div>
 </template>

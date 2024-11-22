@@ -1,5 +1,6 @@
 export const RuneRaces = [
   'Angel',
+  'Archdemon',
   'Arthropod',
   'Barbarian',
   'Beast',

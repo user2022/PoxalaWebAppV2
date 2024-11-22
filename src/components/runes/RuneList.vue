@@ -30,8 +30,8 @@ const curPage = computed(() => {
       <RuneListItem :rune="rune" />
     </template>
   </div>
-  <div v-else class="mt-12 ml-12">
-    <h1 class="text-2xl text-red-700 font-bold text-center">No runes match your search</h1>
+  <div v-else>
+    <h1 class="text-2xl text-neutral-400 font-bold text-center">No runes match your search</h1>
   </div>
   <!-- Pagination -->
   <template v-if="runes.length > perPage">

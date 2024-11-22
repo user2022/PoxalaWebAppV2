@@ -74,7 +74,7 @@ watch(
             <ChangedAttribute
               :base-rune-value="baseRune?.speed ?? 0"
               :rune-value="rune.speed"
-              text="🏃🏻"
+              text="🏃"
             />
             <template v-if="baseRune?.minRng !== rune.minRng || baseRune?.maxRng !== rune.maxRng">
               <p>
@@ -97,6 +97,11 @@ watch(
               :base-rune-value="baseRune?.hitPoints ?? 0"
               :rune-value="rune.hitPoints"
               text="❤️"
+            />
+            <ChangedAttribute
+              :base-rune-value="baseRune?.size ?? '1x1'"
+              :rune-value="rune.size"
+              text="📏"
             />
           </div>
         </template>

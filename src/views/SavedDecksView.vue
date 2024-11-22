@@ -37,7 +37,7 @@ const onDeleteClick = (index: number) => {
       <p v-if="savedDecks.length === 0" class="text-neutral-300">
         This page will display all the decks that you have saved.
       </p>
-      <div v-else class="grid grid-cols-2 gap-4">
+      <div v-else class="grid md:grid-cols-2 grid-cols-1 gap-4">
         <template v-for="(deck, index) in savedDecks" :key="index">
           <CardContainer no-padding>
             <div class="flex flex-row justify-between items-center w-full h-full">

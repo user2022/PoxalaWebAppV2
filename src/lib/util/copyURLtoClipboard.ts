@@ -4,6 +4,7 @@ export const onShare = async () => {
   const toast = useToastStore()
   try {
     if (!navigator.clipboard) {
+      toast.setToast('Clipboard API not available')
       return
     }
     await navigator.clipboard.writeText(window.location.href)

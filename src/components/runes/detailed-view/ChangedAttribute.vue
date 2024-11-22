@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 interface Props {
-  baseRuneValue: number
-  runeValue: number
+  baseRuneValue: number | string
+  runeValue: number | string
   text: string
 }
 
