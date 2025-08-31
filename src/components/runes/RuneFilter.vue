@@ -9,6 +9,7 @@ import type { Ability } from '@/types/Ability'
 import SelectWithInput from '@/components/form/SelectWithInput.vue'
 import LargeSearchBox from '@/components/form/LargeSearchBox.vue'
 import { Conditions } from '@/lib/data/Conditions'
+import DisplayRuneFilters from '@/components/runes/DisplayRuneFilters.vue'
 
 interface Props {
   abilities: Ability[]
@@ -83,20 +84,25 @@ const speed = [
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 w-full">
-    <LargeSearchBox query-name="name" />
-    <div
-      class="flex flex-row gap-4 sm:gap-2 py-4 items-start flex-wrap justify-center sm:justify-start"
-    >
-      <ComboBoxField :options="runeTypes" disable-input label="Card Type" query-name="type" />
-      <ComboBoxField :options="factions" label="Faction" query-name="faction" />
-      <ComboBoxField :options="rarities" label="Rarity" query-name="rarity" />
-      <ComboBoxField :options="abilityOptions" label="Abilities" query-name="ability" />
-      <ComboBoxField :options="races" label="Races" query-name="race" />
-      <ComboBoxField :options="classes" label="Classes" query-name="class" />
-      <SelectWithInput label="Nora Cost" query-name="noraCost" type="number" />
-      <ComboBoxField :options="speed" label="Speed" query-name="speed" />
-      <ComboBoxField :options="condOptions" label="Condition" query-name="condition" />
+  <div class="bg-gray-900/50 border-b border-gray-700">
+    <div class="flex flex-col gap-2 p-4">
+      <div
+        class="flex flex-row sm:gap-6 gap-y-4 gap-x-2 sm:gap-x-4 py-4 items-start flex-wrap sm:justify-start"
+      >
+        <LargeSearchBox query-name="name" />
+        <ComboBoxField :options="runeTypes" disable-input label="Card Type" query-name="type" />
+        <ComboBoxField :options="factions" label="Faction" query-name="faction" />
+        <ComboBoxField :options="rarities" label="Rarity" query-name="rarity" />
+        <ComboBoxField :options="abilityOptions" label="Abilities" query-name="ability" />
+        <ComboBoxField :options="races" label="Races" query-name="race" />
+        <ComboBoxField :options="classes" label="Classes" query-name="class" />
+        <SelectWithInput label="Nora Cost" query-name="noraCost" type="number" />
+        <ComboBoxField :options="speed" label="Speed" query-name="speed" />
+        <ComboBoxField :options="condOptions" label="Condition" query-name="condition" />
+      </div>
+    </div>
+    <div>
+      <DisplayRuneFilters />
     </div>
   </div>
 </template>

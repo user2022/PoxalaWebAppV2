@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import Button from '@/components/shared/Button.vue'
+
 interface Props {
   onClick: () => void
   toolTipText?: string
@@ -9,14 +11,13 @@ const { onClick, toolTipText } = defineProps<Props>()
 
 <template>
   <div class="my-tooltip-cont">
-    <div
-      class="cursor-pointer bg-alpha-700/20 px-1 py-0.5 rounded-md border border-alpha-900/70 drop-shadow transition duration-100 ease-in-out text-alpha-200 hover:text-neutral-50 hover:bg-alpha-700/50 hover:border-alpha-400"
-      @click="onClick"
-    >
-      <slot />
-    </div>
+    <Button :on-click="onClick" label="" size="icon" variant="ghost">
+      <template #icon>
+        <slot />
+      </template>
+    </Button>
     <template v-if="toolTipText">
-      <div class="my-tooltip-small text-sm text-center">
+      <div class="my-tooltip-small t-tooltip text-sm text-center">
         <span class="text-neutral-200">{{ toolTipText }}</span>
       </div>
     </template>

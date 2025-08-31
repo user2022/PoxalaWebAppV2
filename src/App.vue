@@ -24,10 +24,10 @@ onMounted(() => {
 </script>
 
 <template id="app1" class="poxala-main" data-theme="tyrion">
-  <main class="bg-neutral-800 flex flex-col h-screen">
+  <main class="bg-gray-950 flex flex-col h-screen">
     <NavigationBar v-if="!isMobile" />
     <MobileNav v-else />
-    <div class="flex-grow bg-neutral-800">
+    <div class="flex-grow bg-gray-950">
       <RouterView />
     </div>
     <Footer />

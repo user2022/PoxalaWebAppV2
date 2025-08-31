@@ -11,6 +11,8 @@ import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import type { Ability } from '@/types/Ability'
 import ClientPagination from '@/components/pagination/ClientPagination.vue'
+import Container from '@/components/shared/Container.vue'
+import { Zap } from 'lucide-vue-next'
 
 const { data: res, error } = useAbilities()
 
@@ -23,6 +25,8 @@ onMounted(() => {
 watch(res, () => {
   if (res.value?.abilities) abilities.value = res.value?.abilities
 })
+
+console.log(res.value, 'abilities')
 
 const options: Options[] = [
   {
@@ -132,28 +136,46 @@ const curPage = computed(() => {
   return route.query.page ? parseInt(route.query.page as string) : 0
 })
 
-const perPage = 50
+const perPage = 25
 </script>
 
 <template>
   <PageLayout :error="error" :is-loading="!abilities" title="Abilities">
-    <template v-if="abilities">
-      <LargeSearchBox query-name="s" />
-      <div class="flex flex-row flex-wrap gap-4">
-        <ComboBoxField :options="options" label="Sort by" query-name="sort" />
-        <ComboBoxField :options="searchByOptions" label="Search by" query-name="search-by" />
-        <!--      <ToggleButton label="Show unused abilities" />-->
+    <template #children>
+      <div class="py-4 border-b bg-gray-900/50 border-gray-700 flex flex-col px-4 gap-4">
+        <LargeSearchBox placeholder="Search abilities..." query-name="s" />
+        <div class="flex flex-row flex-wrap gap-4">
+          <ComboBoxField :options="options" label="Sort by" query-name="sort" />
+          <ComboBoxField :options="searchByOptions" label="Search by" query-name="search-by" />
+          <!--      <ToggleButton label="Show unused abilities" />-->
+        </div>
       </div>
-      <template
-        v-for="ability in abilities?.slice(curPage * perPage, (curPage + 1) * perPage)"
-        :key="ability.id"
-      >
-        <AbilityCard :ability="ability" />
-      </template>
-      <template v-if="abilities?.length > perPage">
-        <ClientPagination :count="abilities.length" :per-page="perPage" />
-      </template>
     </template>
+    <Container>
+      <template v-if="abilities && abilities?.length > 0">
+        <div class="h-[calc(100vh-400px)] overflow-y-scroll flex flex-col gap-2 shadow-inner">
+          <template
+            v-for="ability in abilities?.slice(curPage * perPage, (curPage + 1) * perPage)"
+            :key="ability.id"
+          >
+            <AbilityCard :ability="ability" />
+          </template>
+        </div>
+        <div class="mt-4">
+          <template v-if="abilities?.length > perPage">
+            <ClientPagination :count="abilities.length" :per-page="perPage" />
+          </template>
+        </div>
+      </template>
+      <template v-else>
+        <div class="flex flex-col items-center justify-center gap-4 text-gray-400 py-20">
+          <Zap
+            class="w-12 h-12 text-yellow-400 animate-pulse drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]"
+          />
+          <p class="text-lg font-medium">No abilities match your search</p>
+        </div>
+      </template>
+    </Container>
   </PageLayout>
 </template>
 

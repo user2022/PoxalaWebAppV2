@@ -29,9 +29,12 @@ const curPage = computed(() => {
       <span class="font-medium">{{ count }}</span>
       results
     </p>
-    <nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+    <nav
+      aria-label="Pagination"
+      class="relative z-0 inline-flex gap-2 rounded-md shadow-sm -space-x-px"
+    >
       <PaginationButton :num="0">
-        <ChevronsLeft :size="18" />
+        <ChevronsLeft :size="16" />
       </PaginationButton>
       <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
 
@@ -48,9 +51,9 @@ const curPage = computed(() => {
       </PaginationButton>
 
       <span
-        class="z-10 bg-alpha-700/50 border-alpha-400 text-white relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+        class="z-10 bg-gradient-to-r from-purple-400/60 to-orange-400/60 text-white rounded-md relative inline-flex items-center px-2 py-1 border border-transparent text-sm font-medium w-[32px]"
       >
-        {{ curPage + 1 }}
+        <span class="mx-auto text-shadow-md">{{ curPage + 1 }}</span>
       </span>
 
       <PaginationButton v-if="curPage + 1 < count / perPage" :num="1">

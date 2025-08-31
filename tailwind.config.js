@@ -3,6 +3,19 @@ export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}', './src/types/**/*.{ts}'],
   theme: {
     extend: {
+      keyframes: {
+        'pulse-glow': {
+          '0%, 100%': {
+            boxShadow: '0 0 5px var(--glow-color), 0 0 10px var(--glow-color)'
+          },
+          '50%': {
+            boxShadow: '0 0 15px var(--glow-color), 0 0 25px var(--glow-color)'
+          }
+        }
+      },
+      animation: {
+        'pulse-glow': 'pulse-glow 1.5s infinite'
+      },
       colors: {
         alpha: {
           100: 'rgb(var(--color-100) / <alpha-value>)',

@@ -4,6 +4,7 @@ import type { Champion } from '@/types/Champion'
 import InputField from '@/components/form/InputField.vue'
 import RuneCreateInputLayout from '@/components/creator/RuneCreateInputLayout.vue'
 import { useRouteStore } from '@/stores/storeRoute'
+import { Swords } from 'lucide-vue-next'
 
 interface Props {
   rune: Champion
@@ -15,7 +16,7 @@ const { getDefaultQuery } = useRouteStore()
 </script>
 
 <template>
-  <PageInnerSectionLayout header="Base Stats">
+  <PageInnerSectionLayout :icon="Swords" header="Base Stats" icon-color="text-emerald-400">
     <RuneCreateInputLayout>
       <InputField
         :key="rune.damage"

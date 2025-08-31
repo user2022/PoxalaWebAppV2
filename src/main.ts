@@ -23,4 +23,4 @@ const theme = localStorage.getItem('theme')
 
 // Manage Theme
 const appDiv = document.getElementById('app')
-appDiv?.setAttribute('data-theme', theme ?? 'skyblue')
+appDiv?.setAttribute('data-theme', theme ?? 'def-purple')

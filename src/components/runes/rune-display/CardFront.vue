@@ -20,7 +20,7 @@ const poxApi = import.meta.env.VITE_POXAPI
 </script>
 
 <template>
-  <div class="relative rune-container">
+  <div class="relative rune-container sm:mx-0 mx-auto">
     <!--  Rune Image  -->
     <img
       :src="`${poxApi}/images/runes/lg/${rune.hash}.jpg`"

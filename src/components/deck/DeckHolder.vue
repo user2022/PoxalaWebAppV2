@@ -2,11 +2,12 @@
 import { useDeckStore } from '@/stores/deck'
 import Button from '@/components/shared/Button.vue'
 import { storeToRefs } from 'pinia'
-import { Eye } from 'lucide-vue-next'
-import { computed, ref } from 'vue'
+import { Pin, PinOff, RotateCcw, Save } from 'lucide-vue-next'
+import { computed, onMounted, ref, watch } from 'vue'
 import { getFactionAmountFromDeck } from '@/lib/getFactionAmountFromDeck'
 import FactionAmount from '@/components/deck/FactionAmount.vue'
 import DeckRuneList from '@/components/deck/DeckRuneList.vue'
+import { useScreenSize } from '@/lib/util/useScreenSize'
 
 interface Props {
   openSaveModal: () => void
@@ -22,48 +23,100 @@ const facAmount = computed(() => {
   return getFactionAmountFromDeck(deckHolder.value)
 })
 
-const showHolder = ref<boolean>(true)
+const showHolder = ref(true)
+const isFixed = ref<boolean>(true)
 
-const setShowHolder = (val: boolean) => {
-  showHolder.value = val
+// Read preferred pin state from localStorage on mount
+onMounted(() => {
+  const savedPinState = localStorage.getItem('deckPinned')
+  isFixed.value = savedPinState === null ? false : savedPinState === 'true'
+})
+
+// Update localStorage whenever isFixed changes
+watch(isFixed, (val) => {
+  localStorage.setItem('deckPinned', val.toString())
+})
+
+const togglePosition = () => {
+  isFixed.value = !isFixed.value
 }
+
+const { isMobile } = useScreenSize()
 </script>
 
 <template>
   <template v-if="showHolder">
     <div
-      class="shadow-md rounded-md p-2 fixed z-40 bottom-5 left-2/4 bg-neutral-600/50 deck-holder flex flex-col gap-2"
+      :class="[
+        isFixed && !isMobile
+          ? 'fixed z-40 bottom-5 left-1/2 -translate-x-1/2 w-[1280px]'
+          : 'relative w-full mx-auto'
+      ]"
+      class="deck-holder shadow-lg card-box p-4 backdrop-blur-md flex flex-col gap-3 w-auto"
     >
       <!-- Deck List Display Runes -->
-      <DeckRuneList :deck-holder="deckHolder" modify />
-      <!-- Menu -->
-      <div class="flex flex-row justify-between" style="min-height: 42px">
-        <div class="flex flex-row gap-2">
-          <Button c-class="self-center" label="Save" type="primary" @click="openSaveModal" />
-          <Button c-class="self-center" label="Reset" type="secondary" @click="resetDeck" />
-          <Button
-            c-class="self-center"
-            label="Hide"
-            type="secondary"
-            @click="setShowHolder(false)"
-          />
-        </div>
-        <div class="flex flex-row gap-1">
-          <template v-for="(detail, index) in facAmount" :key="detail.amount + index">
-            <FactionAmount :amount="detail.amount" :faction-number="detail.factionNumber" />
-          </template>
-        </div>
-      </div>
-    </div>
-  </template>
-  <template v-else>
-    <div class="fixed right-0 bottom-16">
+
       <div
-        class="cursor-pointer px-6 py-4 bg-alpha-700/50 rounded-l-full text-neutral-100 flex flex-row items-center gap-3"
-        @click="setShowHolder(true)"
+        :class="`${
+          isFixed ? '' : 'bg-gray-800/30 p-4 rounded-lg border border-gray-700'
+        } w-fit mx-auto`"
+        class="flex flex-col gap-3"
       >
-        <Eye :size="22" :stroke-width="1.5" />
-        <span>Show Deck</span>
+        <DeckRuneList :deck-holder="deckHolder" :is-fixed="isFixed" modify />
+        <!-- Menu -->
+        <div
+          class="flex flex-row flex-wrap gap-3 justify-between items-center"
+          style="min-height: 42px"
+        >
+          <div class="flex flex-row items-center gap-3">
+            <!-- Pin Button First -->
+            <Button
+              :label="isFixed ? 'Unpin' : 'Pin'"
+              c-class="self-center"
+              size="sm"
+              variant="secondary"
+              @click="togglePosition"
+            >
+              <template #icon>
+                <component :is="isFixed ? PinOff : Pin" :size="16" />
+              </template>
+            </Button>
+
+            <!-- Divider -->
+            <div class="w-px h-6 bg-gray-700"></div>
+
+            <!-- Other Buttons -->
+            <Button
+              c-class="self-center"
+              label="Save"
+              size="sm"
+              variant="success"
+              @click="openSaveModal"
+            >
+              <template #icon>
+                <component :is="Save" :size="16" />
+              </template>
+            </Button>
+            <Button
+              c-class="self-center"
+              label="Reset"
+              size="sm"
+              variant="destructive"
+              @click="resetDeck"
+            >
+              <template #icon>
+                <component :is="RotateCcw" :size="16" />
+              </template>
+            </Button>
+          </div>
+
+          <!-- Faction Amounts -->
+          <div class="flex flex-row gap-1">
+            <template v-for="(detail, index) in facAmount" :key="detail.amount + index">
+              <FactionAmount :amount="detail.amount" :faction-number="detail.factionNumber" />
+            </template>
+          </div>
+        </div>
       </div>
     </div>
   </template>
@@ -71,8 +124,6 @@ const setShowHolder = (val: boolean) => {
 
 <style scoped>
 .deck-holder {
-  width: 976px;
-  height: auto;
-  transform: translateX(-50%);
+  transition: all 0.25s ease-in-out;
 }
 </style>

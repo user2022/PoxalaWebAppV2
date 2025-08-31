@@ -11,7 +11,7 @@ const { onClick } = defineProps<Props>()
 
 <template>
   <IconBtnHolder :on-click="onClick" tool-tip-text="Save">
-    <Save :size="20" :stroke-width="1" />
+    <Save :size="19" :stroke-width="1" />
   </IconBtnHolder>
 </template>
 

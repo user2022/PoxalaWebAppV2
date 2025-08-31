@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import AbilityIcon from '@/components/abilities/AbilityIcon.vue'
-import RuneDetailAbilityBadge from '@/components/abilities/RuneDetailAbilityBadge.vue'
 import type { AbilitiesEntity } from '@/types/Champion'
 import { useRuneStore } from '@/stores/rune'
 import { useRouteStore } from '@/stores/storeRoute'
+import DetailBlock from '@/components/abilities/DetailBlock.vue'
 
 interface Props {
   ability: AbilitiesEntity
@@ -24,13 +24,15 @@ const onClick = () => {
     setAbilityToDefault(ability)
   }
 }
+
+const diff = (defaultOption && ability.noraCost - defaultOption.noraCost) || 0
 </script>
 
 <template>
   <template v-if="ability.name !== 'None'">
     <div
-      :class="`bg-neutral-700/50 rounded-md p-2 shadow-md max-w-xl shadow-inner border border-3 ${
-        ability.default ? 'border-yellow-500/70' : 'border-neutral-900/70'
+      :class="`rounded-md p-2 max-w-xl transition-all duration-200 hover:bg-gray-800 border ${
+        ability.default ? 'border-gray-500 bg-gray-800' : 'border-gray-800/50 bg-gray-800/50'
       } ${defaultOption ? 'cursor-pointer' : ''}`"
       @click="onClick"
     >
@@ -43,13 +45,28 @@ const onClick = () => {
             </h2>
           </div>
           <p class="text-neutral-300 text-xs" v-html="ability.shortDescription" />
-          <div class="flex flex-row gap-2 mt-2">
-            <RuneDetailAbilityBadge :value="ability.noraCost" label="Nora" />
-            <RuneDetailAbilityBadge :value="ability.apCost" label="AP" />
-            <RuneDetailAbilityBadge :value="ability.cooldown" label="CD" />
+          <div class="flex flex-row items-center gap-2 mt-2">
+            <DetailBlock
+              :value="ability.noraCost"
+              c-class="bg-blue-600/30 border border-blue-600"
+              font-size="12px"
+              label="Nora"
+            />
+            <DetailBlock
+              :value="ability.apCost"
+              c-class="bg-purple-600/30 border border-purple-600"
+              font-size="12px"
+              label="AP"
+            />
+            <DetailBlock
+              :value="ability.cooldown"
+              c-class="bg-teal-600/30 border border-teal-600"
+              font-size="12px"
+              label="CD"
+            />
             <template v-if="defaultOption">
-              <p class="text-xs text-neutral-200">
-                Adds {{ ability.noraCost - defaultOption.noraCost }} nora
+              <p class="flex items-center gap-1 text-xs text-neutral-200 py-1 px-2 rounded-md">
+                <span> Adds {{ diff }} nora </span>
               </p>
             </template>
           </div>

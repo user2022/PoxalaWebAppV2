@@ -3,7 +3,7 @@ import PageInnerSectionLayout from '@/components/layout/PageInnerSectionLayout.v
 import type { Champion } from '@/types/Champion'
 import NoraCostDisplay from '@/components/creator/NoraCostDisplay.vue'
 
-import { Equal, Plus } from 'lucide-vue-next'
+import { Equal, LoaderPinwheel, Plus } from 'lucide-vue-next'
 import InputField from '@/components/form/InputField.vue'
 import { useRouteStore } from '@/stores/storeRoute'
 
@@ -17,7 +17,7 @@ const { getDefaultQuery } = useRouteStore()
 </script>
 
 <template>
-  <PageInnerSectionLayout header="Nora Cost">
+  <PageInnerSectionLayout :icon="LoaderPinwheel" header="Nora Cost" icon-color="text-sky-400">
     <div class="flex flex-row items-center gap-0 sm:gap-4">
       <NoraCostDisplay :value="rune.baseNoraCost" header="Base Nora Cost" />
       <Plus class="text-neutral-50 mt-8" />

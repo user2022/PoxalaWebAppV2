@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .card-box {
+        @apply bg-gray-900/50 border border-gray-700 p-4 rounded-xl;
+    }
+
+    .my-input {
+        @apply rounded-lg bg-gray-800 border border-gray-600 text-white focus:outline-0 focus:ring-0 sm:text-sm text-xs;
+    }
+
+    .t-tooltip {
+        @apply my-tooltip absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 bg-gray-900/90 border border-gray-700 rounded-xl p-3 shadow-lg text-white z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none;
+    }
+
+    .bg-inner {
+        @apply bg-gray-800/50 border border-gray-600 text-white;
+    }
+
+    .poxala-gradient {
+        @apply bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent inline-block w-max;
+    }
+}
+
 .text-outline {
     text-shadow: 0 0 2px #000000;
 }
@@ -9,6 +31,7 @@
 hr {
     border-color: #404040;
 }
+
 
 #app[data-theme='skyblue'] {
     --color-100: 224 242 254;
@@ -124,7 +147,6 @@ hr {
 .my-tooltip {
     position: absolute;
     padding: 6px 10px;
-    background-color: rgba(24, 24, 24, 0.88);
     visibility: hidden;
     width: auto;
     min-width: 150px;
@@ -141,7 +163,6 @@ hr {
 .my-tooltip-small {
     position: absolute;
     padding: 3px 5px;
-    background-color: rgba(24, 24, 24, 0.88);
     visibility: hidden;
     width: auto;
     min-width: 75px;
@@ -163,7 +184,7 @@ hr {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
+    border-color: #101828 transparent transparent transparent;
 }
 
 .my-tooltip-small::after {
@@ -174,7 +195,7 @@ hr {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: rgba(24, 24, 24, 0.88) transparent transparent transparent;
+    border-color: #101828 transparent transparent transparent;
 }
 
 v-toast__item--info {

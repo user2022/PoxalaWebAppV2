@@ -5,7 +5,6 @@ import RuneList from '@/components/runes/RuneList.vue'
 import RuneDisplay from '@/components/runes/RuneDisplay.vue'
 import DeckHolder from '@/components/deck/DeckHolder.vue'
 import RuneFilter from '@/components/runes/RuneFilter.vue'
-import DisplayRuneFilters from '@/components/runes/DisplayRuneFilters.vue'
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { runePageFilters } from '@/lib/util/runePageFilters'
@@ -16,6 +15,7 @@ import { useRouteStore } from '@/stores/storeRoute'
 import { onShare } from '@/lib/util/copyURLtoClipboard'
 import { useScreenSize } from '@/lib/util/useScreenSize'
 import DeckSaveModal from '@/components/deck/DeckSaveModal.vue'
+import Container from '@/components/shared/Container.vue'
 
 const poxalaApi = import.meta.env.VITE_POXALA_API
 
@@ -73,19 +73,29 @@ const openSaveModal = () => {
 
 <template>
   <PageLayout :error="error" :is-loading="!res" title="Deck Builder">
+    <template v-if="runes && abilitiesRes?.abilities" #children>
+      <RuneFilter :abilities="abilitiesRes.abilities" />
+    </template>
     <DeckSaveModal :close-modal="closeSaveModal" :show-modal="saveDeckModal" />
     <template v-if="runes && abilitiesRes?.abilities">
-      <RuneFilter :abilities="abilitiesRes.abilities" />
-      <DisplayRuneFilters />
       <div class="flex md:flex-row flex-col gap-4 justify-center sm:justify-start">
-        <PageSectionLayout header="Rune Detail">
+        <div v-if="!isMobile">
+          <Container>
+            <PageSectionLayout header="Rune Detail">
+              <RuneDisplay show-add />
+            </PageSectionLayout>
+          </Container>
+        </div>
+        <div v-else>
           <RuneDisplay show-add />
-        </PageSectionLayout>
-        <PageSectionLayout :header="getTypeHeader" :on-share="onShare">
-          <RuneList key="Champs" :per-page="70" :runes="runes[runeType as keyof Runes]" />
-        </PageSectionLayout>
+        </div>
+        <Container>
+          <PageSectionLayout :header="getTypeHeader" :on-share="onShare">
+            <RuneList key="Champs" :per-page="70" :runes="runes[runeType as keyof Runes]" />
+          </PageSectionLayout>
+        </Container>
       </div>
-      <DeckHolder v-if="!isMobile" :open-save-modal="openSaveModal" />
+      <DeckHolder :open-save-modal="openSaveModal" />
     </template>
   </PageLayout>
 </template>

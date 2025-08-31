@@ -15,7 +15,7 @@ const { factionNumber, amount, textCol } = defineProps<Props>()
       :faction-one="factionNumber.toString()"
       :faction-two="factionNumber.toString()"
     />
-    <span :class="textCol ?? ''" class="font-semibold text-sm">{{ amount }}</span>
+    <span :class="textCol ?? 'text-gray-100'" class="text-sm">{{ amount }}</span>
   </div>
 </template>
 

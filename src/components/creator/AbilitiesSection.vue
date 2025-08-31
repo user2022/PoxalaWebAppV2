@@ -5,6 +5,7 @@ import type { Ability } from '@/types/Ability'
 import PageInnerSectionLayout from '@/components/layout/PageInnerSectionLayout.vue'
 import RuneCreateInputLayout from '@/components/creator/RuneCreateInputLayout.vue'
 import { useRouteStore } from '@/stores/storeRoute'
+import { Zap } from 'lucide-vue-next'
 
 interface Props {
   rune: Champion
@@ -36,7 +37,7 @@ const abilityOptions = [
 </script>
 
 <template>
-  <PageInnerSectionLayout header="Abilities">
+  <PageInnerSectionLayout :icon="Zap" header="Abilities" icon-color="text-yellow-400">
     <div class="flex flex-col gap-6">
       <RuneCreateInputLayout header="Ability Set 1">
         <template

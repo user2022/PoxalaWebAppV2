@@ -23,29 +23,51 @@ const { setRune } = useRuneStore()
 
 <template>
   <div class="my-tooltip-cont relative plus-btn-parent select-none">
-    <div
-      class="plus-btn absolute cursor-pointer -top-0.5 -right-0.5 z-20 bg-green-600 border border-black overflow-visible text-xs rounded-full p-1"
-      @click="addToDeck(rune)"
-    >
-      <Plus :size="18" :stroke-width="1.75" />
+    <div class="relative group">
+      <!-- Plus button -->
+      <div
+        class="absolute -top-1.5 -right-1.5 z-20 rounded-full hidden group-hover:flex"
+        @click.stop="addToDeck(rune)"
+      >
+        <button
+          class="inline-flex items-center justify-center h-7 w-7 rounded-full bg-gradient-to-r from-green-600 via-green-500 to-green-600 text-white hover:shadow-[0_0_12px_rgba(34,197,94,0.75)] border border-green-400/20 focus:outline-none focus:ring-0 transition-all duration-200"
+        >
+          <Plus class="w-4 h-4" stroke-width="2" />
+        </button>
+      </div>
+
+      <!-- Image div with glow -->
+      <div
+        :class="`shadow-md cursor-pointer rounded-lg md:border-3 border-2 ${getBorderColourFromRarity(
+          rune.rarity
+        )} ${getTextColourFromRarity(
+          rune.rarity
+        )} transition-all duration-300 group-hover:shadow-[0_0_20px] w-[66px] h-[79px] md:w-[85px] md:h-[97px] bg-[#252525] overflow-hidden group-hover:shadow-current`"
+        @click="setRune(rune)"
+      >
+        <img
+          :id="`tip${rune.hash}${rune.id}`"
+          :src="`${poxApi}/images/runes/med/${rune.hash}.jpg`"
+          alt="rune"
+          class="w-full h-full object-cover scale-105"
+        />
+      </div>
     </div>
-    <img
-      :id="`tip${rune.hash}${rune.id}`"
-      :class="`shadow-md cursor-pointer rounded-lg border-3 ${getBorderColourFromRarity(
-        rune.rarity
-      )}`"
-      :src="`${poxApi}/images/runes/med/${rune.hash}.jpg`"
-      alt=""
-      style="width: 85px; min-height: 97px; background-color: #252525"
-      @click="setRune(rune)"
-    />
-    <div class="my-tooltip">
-      <p class="text-sm text-white">
-        Name:
-        <span :class="`font-bold ${getTextColourFromRarity(rune.rarity)}`">{{ rune.name }}</span>
+
+    <div class="t-tooltip">
+      <p class="text-sm">
+        <span
+          class="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400"
+        >
+          {{ rune.name }}
+        </span>
       </p>
-      <p class="text-sm text-white">
+      <p class="text-xs text-gray-300 mt-1">
         Nora Cost: <span class="text-blue-300 font-bold">{{ rune.noraCost }}</span>
+      </p>
+      <p class="text-xs text-gray-300 mt-0.5">
+        Rarity:
+        <span :class="`font-bold ${getTextColourFromRarity(rune.rarity)}`">{{ rune.rarity }}</span>
       </p>
     </div>
   </div>
@@ -62,5 +84,19 @@ const { setRune } = useRuneStore()
 
 .plus-btn-parent:hover .plus-btn {
   display: block;
+}
+
+.zoomed-img {
+  width: 110%; /* adjust this for more/less zoom */
+  height: 110%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.group:hover {
+  box-shadow:
+    0 0 7px currentColor,
+    0 0 10px currentColor;
+  transition: box-shadow 0.3s ease-in-out;
 }
 </style>

@@ -10,7 +10,7 @@ const { rune } = defineProps<Props>()
 </script>
 
 <template>
-  <div class="flex sm:flex-row flex-col gap-4">
+  <div class="flex lg:flex-row flex-col gap-4">
     <div class="flex flex-col gap-2">
       <p class="text-neutral-200 uppercase tracking-wide">Ability Set 1</p>
       <template

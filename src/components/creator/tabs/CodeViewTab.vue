@@ -2,6 +2,7 @@
 import type { Champion } from '@/types/Champion'
 import ShareBtn from '@/components/shared/icon-btns/ShareBtn.vue'
 import { useToastStore } from '@/stores/toast'
+import { Code } from 'lucide-vue-next'
 
 interface Props {
   rune: Champion
@@ -79,9 +80,15 @@ const onClickShare = async () => {
 </script>
 
 <template>
-  <div class="bg-neutral-900/70 rounded-md px-4 py-2 relative">
+  <div
+    class="bg-gray-800/50 rounded-xl p-4 relative overflow-y-scroll overflow-x-hidden max-h-[600px]"
+  >
     <div class="absolute top-2 right-2">
       <ShareBtn :on-click="onClickShare" class="absolute top-3 right-3" />
+    </div>
+    <div class="flex flex-row gap-2 items-center cursor-default mb-3 select-none">
+      <Code class="h-4 w-4 text-blue-400" />
+      <span class="text-sm font-medium text-blue-400">JSON Export</span>
     </div>
     <pre><code class="text-sm text-neutral-200">{{ JSON.stringify(transformRuneToOutput(), null, 2) }}</code></pre>
   </div>

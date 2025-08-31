@@ -1,28 +1,58 @@
-import type { Navigation } from '@/types/Navigation'
+import { BookOpen, Info, MessageCircle, Smile, Swords, Wand2, Zap } from 'lucide-vue-next'
 
-export const nav: Navigation[] = [
+export const navigationItems = [
   {
-    url: '/',
-    name: 'Runes'
+    id: 'home',
+    label: 'Runes',
+    icon: Swords,
+    color: 'text-orange-400',
+    description: 'Browse and build decks'
   },
   {
-    url: '/abilities',
-    name: 'Abilities'
+    id: 'abilities',
+    label: 'Abilities',
+    icon: Zap,
+    color: 'text-yellow-400',
+    description: 'Special powers and spells'
   },
   {
-    url: '/rune-creator',
-    name: 'Rune Creator'
+    id: 'rune-creator',
+    label: 'Rune Creator',
+    icon: Wand2,
+    color: 'text-blue-400',
+    description: 'Create custom runes'
   },
   {
-    url: '/saved-decks',
-    name: 'Saved Decks'
+    id: 'saved-decks',
+    label: 'Saved Decks',
+    icon: BookOpen,
+    color: 'text-green-400',
+    description: 'Your deck collection'
+  }
+]
+
+export const utilityItems = [
+  {
+    id: 'useful-info',
+    label: 'Information',
+    icon: Info,
+    color: 'text-gray-400',
+    description: 'Game guides and help'
   },
   {
-    url: '/useful-info',
-    name: 'Useful Info'
+    id: 'discord',
+    label: 'XD',
+    icon: Smile,
+    color: 'text-orange-400',
+    description: 'funny'
   },
   {
-    url: '/discord',
-    name: 'Discord xD'
+    id: 'discord',
+    label: 'Discord',
+    icon: MessageCircle,
+    color: 'text-indigo-400',
+    description: 'Join our community',
+    external: true,
+    href: 'https://discord.gg/tnNyXYX8Wd'
   }
 ]

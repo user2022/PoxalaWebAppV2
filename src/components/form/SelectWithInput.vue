@@ -29,7 +29,7 @@ watch(input, (newVal) => {
       <select
         id="greaterOrLess"
         :value="symbol"
-        class="w-auto px-3 py-2 text-sm leading-5 text-neutral-100 rounded-l-lg border-r-0 border bg-neutral-700 border-neutral-950 focus:outline-0 focus:ring-0"
+        class="w-auto px-3 py-2 text-xs sm:text-sm text-neutral-100 rounded-l-lg border-r-0 bg-gray-800 border border-gray-600 text-white focus:outline-0 focus:ring-0"
         name="greaterOrLess"
         @change="symbol = ($event.target as HTMLSelectElement).value"
       >
@@ -40,7 +40,7 @@ watch(input, (newVal) => {
         id="noraCost"
         :type="type ? type : 'text'"
         :value="input"
-        class="w-20 px-3 py-2 text-sm leading-5 text-neutral-100 rounded-r-lg border-l-0 border bg-neutral-700 border-neutral-950 focus:outline-0 focus:ring-0"
+        class="w-20 px-3 py-2 text-xs sm:text-sm rounded-r-lg border-l-0 bg-gray-800 border border-gray-600 text-white focus:outline-0 focus:ring-0"
         name="noraCost"
         placeholder="Cost"
         @change="input = ($event.target as HTMLInputElement).value"

@@ -7,6 +7,7 @@ import ChangedAttribute from '@/components/runes/detailed-view/ChangedAttribute.
 import { ref, watch } from 'vue'
 import { useRouteStore } from '@/stores/storeRoute'
 import { storeToRefs } from 'pinia'
+import DetailAbilityText from '@/components/creator/DetailAbilityText.vue'
 
 interface Props {
   rune: Champion
@@ -36,36 +37,28 @@ watch(
 
 <template>
   <div class="flex sm:flex-row flex-col gap-12">
-    <div class="flex flex-col gap-4 items-center">
+    <div class="flex flex-col gap-4">
       <CardFront :rune="rune" />
-      <div class="flex flex-col gap-2 text-neutral-200 text-sm text-center -mt-4">
-        <p class="text-xs text-alpha-700/80 font-semibold">
+      <div class="flex flex-col gap-2 text-neutral-200 text-sm text-left -mt-4">
+        <p class="text-xs text-gray-500 font-semibold text-center">
           Champion ID: <span class="font-bold">{{ rune.id }}</span>
         </p>
-        <p>
-          Base Nora Cost: <span class="font-semibold">{{ rune.baseNoraCost }}</span>
-        </p>
-        <p>
-          Abilities Nora Cost: <span class="font-semibold">{{ rune.abilityNoraCost }}</span>
-        </p>
-        <p>
-          Nora Modifier: <span class="font-semibold">{{ rune.noraMod }}</span>
-        </p>
-        <p
-          class="py-1 px-2.5 border border-2 border-alpha-700/50 border-dashed rounded-md text-base"
-        >
-          Total Nora Cost: <span class="font-semibold">{{ rune.noraCost }}</span>
-        </p>
-        <p>
-          Highest Possible Cost: <span class="font-semibold">{{ highestLowestCost(true) }}</span>
-        </p>
-        <p>
-          Lowest Possible Cost: <span class="font-semibold">{{ highestLowestCost(false) }}</span>
-        </p>
+        <DetailAbilityText :value="rune.baseNoraCost" name="Base Nora Cost" />
+        <DetailAbilityText :value="rune.abilityNoraCost" name="Abilities Nora Cost" />
+        <DetailAbilityText :value="rune.noraMod" name="Nora Modifier" />
+        <DetailAbilityText
+          :value="rune.noraCost"
+          c-class="border border-blue-800"
+          custom-bg="bg-blue-800/50"
+          name="Total Nora Cost"
+        />
+
+        <DetailAbilityText :value="highestLowestCost(true)" name="Max Cost" />
+        <DetailAbilityText :value="highestLowestCost(false)" name="Min Cost" />
 
         <template v-if="baseRune">
-          <div class="border-t border-neutral-600"></div>
-          <div class="flex flex-col gap-0.5">
+          <div class="border-t border-gray-600/70 my-1.5"></div>
+          <div class="flex flex-col gap-0.5 justify-center items-center mx-auto">
             <ChangedAttribute
               :base-rune-value="baseRune?.damage ?? 0"
               :rune-value="rune.damage"

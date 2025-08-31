@@ -108,7 +108,7 @@ watch(
             :displayValue="
               (option) => ((option as Options).name === 'None' ? '' : (option as Options).name)
             "
-            class="md:w-full sm:w-40 w-32 py-2 pl-3 pr-10 text-sm leading-5 text-neutral-100 rounded-lg border-neutral-950 border bg-neutral-700 border-neutral-950 focus:outline-0 focus:ring-0"
+            class="md:w-full sm:w-40 w-40 py-2 pl-3 pr-10 my-input"
             placeholder="None"
             @change="query = $event.target.value"
           />
@@ -116,7 +116,7 @@ watch(
             :class="`${disableInput && 'w-full justify-end'}`"
             class="absolute inset-y-0 right-0 flex items-center pr-2 text-neutral-100"
           >
-            <ChevronDown :size="16" />
+            <ChevronDown :size="14" />
           </ComboboxButton>
         </div>
         <TransitionRoot
@@ -127,7 +127,7 @@ watch(
         >
           <ComboboxOptions
             v-slot="{ open }"
-            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-neutral-700 py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-50"
+            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-30"
           >
             <div
               v-if="filteredOptions.length === 0 && query !== ''"

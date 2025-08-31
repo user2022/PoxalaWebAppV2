@@ -3,12 +3,15 @@ import { Search } from 'lucide-vue-next'
 import { ref, watch } from 'vue'
 import { useRouteStore } from '@/stores/storeRoute'
 import { storeToRefs } from 'pinia'
+import InputLabel from '@/components/form/InputLabel.vue'
 
 interface Props {
   queryName: string
+  label?: string
+  placeholder?: string
 }
 
-const { queryName } = defineProps<Props>()
+const { queryName, label, placeholder } = defineProps<Props>()
 
 const input = ref<string>('')
 
@@ -37,21 +40,24 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-row">
-    <input
-      id="search"
-      :value="input"
-      class="w-20 flex-grow px-6 w-full py-3 text-lg leading-5 text-neutral-100 rounded-l-lg border-r-0 border-neutral-950 border bg-neutral-700 border-neutral-950 focus:outline-0 focus:ring-0"
-      name="search"
-      placeholder="Search"
-      @change="input = ($event.target as HTMLInputElement).value"
-      @keyup.enter="input = ($event.target as HTMLInputElement).value"
-    />
-    <div
-      class="p-3 bg-alpha-700/50 border-2 border-alpha-500 text-alpha-200 rounded-r-lg cursor-pointer"
-      @click="clickIcon"
-    >
-      <Search :size="30" />
+  <!-- Removed max-w-xl so it can grow, set w-full to stretch -->
+  <div class="w-full items-center">
+    <InputLabel :label="label ?? 'Search'" />
+    <div class="relative mt-1 lg:w-2/6 md:w-3/6 sm:w-full">
+      <div
+        class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 cursor-pointer"
+        @click="clickIcon"
+      >
+        <Search class="h-4 w-4" />
+      </div>
+      <input
+        id="search"
+        :placeholder="placeholder ?? 'Search runes...'"
+        :value="input"
+        class="pl-10 placeholder-gray-400 py-2 px-4 my-input w-full"
+        @change="input = ($event.target as HTMLInputElement).value"
+        @keyup.enter="input = ($event.target as HTMLInputElement).value"
+      />
     </div>
   </div>
 </template>

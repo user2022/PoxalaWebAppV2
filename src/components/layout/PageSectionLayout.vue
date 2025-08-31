@@ -12,9 +12,11 @@ const { header, onSave } = defineProps<Props>()
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 mt-2">
-    <div class="flex flex-row items-center justify-center sm:justify-start gap-4 text-center">
-      <h1 class="text-3xl font-semibold mb-2 text-neutral-100">
+  <div class="flex flex-col gap-2 w-full flex-1">
+    <div
+      class="flex flex-row items-center justify-center sm:justify-start gap-4 text-center w-full"
+    >
+      <h1 class="text-xl uppercase tracking-wider mb-2 text-gray-50">
         {{ header }}
       </h1>
       <template v-if="onSave">

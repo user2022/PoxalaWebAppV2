@@ -14,6 +14,7 @@ import { onShare } from '@/lib/util/copyURLtoClipboard'
 import SaveBtn from '@/components/shared/icon-btns/SaveBtn.vue'
 import { useToastStore } from '@/stores/toast'
 import { saveDeckToStorage, type StorageDeck } from '@/lib/util/saveDeckToStorage'
+import Container from '@/components/shared/Container.vue'
 
 const routeStore = useRouteStore()
 
@@ -144,64 +145,70 @@ const onSave = async () => {
     :is-loading="!res"
     :title="routeStore?.getQuery('deckName')?.value.toString() ?? 'Deck'"
   >
-    <div class="flex flex-row gap-4 justify-center md:justify-start mt-2">
-      <p class="text-neutral-50">
-        By
-        <span class="font-semibold text-lg">{{
-          routeStore?.getQuery('user')?.value.toString() ?? 'Unknown'
-        }}</span>
-      </p>
+    <Container>
+      <div class="flex flex-row gap-4 justify-center md:justify-start mt-2 mb-4">
+        <p class="text-3xl poxala-gradient font-bold">
+          Created by {{ routeStore?.getQuery('user')?.value.toString() ?? 'Unknown' }}
+        </p>
 
-      <ShareBtn :on-click="onShare" />
-      <SaveBtn :on-click="onSave" />
-    </div>
-    <div class="flex flex-col gap-3">
-      <div
-        class="flex flex-row gap-4 flex-wrap md:justify-start sm:justify-center lg:flex-nowrap sm:flex-shrink items-start"
-      >
-        <RuneDisplay />
-        <div class="flex flex-col gap-4">
-          <DeckRuneList :deck-holder="runes" large-rune />
-          <hr />
-          <div class="flex flex-row md:justify-between justify-center gap-4 flex-wrap">
-            <div class="flex flex-row gap-8">
-              <NoraCostDisplay
-                :value="totalChampRunes"
-                custom-color="bg-red-700/50"
-                header="Champs"
-              />
-              <NoraCostDisplay
-                :value="totalSpellRunes"
-                custom-color="bg-blue-400/50"
-                header="Spells"
-              />
-              <NoraCostDisplay
-                :value="totalRelicRunes"
-                custom-color="bg-green-300/50"
-                header="Relics"
-              />
-              <NoraCostDisplay
-                :value="totalEquipRunes"
-                custom-color="bg-purple-600/50"
-                header="Equips"
-              />
-            </div>
-            <div class="flex flex-row gap-2">
-              <template v-for="(detail, index) in facAmount" :key="detail.amount + index">
-                <FactionAmount
-                  :amount="detail.amount"
-                  :faction-number="detail.factionNumber"
-                  text-col="text-neutral-300"
-                />
-              </template>
-            </div>
+        <ShareBtn :on-click="onShare" />
+        <SaveBtn :on-click="onSave" />
+      </div>
+      <div class="flex flex-col gap-3">
+        <div
+          class="flex flex-row gap-4 flex-wrap md:justify-start sm:justify-center lg:flex-nowrap sm:flex-shrink items-start"
+        >
+          <div>
+            <RuneDisplay />
           </div>
-          <div class="flex justify-center md:justify-start">
-            <NoraCostDisplay :value="averageNoraCost" header="Avg Champ Cost" />
+          <div class="flex flex-col gap-4">
+            <div>
+              <Container>
+                <DeckRuneList :deck-holder="runes" large-rune />
+              </Container>
+            </div>
+            <Container>
+              <div class="flex flex-row md:justify-between justify-center gap-4 flex-wrap">
+                <div class="flex flex-row gap-8">
+                  <NoraCostDisplay
+                    :value="totalChampRunes"
+                    custom-color="bg-red-700/50"
+                    header="Champs"
+                  />
+                  <NoraCostDisplay
+                    :value="totalSpellRunes"
+                    custom-color="bg-blue-400/50"
+                    header="Spells"
+                  />
+                  <NoraCostDisplay
+                    :value="totalRelicRunes"
+                    custom-color="bg-green-300/50"
+                    header="Relics"
+                  />
+                  <NoraCostDisplay
+                    :value="totalEquipRunes"
+                    custom-color="bg-purple-600/50"
+                    header="Equips"
+                  />
+                </div>
+                <div class="flex flex-row gap-2">
+                  <template v-for="(detail, index) in facAmount" :key="detail.amount + index">
+                    <FactionAmount
+                      :amount="detail.amount"
+                      :faction-number="detail.factionNumber"
+                      text-col="text-neutral-300"
+                    />
+                  </template>
+                </div>
+              </div>
+              <div class="flex justify-center md:justify-start">
+                <NoraCostDisplay :value="averageNoraCost" header="Avg Champ Cost" />
+              </div>
+            </Container>
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   </PageLayout>
 </template>
 

@@ -55,7 +55,7 @@ watch(
       :placeholder="label"
       :type="type ? type : 'text'"
       :value="input"
-      class="px-3 py-2 text-sm leading-5 text-neutral-100 rounded-lg border-neutral-950 border bg-neutral-700 focus:outline-0 focus:ring-0"
+      class="px-3 py-2 text-sm leading-5 my-input"
       @change="input = ($event.target as HTMLInputElement).value"
       @keyup.enter="input = ($event.target as HTMLInputElement).value"
     />

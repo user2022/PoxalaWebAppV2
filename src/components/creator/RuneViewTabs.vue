@@ -17,15 +17,17 @@ const selectedTab = ref(headers[0])
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="flex flex-row items-center gap-4 justify-center sm:justify-start">
+    <div
+      class="bg-gray-800/50 sm:mx-0 mx-auto text-muted-foreground inline-flex gap-2 h-11 w-fit items-center justify-center rounded-full py-4 px-2"
+    >
       <template v-for="header in headers" :key="header">
         <button
           :class="[
-            'sm:w-40 w-32 rounded-lg py-2.5 text-sm font-medium leading-5 border',
-            'ring-white/60 focus:outline-none focus:ring-0',
+            'sm:w-40 w-24 rounded-full py-1 text-xs sm:text-sm font-medium leading-5 border text-gray-50 hover:bg-gray-700/50 transition-all duration-150',
+            'ring-0 focus:outline-none focus:ring-0 focus:outline-0',
             selectedTab === header
-              ? 'bg-alpha-700/50 border-alpha-400 text-neutral-50 shadow'
-              : 'bg-alpha-700/20 border-transparent hover:bg-alpha-700/50 text-alpha-200'
+              ? 'shadow border-transparent bg-gradient-to-r from-purple-400/50 to-orange-400/50'
+              : 'border-transparent'
           ]"
           @click="selectedTab = header"
         >

@@ -25,6 +25,8 @@ import RuneFavorites from '@/components/creator/RuneFavorites.vue'
 import type { FavoriteRune } from '@/types/FavoriteRune'
 import { useScreenSize } from '@/lib/util/useScreenSize'
 import OtherSection from '@/components/creator/OtherSection.vue'
+import Container from '@/components/shared/Container.vue'
+import { WandSparkles } from 'lucide-vue-next'
 
 const { data: res, error } = useRunes()
 const { data: abilitiesRes, error: abilitiesError } = useAbilities()
@@ -39,6 +41,7 @@ const options = ref<Options[]>([
 ])
 
 onMounted(() => {
+  setRune(null)
   routeStore.initialiseQueries()
 
   if (queries.value && queries.value.length > 0) {
@@ -198,37 +201,55 @@ const { isMobile } = useScreenSize()
     <!-- Saved Runes -->
     <RuneFavorites v-if="!isMobile" />
 
-    <PageSectionLayout header="Select a Champion">
-      <div class="sm:w-1/6 w-32 mx-auto sm:mx-0">
-        <ComboBoxField :options="options" query-name="rune" />
+    <template #children>
+      <div class="py-4 border-b border-gray-700 bg-gray-900/50 flex flex-col px-4 gap-4">
+        <p class="text-2xl font-bold poxala-gradient">Select a Champion to Modify</p>
+        <div class="sm:w-1/6 w-32 mx-auto sm:mx-0">
+          <ComboBoxField :options="options" query-name="rune" />
+        </div>
       </div>
-    </PageSectionLayout>
+    </template>
 
     <!-- Form -->
     <template v-if="rune && abilitiesRes?.abilities">
-      <hr />
-
-      <PageSectionLayout :header="rune.name">
-        <div class="w-20 h-20">
-          <img
-            :src="`${poxApi}/images/runes/idols/${rune.hash}.gif`"
-            alt="rune-idol"
-            class="idol"
-          />
+      <Container>
+        <div class="flex flex-col gap-4">
+          <p class="text-3xl text-white font-semibold">
+            {{ rune.name }}
+          </p>
+          <div class="w-20 h-20">
+            <img
+              :src="`${poxApi}/images/runes/idols/${rune.hash}.gif`"
+              alt="rune-idol"
+              class="idol"
+            />
+          </div>
+          <div class="flex flex-col gap-4">
+            <NoraCostSection :rune="rune as Champion" />
+            <BaseStatsSection :rune="rune as Champion" />
+            <AbilitiesSection :abilities="abilitiesRes.abilities" :rune="rune as Champion" />
+            <OtherSection :rune="rune as Champion" />
+          </div>
         </div>
-        <div class="flex flex-col gap-8">
-          <NoraCostSection :rune="rune as Champion" />
-          <BaseStatsSection :rune="rune as Champion" />
-          <AbilitiesSection :abilities="abilitiesRes.abilities" :rune="rune as Champion" />
-          <OtherSection :rune="rune as Champion" />
-        </div>
-      </PageSectionLayout>
+      </Container>
 
-      <hr />
-
-      <PageSectionLayout :on-save="() => setModal(true)" :on-share="onShare" header="Rune Preview">
-        <RuneViewTabs />
-      </PageSectionLayout>
+      <Container>
+        <PageSectionLayout
+          :on-save="() => setModal(true)"
+          :on-share="onShare"
+          header="Rune Preview"
+        >
+          <RuneViewTabs />
+        </PageSectionLayout>
+      </Container>
+    </template>
+    <template v-else>
+      <div class="flex flex-col items-center justify-center py-20 text-center">
+        <WandSparkles
+          class="w-16 h-16 text-blue-400 animate-pulse drop-shadow-[0_0_12px_rgba(99,102,241,0.8)]"
+        />
+        <p class="mt-4 text-lg font-semibold text-gray-300">Select a champion to get started</p>
+      </div>
     </template>
   </PageLayout>
 </template>

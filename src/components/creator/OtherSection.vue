@@ -4,6 +4,7 @@ import RuneCreateInputLayout from '@/components/creator/RuneCreateInputLayout.vu
 import type { Champion } from '@/types/Champion'
 import { useRouteStore } from '@/stores/storeRoute'
 import ComboBoxField from '@/components/form/ComboBoxField.vue'
+import { CircleEllipsis } from 'lucide-vue-next'
 
 interface Props {
   rune: Champion
@@ -31,7 +32,7 @@ const opts = [
 </script>
 
 <template>
-  <PageInnerSectionLayout header="Other">
+  <PageInnerSectionLayout :icon="CircleEllipsis" header="Other" icon-color="text-purple-400">
     <RuneCreateInputLayout>
       <ComboBoxField
         :key="rune.size"

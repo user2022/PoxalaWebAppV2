@@ -2,26 +2,21 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { onClickOutside } from '@vueuse/core'
-import { nav } from '@/lib/data/NavData'
 import { useRuneStore } from '@/stores/rune'
 import { useRouteStore } from '@/stores/storeRoute'
-import { ChevronLeft } from 'lucide-vue-next'
-import ThemeSelector from '@/components/shared/ThemeSelector.vue'
+import { Menu, X } from 'lucide-vue-next'
+import { navigationItems, utilityItems } from '@/lib/data/NavData'
 
 const router = useRouter()
 const route = useRoute()
 
-const pathName = computed(() => {
-  return route.path
-})
+const activeSection = computed(() => route.name as string)
 
 watch(
-  () => route.path,
+  () => route.name,
   () => {
-    // Reset store states
     const { setRune } = useRuneStore()
     const { removeAllQueries } = useRouteStore()
-
     setRune(null)
     removeAllQueries()
   }
@@ -44,53 +39,106 @@ onClickOutside(target, closeMenu, { ignore: [burgerBtn] })
 
 <template>
   <div class="relative">
-    <div class="flex justify-between items-center bg-neutral-900 p-4">
-      <div class="flex items-center">
-        <h1 class="text-2xl font-bold text-alpha-500 ml-2">Poxala</h1>
+    <!-- Top Bar -->
+    <div
+      class="flex justify-between items-center bg-gray-900/80 backdrop-blur-sm border-b border-gray-700 p-4"
+    >
+      <div class="flex items-center gap-2">
+        <h1
+          class="text-xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent"
+        >
+          Poxala
+        </h1>
       </div>
-      <div class="flex items-center gap-7">
-        <!-- Added container for the new element and the button -->
-        <ThemeSelector />
-        <button ref="burgerBtn" class="text-white" @click="toggleMenu">
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M4 6h16M4 12h16m-7 6h7"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            />
-          </svg>
+      <div class="flex items-center gap-4">
+        <!--        <ThemeSelector />-->
+        <button ref="burgerBtn" class="text-gray-300 hover:text-white" @click="toggleMenu">
+          <Menu v-if="!open" class="h-6 w-6" />
+          <X v-else class="h-6 w-6" />
         </button>
       </div>
     </div>
+
+    <!-- Dropdown Nav -->
     <transition name="dropdown">
       <div
         v-show="open"
         ref="target"
-        class="flex flex-col absolute top-full bg-neutral-900 border-t-2 border-neutral-600 w-full z-50"
+        class="flex flex-col absolute top-full left-0 bg-gray-900/95 backdrop-blur-md border-t border-b border-gray-700 w-full z-50 shadow-lg"
       >
-        <template v-for="item in nav" :key="item.name">
+        <!-- Main Nav Items -->
+        <template v-for="item in navigationItems" :key="item.id">
           <div
             :class="[
-              'w-full text-neutral-50 py-4 px-4 border-t border-neutral-700 first:border-t-0 cursor-pointer font-semibold hover:text-alpha-500 flex flex-row items-center gap-4',
-              pathName == item.url ? 'text-alpha-500' : ''
+              'flex items-center gap-3 py-3 px-5 cursor-pointer transition-all',
+              activeSection === item.id
+                ? 'bg-gray-800/60 text-white'
+                : 'text-gray-300 hover:bg-gray-800/40 hover:text-white'
             ]"
             @click="
               () => {
-                router.push(item.url)
+                router.push({ name: item.id })
                 closeMenu()
               }
             "
           >
-            <p>{{ item.name }}</p>
-            <ChevronLeft v-if="pathName === item.url" :size="20" color="#0EA5E9" />
+            <!-- Text -->
+            <span class="font-medium text-sm">{{ item.label }}</span>
+
+            <!-- Icon -->
+            <component
+              :is="item.icon"
+              :class="activeSection === item.id ? item.color : 'text-gray-400'"
+              class="h-5 w-5 ml-auto"
+            />
+
+            <!-- Active marker -->
+            <div
+              v-if="activeSection === item.id"
+              class="ml-2 h-0.5 w-10 rounded-full bg-gradient-to-r from-purple-400 to-orange-400"
+            />
           </div>
+        </template>
+
+        <!-- Divider + Other header -->
+        <div class="border-t border-gray-700 my-2" />
+        <div class="px-5 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-wide">
+          Other
+        </div>
+
+        <!-- Utility Items -->
+        <template v-for="item in utilityItems" :key="item.id">
+          <div
+            v-if="!item.external"
+            :class="[
+              'flex items-center gap-3 py-3 px-5 cursor-pointer transition-all',
+              activeSection === item.id
+                ? 'bg-gray-800/60 text-white'
+                : 'text-gray-300 hover:bg-gray-800/40 hover:text-white'
+            ]"
+            @click="
+              () => {
+                router.push({ name: item.id })
+                closeMenu()
+              }
+            "
+          >
+            <span class="font-medium text-sm">{{ item.label }}</span>
+            <component :is="item.icon" :class="item.color" class="h-5 w-5 ml-auto" />
+          </div>
+
+          <!-- External links (like Discord) -->
+          <a
+            v-else
+            :href="item.href"
+            class="flex items-center gap-3 py-3 px-5 text-gray-300 hover:bg-gray-800/40 hover:text-white transition-all"
+            rel="noopener noreferrer"
+            target="_blank"
+            @click="closeMenu"
+          >
+            <span class="font-medium">{{ item.label }}</span>
+            <component :is="item.icon" :class="item.color" class="h-5 w-5 ml-auto" />
+          </a>
         </template>
       </div>
     </transition>
@@ -98,18 +146,22 @@ onClickOutside(target, closeMenu, { ignore: [burgerBtn] })
 </template>
 
 <style scoped>
-/* Define the dropdown transition */
+/* Smooth slide down */
 .dropdown-enter-active,
 .dropdown-leave-active {
-  transition: max-height 0.3s ease-in-out;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.2s ease;
 }
-
-.dropdown-enter, .dropdown-leave-to /* .dropdown-leave-active in <2.1.8 */ {
+.dropdown-enter-from,
+.dropdown-leave-to {
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
 }
-
-.dropdown-enter-to, .dropdown-leave /* .dropdown-enter-active in <2.1.8 */ {
-  max-height: 400px; /* Adjust this value based on the content height */
+.dropdown-enter-to,
+.dropdown-leave-from {
+  max-height: 500px;
+  opacity: 1;
 }
 </style>

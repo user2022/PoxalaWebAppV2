@@ -24,8 +24,8 @@ dependencies:
     specifier: ^10.7.1
     version: 10.7.1
   lucide-vue-next:
-    specifier: ^0.294.0
-    version: 0.294.0(vue@3.3.4)
+    specifier: ^0.542.0
+    version: 0.542.0(vue@3.3.4)
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(typescript@5.2.2)(vue@3.3.4)
@@ -1671,7 +1671,7 @@ packages:
   /@vueuse/shared@10.7.0(vue@3.3.4):
     resolution: {integrity: sha512-kc00uV6CiaTdc3i1CDC4a3lBxzaBE9AgYNtFN87B5OOscqeWElj/uza8qVDmk7/U8JbqoONLbtqiLJ5LGRuqlw==}
     dependencies:
-      vue-demi: 0.14.6(vue@3.3.4)
+      vue-demi: 0.14.10(vue@3.3.4)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -3563,8 +3563,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /lucide-vue-next@0.294.0(vue@3.3.4):
-    resolution: {integrity: sha512-bcUuGyLJoq9ExyozROMezdaczK2loP3emYb8PvS7HhZ56rUJVOv5hJgTmWfrfr8vJE7J69ImoMyPTwmUHF198w==}
+  /lucide-vue-next@0.542.0(vue@3.3.4):
+    resolution: {integrity: sha512-cJfyhFoneDgYTouHwUJEutXaCW5EQuRrBsvfELudWnMiwfqvcEtpZTFZLdZ5Nrqow+znzn+Iyhu3KeYIfa3mEg==}
     peerDependencies:
       vue: '>=3.0.1'
     dependencies:
@@ -4914,6 +4914,21 @@ packages:
       fsevents: 2.3.3
     dev: true
 
+  /vue-demi@0.14.10(vue@3.3.4):
+    resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.3.4
+    dev: false
+
   /vue-demi@0.14.6(vue@3.3.4):
     resolution: {integrity: sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==}
     engines: {node: '>=12'}
@@ -5002,7 +5017,7 @@ packages:
     dependencies:
       firebase: 10.7.1
       vue: 3.3.4
-      vue-demi: 0.14.6(vue@3.3.4)
+      vue-demi: 0.14.10(vue@3.3.4)
     dev: false
 
   /websocket-driver@0.7.4:
