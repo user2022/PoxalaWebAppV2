@@ -28,7 +28,7 @@ const click = () => {
       'text-neutral-100': !active,
       'cursor-pointer': checkIfShowMore
     }"
-    class="relative cursor-default select-none py-1.5 pl-10 pr-4 z-40"
+    class="relative cursor-default select-none py-1.5 sm:pl-6 pl-4 md:pl-7 pr-4 z-40"
     @click="click"
   >
     <span
@@ -40,7 +40,7 @@ const click = () => {
     <span
       v-if="selected"
       :class="{ 'text-neutral-50': active, 'text-gray-500': !active }"
-      class="absolute inset-y-0 left-0 flex items-center pl-3"
+      class="absolute inset-y-0 left-0 flex items-center sm:pl-1.5 md:pl-2 pl-0"
     >
       <ChevronRight :size="16" />
     </span>

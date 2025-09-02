@@ -10,7 +10,7 @@ const { header, value, customColor } = defineProps<Props>()
 
 <template>
   <div class="flex flex-col items-center gap-2 text-neutral-50 md:justify-start justify-center">
-    <h2 class="text-sm sm:text-lg text-center">{{ header }}</h2>
+    <h2 class="sm:text-sm text-xs md:text-lg text-center">{{ header }}</h2>
     <div
       :class="`${customColor ? customColor : 'bg-blue-700/50'}`"
       class="sm:w-[32px] sm:h-[32px] w-[22px] h-[22px] text-blue-100 rounded-full flex justify-center items-center font-semibold sm:text-md text-sm"

@@ -98,7 +98,7 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col gap-0.5">
+  <div class="flex flex-col gap-0.5 sm:w-44 w-40">
     <InputLabel :label="label" />
     <Combobox v-model="selected">
       <div class="relative mt-1">

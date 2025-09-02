@@ -16,7 +16,7 @@ const { ability } = defineProps<Props>()
   <CardContainer>
     <AbilityIcon :key="ability.icon_name" :icon-name="ability.icon_name" />
     <div class="flex flex-col gap-2 flex-grow">
-      <div class="flex flex-row justify-between w-full">
+      <div class="flex flex-row flex-wrap gap-2 justify-between w-full">
         <div class="flex flex-row gap-4 items-center">
           <h1 class="text-xl font-semibold text-neutral-50">{{ ability.name }}</h1>
           <AbilityLevelIcon :ability-level="ability.level" />

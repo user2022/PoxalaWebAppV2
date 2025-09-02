@@ -10,7 +10,7 @@ const { ability } = defineProps<Props>()
 
 <template>
   <div
-    class="popover popover-min-wid test group-hover:block hidden absolute left-1/2 transform -translate-x-1/2 mt-3"
+    class="popover popover-min-wid test group-hover:block hidden absolute left-full transform -translate-x-1/2 mt-3"
   >
     <h2 class="font-semibold">{{ ability.name }}</h2>
     <div class="flex flex-col text-sky-500 text-sm popover-info">

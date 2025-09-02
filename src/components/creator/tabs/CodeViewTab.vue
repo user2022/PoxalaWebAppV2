@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { Champion } from '@/types/Champion'
-import ShareBtn from '@/components/shared/icon-btns/ShareBtn.vue'
 import { useToastStore } from '@/stores/toast'
-import { Code } from 'lucide-vue-next'
+import { ClipboardCopy, Code } from 'lucide-vue-next'
+import Button from '@/components/shared/Button.vue'
 
 interface Props {
   rune: Champion
@@ -80,17 +80,21 @@ const onClickShare = async () => {
 </script>
 
 <template>
-  <div
-    class="bg-gray-800/50 rounded-xl p-4 relative overflow-y-scroll overflow-x-hidden max-h-[600px]"
-  >
-    <div class="absolute top-2 right-2">
-      <ShareBtn :on-click="onClickShare" class="absolute top-3 right-3" />
+  <div class="flex flex-col gap-3">
+    <div
+      class="bg-gray-800/50 rounded-xl p-4 relative overflow-y-scroll overflow-x-hidden max-h-[520px]"
+    >
+      <div class="flex flex-row gap-2 items-center cursor-default mb-3 select-none">
+        <Code class="h-4 w-4 text-blue-400" />
+        <span class="text-sm font-medium text-blue-400">JSON Export</span>
+      </div>
+      <pre><code class="text-sm text-neutral-200">{{ JSON.stringify(transformRuneToOutput(), null, 2) }}</code></pre>
     </div>
-    <div class="flex flex-row gap-2 items-center cursor-default mb-3 select-none">
-      <Code class="h-4 w-4 text-blue-400" />
-      <span class="text-sm font-medium text-blue-400">JSON Export</span>
+    <div>
+      <Button label="Copy JSON to Clipboard" size="sm" variant="default" @click="onClickShare">
+        <template #icon><component :is="ClipboardCopy" class="w-5 h-5" /> </template>
+      </Button>
     </div>
-    <pre><code class="text-sm text-neutral-200">{{ JSON.stringify(transformRuneToOutput(), null, 2) }}</code></pre>
   </div>
 </template>
 

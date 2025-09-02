@@ -16,7 +16,7 @@ const { closeModal, header, onSave } = defineProps<Props>()
     class="z-50 flex justify-center items-center bg-neutral-950/60 fixed w-full h-full top-0 left-0 inset-0"
   >
     <!-- Create a div that is centered both vertically and horizontally-->
-    <div class="bg-neutral-800 w-96 h-auto rounded-xl inset-0 px-6 py-4 drop-shadow">
+    <div class="w-96 h-auto card-box bg-gray-900/80 inset-0 px-6 py-4 drop-shadow backdrop-blue-md">
       <!-- A basic modal dialog with title, body and one button to close-->
       <div class="flex flex-col gap-4">
         <div class="flex flex-row justify-between">
@@ -24,7 +24,7 @@ const { closeModal, header, onSave } = defineProps<Props>()
           <X class="text-neutral-500 cursor-pointer" @click="closeModal(false)" />
         </div>
 
-        <hr />
+        <div class="w-full border-t border-gray-700"></div>
 
         <slot />
 

@@ -58,7 +58,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
             >
               Poxala
             </h1>
-            <p class="text-xs text-gray-400">Champion Database & Deck Builder</p>
+            <p class="text-xs text-gray-400">Rune Database & Deck Builder</p>
           </div>
         </div>
 

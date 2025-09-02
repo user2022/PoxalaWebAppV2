@@ -45,7 +45,7 @@ const selectedAbility = ability?.options?.find((optAbility) => optAbility.defaul
       <div class="relative w-fit">
         <div
           id="main"
-          class="popover custom-popover z-100 flex flex-col w-auto absolute w-max left-1/2 transform -translate-x-1/2 mt-3 cursor-default"
+          class="popover custom-popover z-100 flex flex-col w-auto absolute w-max left-4/6 transform -translate-x-1/4 mt-3 cursor-default"
         >
           <p class="text-white text-sm mb-2 whitespace-nowrap">Select an ability</p>
           <template

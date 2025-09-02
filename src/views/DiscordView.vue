@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import PageLayout from '@/components/layout/PageLayout.vue'
+import Container from '@/components/shared/Container.vue'
 
 const images = [
   'https://i.imgur.com/Aav5oIL.png',
@@ -25,12 +26,28 @@ const images = [
 
 <template>
   <PageLayout text-centered title="Discord xD">
-    <div class="flex flex-col items-center justify-center gap-3">
-      <template v-for="(image, index) in images" :key="image">
-        <img :alt="`${index}+${image}`" :src="image" class="rounded-md max-w-full sm:max-w-2xl" />
-      </template>
-    </div>
+    <Container>
+      <div class="columns-1 sm:columns-2 lg:columns-3 gap-6">
+        <template v-for="(image, index) in images" :key="image">
+          <img
+            :alt="`${index}+${image}`"
+            :src="image"
+            class="mb-4 w-full break-inside-avoid shadow-md hover:opacity-90 transition"
+          />
+        </template>
+      </div>
+    </Container>
   </PageLayout>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* Masonry-style collage look */
+@media (min-width: 640px) {
+  .grid > div:nth-child(5n) {
+    grid-row: span 2;
+  }
+  .grid > div:nth-child(7n) {
+    grid-column: span 2;
+  }
+}
+</style>

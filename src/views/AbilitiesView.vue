@@ -153,7 +153,9 @@ const perPage = 25
     </template>
     <Container>
       <template v-if="abilities && abilities?.length > 0">
-        <div class="h-[calc(100vh-400px)] overflow-y-scroll flex flex-col gap-2 shadow-inner">
+        <div
+          class="sm:h-[calc(100vh-400px)] h-[calc(100vh-100px)] overflow-y-scroll flex flex-col gap-2 shadow-inner"
+        >
           <template
             v-for="ability in abilities?.slice(curPage * perPage, (curPage + 1) * perPage)"
             :key="ability.id"

@@ -23,7 +23,7 @@ const { removeFromDeck } = deckStore
 
 <template>
   <div
-    class="grid md:grid-cols-7 lg:grid-cols-10 lg:grid-rows-3 xl:grid-cols-15 xl:grid-rows-2 grid-cols-4 gap-2 select-none m-auto md:m-0"
+    class="grid md:grid-cols-7 lg:grid-cols-10 lg:grid-rows-3 xl:grid-cols-15 xl:grid-rows-2 grid-cols-6 gap-2 select-none m-auto md:m-0"
   >
     <template v-for="(rune, index) in deckHolder" :key="index">
       <div class="relative group flex flex-row gap-2">
@@ -45,11 +45,13 @@ const { removeFromDeck } = deckStore
         <div
           :class="[
             rune
-              ? `bg-gray-900 border-[3px] ${getColoursFromType(
+              ? `bg-gray-900 sm:border-[3px] border-[2px] ${getColoursFromType(
                   rune?.type ?? ''
                 )} transition-all duration-300 group-hover:shadow-[0_0_15px] group-hover:shadow-current`
               : 'bg-gray-800 border-2 border-dotted border-gray-600 flex items-center justify-center',
-            !isFixed && !largeRune ? 'w-[80px] h-[90px]' : 'w-[70px] h-[78px]'
+            !isFixed && !largeRune
+              ? 'w-[80px] h-[90px]'
+              : 'sm:w-[70px] sm:h-[76px] w-[44px] h-[50px]'
           ]"
           class="rounded-md relative overflow-hidden cursor-pointer"
         >

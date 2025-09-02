@@ -7,6 +7,7 @@ import { getBorderColourFromRarity, getTextColourFromRarity } from '@/lib/getCol
 import { Plus } from 'lucide-vue-next'
 import { useDeckStore } from '@/stores/deck'
 import { useRuneStore } from '@/stores/rune'
+import { useScreenSize } from '@/lib/util/useScreenSize'
 
 interface Props {
   rune: Champion | Spell | Equip | Relic
@@ -19,6 +20,8 @@ const poxApi = import.meta.env.VITE_POXAPI
 const { addToDeck } = useDeckStore()
 
 const { setRune } = useRuneStore()
+
+const { isMobile } = useScreenSize()
 </script>
 
 <template>
@@ -38,11 +41,12 @@ const { setRune } = useRuneStore()
 
       <!-- Image div with glow -->
       <div
-        :class="`shadow-md cursor-pointer rounded-lg md:border-3 border-2 ${getBorderColourFromRarity(
+        :class="`shadow-md cursor-pointer rounded-lg ${getBorderColourFromRarity(
           rune.rarity
         )} ${getTextColourFromRarity(
           rune.rarity
         )} transition-all duration-300 group-hover:shadow-[0_0_20px] w-[66px] h-[79px] md:w-[85px] md:h-[97px] bg-[#252525] overflow-hidden group-hover:shadow-current`"
+        :style="{ borderWidth: `${isMobile ? '2px' : '2px'}` }"
         @click="setRune(rune)"
       >
         <img

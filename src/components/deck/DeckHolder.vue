@@ -49,7 +49,7 @@ const { isMobile } = useScreenSize()
     <div
       :class="[
         isFixed && !isMobile
-          ? 'fixed z-40 bottom-5 left-1/2 -translate-x-1/2 w-[1280px]'
+          ? 'fixed z-40 bottom-5 left-1/2 -translate-x-1/2'
           : 'relative w-full mx-auto'
       ]"
       class="deck-holder shadow-lg card-box p-4 backdrop-blur-md flex flex-col gap-3 w-auto"

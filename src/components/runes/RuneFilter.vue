@@ -87,7 +87,7 @@ const speed = [
   <div class="bg-gray-900/50 border-b border-gray-700">
     <div class="flex flex-col gap-2 p-4">
       <div
-        class="flex flex-row sm:gap-6 gap-y-4 gap-x-2 sm:gap-x-4 py-4 items-start flex-wrap sm:justify-start"
+        class="flex flex-row sm:gap-6 gap-y-4 gap-x-2 sm:gap-x-3 py-4 items-start flex-wrap sm:justify-start"
       >
         <LargeSearchBox query-name="name" />
         <ComboBoxField :options="runeTypes" disable-input label="Card Type" query-name="type" />

@@ -31,13 +31,12 @@ const setNewPath = (path: string) => {
 
 <template>
   <template v-if="!showFavorites">
-    <div class="right-0 top-40 fixed z-50">
+    <div class="right-6 bottom-6 fixed z-50">
       <div
-        class="cursor-pointer px-6 py-4 bg-alpha-700/50 rounded-l-full text-neutral-100 flex flex-row items-center gap-3"
+        class="cursor-pointer px-4 py-4 bg-gray-800/50 rounded-full text-neutral-100 flex flex-row items-center gap-3"
         @click="setShowFavorites(true)"
       >
-        <Sparkles :size="22" :stroke-width="1.5" />
-        <span>Favorites</span>
+        <Sparkles :size="22" :stroke-width="1.5" class="text-yellow-500 fill-yellow-500" />
       </div>
     </div>
   </template>
