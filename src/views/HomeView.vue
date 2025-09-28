@@ -84,7 +84,12 @@ const perPage = computed(() => {
     </template>
     <DeckSaveModal :close-modal="closeSaveModal" :show-modal="saveDeckModal" />
     <template v-if="runes && abilitiesRes?.abilities">
-      <div class="flex md:flex-row flex-col gap-4 justify-center sm:justify-start">
+      <div class="flex md:flex-row-reverse flex-col gap-4 justify-center sm:justify-start">
+        <Container>
+          <PageSectionLayout :header="getTypeHeader" :on-share="onShare">
+            <RuneList key="Champs" :per-page="perPage" :runes="runes[runeType as keyof Runes]" />
+          </PageSectionLayout>
+        </Container>
         <div v-if="!isMobile">
           <Container>
             <PageSectionLayout header="Rune Detail">
@@ -95,11 +100,6 @@ const perPage = computed(() => {
         <div v-else>
           <RuneDisplay show-add />
         </div>
-        <Container>
-          <PageSectionLayout :header="getTypeHeader" :on-share="onShare">
-            <RuneList key="Champs" :per-page="perPage" :runes="runes[runeType as keyof Runes]" />
-          </PageSectionLayout>
-        </Container>
       </div>
       <DeckHolder :open-save-modal="openSaveModal" />
     </template>
