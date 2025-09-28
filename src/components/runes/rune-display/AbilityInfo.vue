@@ -23,13 +23,13 @@ const { ability } = defineProps<Props>()
   </div>
 </template>
 
-<style>
+<style scoped>
 .popover {
   background-color: rgba(8, 8, 8, 0.89);
   padding: 7px 12px;
   color: white;
   max-width: 300px;
-  z-index: 100;
+  z-index: 10000;
 
   border: 2px solid rgb(96, 96, 96);
   border-radius: 0;
