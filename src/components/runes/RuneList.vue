@@ -42,7 +42,7 @@ const curPage = computed(() => {
   </template>
   <!-- Pagination -->
   <template v-if="runes.length > perPage">
-    <div class="pr-14">
+    <div class="sm:pr-14 pr-1 mt-2 sm:mt-0">
       <ClientPagination :count="runes.length" :per-page="perPage" />
     </div>
   </template>

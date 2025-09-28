@@ -43,7 +43,7 @@ export const utilityItems = [
     id: 'discord',
     label: 'XD',
     icon: Smile,
-    color: 'text-orange-400',
+    color: 'text-yellow-400',
     description: 'funny'
   },
   {

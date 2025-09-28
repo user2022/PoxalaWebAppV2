@@ -147,9 +147,14 @@ const onSave = async () => {
   >
     <Container>
       <div class="flex flex-row gap-4 justify-center md:justify-start mt-2 mb-4">
-        <p class="text-3xl poxala-gradient font-bold">
-          Created by {{ routeStore?.getQuery('user')?.value.toString() ?? 'Unknown' }}
-        </p>
+        <div class="flex flex-col gap-2">
+          <p class="text-3xl poxala-gradient font-bold">
+            {{ routeStore?.getQuery('deckName')?.value.toString() ?? 'Deck' }}
+          </p>
+          <p class="text-gray-200 text-sm">
+            Created by {{ routeStore?.getQuery('user')?.value.toString() ?? 'Unknown' }}
+          </p>
+        </div>
 
         <ShareBtn :on-click="onShare" />
         <SaveBtn :on-click="onSave" />

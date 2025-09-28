@@ -19,8 +19,10 @@ const curPage = computed(() => {
 </script>
 
 <template>
-  <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-    <p class="text-sm text-gray-700 dark:text-zinc-200">
+  <div
+    class="flex justify-between sm:flex-1 flex-wrap gap-4 sm:flex sm:items-center sm:justify-between"
+  >
+    <p class="sm:text-sm text-xs text-gray-700 dark:text-zinc-200">
       Showing
       <span class="font-medium">{{ curPage * perPage }}</span>
       to
@@ -31,7 +33,7 @@ const curPage = computed(() => {
     </p>
     <nav
       aria-label="Pagination"
-      class="relative z-0 inline-flex gap-2 rounded-md shadow-sm -space-x-px"
+      class="relative z-0 inline-flex sm:gap-2 gap-1 rounded-md shadow-sm -space-x-px"
     >
       <PaginationButton :num="0">
         <ChevronsLeft :size="16" />
@@ -51,7 +53,7 @@ const curPage = computed(() => {
       </PaginationButton>
 
       <span
-        class="z-10 bg-gradient-to-r from-purple-400/60 to-orange-400/60 text-white rounded-md relative inline-flex items-center px-2 py-1 border border-transparent text-sm font-medium w-[32px]"
+        class="z-10 bg-gradient-to-r from-purple-400/60 to-orange-400/60 text-white rounded-md relative inline-flex items-center px-1 py-0.5 sm:px-2 sm:py-1 border border-transparent text-sm font-medium w-[26px] sm:w-[32px]"
       >
         <span class="mx-auto text-shadow-md">{{ curPage + 1 }}</span>
       </span>

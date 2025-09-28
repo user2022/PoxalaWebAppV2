@@ -15,7 +15,7 @@ const poxApi = import.meta.env.VITE_POXAPI
 
 <template>
   <div
-    class="grid grid-cols-2 grid-rows-4 grid-flow-col-dense gap-y-1 gap-x-3 absolute top-32 mt-2 left-9 z-30"
+    class="grid grid-cols-2 grid-rows-4 grid-flow-col-dense gap-y-1 gap-x-3 absolute top-32 mt-2 left-9"
   >
     <template v-for="(ability, index) in rune.transformedAbilities" :key="`${ability.id}-${index}`">
       <AbilityDisplay :ability="ability" />

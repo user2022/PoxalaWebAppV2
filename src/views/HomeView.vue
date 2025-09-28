@@ -58,8 +58,6 @@ const getTypeHeader = computed(() => {
   else return 'Champions'
 })
 
-const { isMobile } = useScreenSize()
-
 const saveDeckModal = ref<boolean>(false)
 
 const closeSaveModal = () => {
@@ -69,6 +67,14 @@ const closeSaveModal = () => {
 const openSaveModal = () => {
   saveDeckModal.value = true
 }
+
+const { isMobile, isSmaller } = useScreenSize()
+
+const perPage = computed(() => {
+  if (isMobile.value && isSmaller.value) return 20
+  if (isMobile.value && !isSmaller.value) return 45
+  return 70
+})
 </script>
 
 <template>
@@ -91,7 +97,7 @@ const openSaveModal = () => {
         </div>
         <Container>
           <PageSectionLayout :header="getTypeHeader" :on-share="onShare">
-            <RuneList key="Champs" :per-page="70" :runes="runes[runeType as keyof Runes]" />
+            <RuneList key="Champs" :per-page="perPage" :runes="runes[runeType as keyof Runes]" />
           </PageSectionLayout>
         </Container>
       </div>

@@ -29,7 +29,7 @@ const { ability } = defineProps<Props>()
   padding: 7px 12px;
   color: white;
   max-width: 300px;
-  z-index: 10;
+  z-index: 100;
 
   border: 2px solid rgb(96, 96, 96);
   border-radius: 0;

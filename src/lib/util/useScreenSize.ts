@@ -2,9 +2,11 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 export function useScreenSize() {
   const isMobile = ref(false)
+  const isSmaller = ref(false)
 
   const checkScreenSize = () => {
     isMobile.value = window.innerWidth <= 950
+    isSmaller.value = window.innerWidth <= 515
   }
 
   onMounted(() => {
@@ -16,5 +18,5 @@ export function useScreenSize() {
     window.removeEventListener('resize', checkScreenSize)
   })
 
-  return { isMobile }
+  return { isMobile, isSmaller }
 }

@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { onClickOutside } from '@vueuse/core'
 import { useRuneStore } from '@/stores/rune'
 import { useRouteStore } from '@/stores/storeRoute'
-import { Menu, X } from 'lucide-vue-next'
+import { Crown, Menu, X } from 'lucide-vue-next'
 import { navigationItems, utilityItems } from '@/lib/data/NavData'
 
 const router = useRouter()
@@ -41,14 +41,21 @@ onClickOutside(target, closeMenu, { ignore: [burgerBtn] })
   <div class="relative">
     <!-- Top Bar -->
     <div
-      class="flex justify-between items-center bg-gray-900/80 backdrop-blur-sm border-b border-gray-700 p-4"
+      class="flex justify-between items-center bg-gray-900/80 backdrop-blur-sm border-b border-gray-700 p-2"
     >
-      <div class="flex items-center gap-2">
-        <h1
-          class="text-xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent"
-        >
-          Poxala
-        </h1>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
+          <Crown class="h-8 w-8 text-purple-400" />
+          <!--            <Swords class="h-8 w-8 text-orange-400" />-->
+        </div>
+        <div>
+          <h1
+            class="text-xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent w-max"
+          >
+            Poxala
+          </h1>
+          <p class="text-xs text-gray-400">Rune Database & Deck Builder</p>
+        </div>
       </div>
       <div class="flex items-center gap-4">
         <!--        <ThemeSelector />-->

@@ -202,8 +202,12 @@ const { isMobile } = useScreenSize()
     <RuneFavorites v-if="!isMobile" />
 
     <template #children>
-      <div class="py-4 border-b border-gray-700 bg-gray-900/50 flex flex-col px-4 gap-4">
-        <p class="text-2xl font-bold poxala-gradient">Select a Champion to Modify</p>
+      <div
+        class="py-4 border-b border-gray-700 bg-gray-900/50 flex flex-col px-4 gap-4 sm:mx-0 mx-auto text-center sm:text-left"
+      >
+        <p class="text-2xl font-bold poxala-gradient sm:text-left text-center">
+          Select a Champion to Modify
+        </p>
         <div class="sm:w-1/6 w-32 mx-auto sm:mx-0">
           <ComboBoxField :options="options" query-name="rune" />
         </div>

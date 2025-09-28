@@ -51,7 +51,7 @@ const { removeFromDeck } = deckStore
               : 'bg-gray-800 border-2 border-dotted border-gray-600 flex items-center justify-center',
             !isFixed && !largeRune
               ? 'w-[80px] h-[90px]'
-              : 'sm:w-[70px] sm:h-[76px] w-[44px] h-[50px]'
+              : 'sm:w-[64px] sm:h-[71px] w-[44px] h-[50px]'
           ]"
           class="rounded-md relative overflow-hidden cursor-pointer"
         >

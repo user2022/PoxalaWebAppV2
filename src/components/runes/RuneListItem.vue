@@ -45,8 +45,8 @@ const { isMobile } = useScreenSize()
           rune.rarity
         )} ${getTextColourFromRarity(
           rune.rarity
-        )} transition-all duration-300 group-hover:shadow-[0_0_20px] w-[66px] h-[79px] md:w-[85px] md:h-[97px] bg-[#252525] overflow-hidden group-hover:shadow-current`"
-        :style="{ borderWidth: `${isMobile ? '2px' : '2px'}` }"
+        )} transition-all duration-300 group-hover:shadow-[0_0_20px] w-[56px] h-[67px] md:w-[85px] md:h-[97px] bg-gray-900/70 overflow-hidden group-hover:shadow-current`"
+        :style="{ borderWidth: '2px' }"
         @click="setRune(rune)"
       >
         <img
@@ -58,7 +58,7 @@ const { isMobile } = useScreenSize()
       </div>
     </div>
 
-    <div class="t-tooltip">
+    <div class="t-tooltip hidden sm:block">
       <p class="text-sm">
         <span
           class="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400"

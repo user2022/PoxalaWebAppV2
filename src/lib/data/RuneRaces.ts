@@ -9,6 +9,7 @@ export const RuneRaces = [
   'Construct',
   'Cyclops',
   'Demon',
+  'Djinn',
   'Dragon',
   'Draksar',
   'Dwarf',

@@ -25,7 +25,7 @@ const clearAllFilters = () => {
     class="flex flex-row gap-4 items-center flex-wrap sm:justify-start justify-center p-4 border-t border-gray-700"
   >
     <span
-      class="w-full sm:w-auto text-center sm:text-left text-neutral-400 uppercase tracking-wide cursor-default"
+      class="w-full sm:w-auto text-center sm:text-left text-gray-50 uppercase tracking-wide cursor-default"
       >Applied Filters:
     </span>
     <template v-for="(query, index) in queries" :key="query.value + index">
@@ -34,23 +34,22 @@ const clearAllFilters = () => {
         :class="`${getColoursForFilter(query.name).bgCol} ${
           getColoursForFilter(query.name).textCol
         } ${getColoursForFilter(query.name).borderCol}`"
-        class="flex flex-row justify-between border rounded-md items-center text-sm h-auto pl-1"
+        class="flex flex-row justify-between border rounded-md items-center h-auto pl-1"
       >
-        <div class="py-1.5 px-2 whitespace-nowrap">
+        <div
+          :class="`${getColoursForFilter(query.name).borderCol}`"
+          class="py-1 px-1.5 whitespace-nowrap text-sm border-r"
+        >
           <span class="font-semibold">{{ formatString(query.name) }}:</span>
           <span class="mx-2">{{ formatString(getGreaterLessSymbol(query.value.toString())) }}</span>
         </div>
-        <div
-          :class="`${getColoursForFilter(query.name).borderCol}`"
-          class="py-2 px-2 border-l cursor-pointer"
-          @click="removeSelectedQuery(query)"
-        >
-          <X :size="16" />
+        <div class="py-1 px-1.5 h-full cursor-pointer" @click="removeSelectedQuery(query)">
+          <X :size="14" />
         </div>
       </div>
     </template>
     <button
-      class="bg-gray-700/50 border border-gray-500 py-1.5 px-2.5 text-gray-100 rounded-md h-auto text-sm"
+      class="bg-gray-700/50 border border-gray-500 py-1 px-2 text-gray-100 rounded-md h-auto text-sm"
       @click="clearAllFilters"
     >
       Clear all Filters

@@ -13,7 +13,7 @@ const { header, value, customColor } = defineProps<Props>()
     <h2 class="sm:text-sm text-xs md:text-lg text-center">{{ header }}</h2>
     <div
       :class="`${customColor ? customColor : 'bg-blue-700/50'}`"
-      class="sm:w-[32px] sm:h-[32px] w-[22px] h-[22px] text-blue-100 rounded-full flex justify-center items-center font-semibold sm:text-md text-sm"
+      class="sm:w-[32px] sm:h-[32px] w-[22px] h-[22px] text-blue-100 rounded-full flex justify-center items-center font-semibold sm:text-md text-xs"
     >
       {{ value ?? 'N/A' }}
     </div>
