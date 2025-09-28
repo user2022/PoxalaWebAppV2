@@ -29,7 +29,7 @@ const { isMobile } = useScreenSize()
     <div class="relative group">
       <!-- Plus button -->
       <div
-        class="absolute -top-1.5 -right-1.5 z-20 rounded-full hidden group-hover:flex"
+        class="absolute -top-1.5 -right-1.5 z-10 rounded-full hidden group-hover:flex"
         @click.stop="addToDeck(rune)"
       >
         <button
