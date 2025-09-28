@@ -45,7 +45,7 @@ const selectedAbility = ability?.options?.find((optAbility) => optAbility.defaul
       <div class="relative w-fit">
         <div
           id="main"
-          class="popover custom-popover z-50 flex flex-col w-auto absolute w-max left-4/6 transform -translate-x-1/4 mt-3 cursor-default"
+          class="popover custom-popover z-[1000] flex flex-col w-auto absolute w-max left-4/6 transform -translate-x-1/4 mt-3 cursor-default"
         >
           <p class="text-white text-sm mb-2 whitespace-nowrap">Select an ability</p>
           <template
@@ -86,7 +86,7 @@ const selectedAbility = ability?.options?.find((optAbility) => optAbility.defaul
   padding: 7px 12px;
   color: white;
   max-width: 300px;
-  z-index: 9999;
+  z-index: 1000;
 
   border: 2px solid rgb(96, 96, 96);
   border-radius: 0;
